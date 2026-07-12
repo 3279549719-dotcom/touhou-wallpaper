@@ -1,6 +1,7 @@
 mod commands;
 
 use commands::assets::{get_assets_dir, get_manifest, resolve_image_path};
+use commands::download::{assets_ready, download_assets};
 use commands::favorites::{list_favorites, toggle_favorite};
 use commands::wallpaper::{get_current_wallpaper, set_wallpaper};
 
@@ -16,6 +17,8 @@ pub fn run() {
             set_wallpaper,
             list_favorites,
             toggle_favorite,
+            assets_ready,
+            download_assets,
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

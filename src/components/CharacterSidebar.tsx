@@ -1,4 +1,5 @@
 import type { Character } from "../types/manifest";
+import { AssetImage } from "./AssetImage";
 import { characterLabel } from "../lib/grid";
 import { strings } from "../lib/strings";
 
@@ -6,14 +7,12 @@ interface CharacterSidebarProps {
   characters: Character[];
   activeCharacterId: string;
   onSelectCharacter: (id: string) => void;
-  imageUrlFor: (filename: string) => string;
 }
 
 export function CharacterSidebar({
   characters,
   activeCharacterId,
   onSelectCharacter,
-  imageUrlFor,
 }: CharacterSidebarProps) {
   return (
     <aside className="character-sidebar">
@@ -25,6 +24,7 @@ export function CharacterSidebar({
         {characters.map((character) => {
           const label = characterLabel(character.id, character.name);
           const selected = character.id === activeCharacterId;
+          const thumb = character.files[0] ?? `${character.id}_00.png`;
           return (
             <button
               key={character.id}
@@ -35,13 +35,11 @@ export function CharacterSidebar({
               aria-pressed={selected}
               aria-label={label}
             >
-              <img
-                src={imageUrlFor(
-                  character.files[0] ?? `${character.id}_00.png`,
-                )}
+              <AssetImage
+                filename={thumb}
                 alt=""
-                aria-hidden
                 className="character-sidebar-thumb"
+                aria-hidden
               />
               <span className="character-sidebar-label">{label}</span>
             </button>

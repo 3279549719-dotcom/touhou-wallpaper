@@ -6,7 +6,7 @@ mod win {
     use std::os::windows::ffi::OsStrExt;
     use std::path::Path;
     use windows::Win32::UI::WindowsAndMessaging::{
-        SystemParametersInfoW, SPI_SETDESKTOPWALLPAPER, SPIF_SENDWININICHANGE, SPIF_UPDATEINIFILE,
+        SystemParametersInfoW, SPI_SETDESKWALLPAPER, SPIF_SENDWININICHANGE, SPIF_UPDATEINIFILE,
     };
     use winreg::enums::*;
     use winreg::RegKey;
@@ -46,7 +46,7 @@ mod win {
         let wide = to_wide_null(&path.to_string_lossy());
         unsafe {
             SystemParametersInfoW(
-                SPI_SETDESKTOPWALLPAPER,
+                SPI_SETDESKWALLPAPER,
                 0,
                 Some(wide.as_ptr() as *mut _),
                 SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE,
@@ -56,7 +56,7 @@ mod win {
         apply_fit_style()?;
         unsafe {
             SystemParametersInfoW(
-                SPI_SETDESKTOPWALLPAPER,
+                SPI_SETDESKWALLPAPER,
                 0,
                 Some(wide.as_ptr() as *mut _),
                 SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE,

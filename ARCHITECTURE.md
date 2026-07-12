@@ -85,6 +85,7 @@ touhou-wallpaper/
 | M6 | Preview + variant strip | `scripts/verify_m6.py` |
 | M7 | ActionBar (apply / favorite / random) | `scripts/verify_m7.py` |
 | M8 | Theme polish + full PRD pass | `scripts/verify_m8.py` |
+| M9 | Release installer + first-run download | `scripts/verify_m9.py` |
 
 ## Harness loop (Agent)
 

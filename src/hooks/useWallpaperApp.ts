@@ -2,6 +2,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Manifest } from "../types/manifest";
 import { nextCharacterIndex } from "../lib/grid";
 import {
+  assetsReady,
   getActiveFilename,
   getCurrentWallpaper,
   getManifest,
@@ -10,6 +11,7 @@ import {
   toggleFavorite as apiToggleFavorite,
   wallpaperPathToImageUrl,
 } from "../lib/tauri";
+import { clearAssetImageUrlCache } from "../lib/imageUrl";
 
 export function useWallpaperApp() {
   const [manifest, setManifest] = useState<Manifest | null>(null);
@@ -25,11 +27,35 @@ export function useWallpaperApp() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [applyError, setApplyError] = useState<string | null>(null);
+  const [needsDownload, setNeedsDownload] = useState(false);
+  const [bootToken, setBootToken] = useState(0);
+
+  const reloadApp = useCallback(() => {
+    clearAssetImageUrlCache();
+    setBootToken((t) => t + 1);
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
+      setLoading(true);
+      setError(null);
+      setNeedsDownload(false);
       try {
+        const ready = await assetsReady();
+        if (!ready) {
+          const isDesktop =
+            typeof window !== "undefined" &&
+            "__TAURI_INTERNALS__" in window;
+          if (isDesktop) {
+            if (!cancelled) {
+              setNeedsDownload(true);
+              setLoading(false);
+            }
+            return;
+          }
+        }
+
         const [m, wp, fav] = await Promise.all([
           getManifest(),
           getCurrentWallpaper(),
@@ -54,7 +80,7 @@ export function useWallpaperApp() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [bootToken]);
 
   const activeCharacter = useMemo(
     () => manifest?.characters.find((c) => c.id === activeCharacterId) ?? null,
@@ -131,6 +157,8 @@ export function useWallpaperApp() {
     error,
     applyError,
     isFavorite,
+    needsDownload,
+    reloadApp,
     selectCharacter,
     selectVariant,
     stepCharacter,

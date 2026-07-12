@@ -3,6 +3,7 @@ import { ActionBar } from "./components/ActionBar";
 import { CharacterNav } from "./components/CharacterNav";
 import { CharacterSidebar } from "./components/CharacterSidebar";
 import { CurrentWallpaperPanel } from "./components/CurrentWallpaperPanel";
+import { DownloadScreen } from "./components/DownloadScreen";
 import { EmptyAssetsBanner } from "./components/EmptyAssetsBanner";
 import { PreviewPane } from "./components/PreviewPane";
 import { VariantStrip } from "./components/VariantStrip";
@@ -16,6 +17,14 @@ export default function App() {
 
   if (app.loading) {
     return <p className="muted">Loading...</p>;
+  }
+
+  if (app.needsDownload) {
+    return (
+      <div className="app-shell">
+        <DownloadScreen onComplete={app.reloadApp} />
+      </div>
+    );
   }
 
   if (app.error) {
@@ -34,11 +43,6 @@ export default function App() {
       ? `${activeIndex + 1} / ${characters.length}`
       : `0 / ${characters.length}`;
 
-  const imageUrlFor = (filename: string) => `/assets/images/${filename}`;
-  const previewUrl = app.activeFilename
-    ? imageUrlFor(app.activeFilename)
-    : null;
-
   return (
     <>
       {!assetsReady && <EmptyAssetsBanner />}
@@ -49,7 +53,6 @@ export default function App() {
               characters={characters}
               activeCharacterId={app.activeCharacterId}
               onSelectCharacter={app.selectCharacter}
-              imageUrlFor={imageUrlFor}
             />
           ) : (
             <aside className="character-sidebar panel">
@@ -69,7 +72,6 @@ export default function App() {
             <PreviewPane
               characterLabel={label}
               filename={app.activeFilename}
-              imageUrl={previewUrl}
             />
             <div className="main-stage-actions">
               <ActionBar
@@ -94,7 +96,6 @@ export default function App() {
                 character={app.activeCharacter}
                 activeVariantIndex={app.activeVariantIndex}
                 onSelectVariant={app.selectVariant}
-                imageUrlFor={imageUrlFor}
               />
             </div>
           </>

@@ -43,6 +43,23 @@ export async function getManifest(): Promise<Manifest> {
   return local ?? MOCK_MANIFEST;
 }
 
+export async function assetsReady(): Promise<boolean> {
+  if (isTauri()) {
+    const { invoke } = await import("@tauri-apps/api/core");
+    return invoke<boolean>("assets_ready");
+  }
+  const local = await loadLocalManifest();
+  return (local?.characters.length ?? 0) >= 126;
+}
+
+export async function downloadAssets(): Promise<void> {
+  if (!isTauri()) {
+    throw new Error("Download is only available in the desktop app");
+  }
+  const { invoke } = await import("@tauri-apps/api/core");
+  await invoke("download_assets");
+}
+
 export async function getCurrentWallpaper(): Promise<string> {
   if (isTauri()) {
     const { invoke } = await import("@tauri-apps/api/core");

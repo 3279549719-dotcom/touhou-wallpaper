@@ -15,7 +15,16 @@ export const strings = {
   favoriteOn: "已收藏",
   favoriteOff: "收藏",
   downloadHint: "首次使用请运行下载脚本获取立绘资源",
-  emptyAssets: "未找到立绘资源，请执行 python scripts/download_assets.py",
+  emptyAssets: "未找到立绘资源",
+  downloadWelcome: "欢迎使用东方演舞壁纸",
+  downloadExplain:
+    "安装已完成。首次使用需下载立绘资源（约 591 张），下载完成后即可离线使用。",
+  downloadCheckNetwork: "请保持网络连接",
+  downloadCheckDisk: "需要约 50MB 磁盘空间",
+  downloadCheckTime: "预计需要几分钟",
+  downloadStart: "开始下载",
+  downloadProgress: "下载进度：",
+  downloadCredit: "图片来源：thpdp.ver.moe · 幻想人形演舞（个人使用）",
   scaffoldNote: "M0 骨架：功能尚未接入",
 } as const;
 

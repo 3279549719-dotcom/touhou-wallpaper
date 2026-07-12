@@ -317,6 +317,54 @@ button.primary:hover {
   object-fit: contain;
 }
 
+.variant-thumb-btn {
+  padding: 2px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--surface);
+}
+
+.variant-thumb-btn.selected {
+  border: 2px solid var(--primary);
+}
+
+.download-screen {
+  max-width: 520px;
+  margin: 40px auto;
+}
+
+.download-checklist {
+  padding-left: 1.2rem;
+}
+
+.download-start-btn {
+  margin-top: 12px;
+}
+
+.download-progress {
+  margin-top: 16px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.download-progress-bar {
+  height: 8px;
+  background: var(--primary);
+  transition: width 0.2s ease;
+}
+
+.download-error {
+  color: #b91c1c;
+  margin-top: 12px;
+}
+
+.download-credit {
+  margin-top: 20px;
+  font-size: 0.8rem;
+}
+
 .muted {
   color: var(--text-muted);
   font-size: 0.875rem;

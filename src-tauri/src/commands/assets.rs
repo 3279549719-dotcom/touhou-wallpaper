@@ -1,6 +1,9 @@
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 
+pub const MIN_CHARACTERS: usize = 126;
+pub const MIN_IMAGES: usize = 591;
+
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Character {
     pub id: String,
@@ -18,6 +21,31 @@ pub struct Manifest {
     pub characters: Vec<Character>,
 }
 
+pub fn user_assets_dir() -> PathBuf {
+    if let Ok(appdata) = std::env::var("APPDATA") {
+        return PathBuf::from(appdata)
+            .join("touhou-wallpaper")
+            .join("assets");
+    }
+    PathBuf::from(".").join("touhou-wallpaper").join("assets")
+}
+
+fn dev_project_assets_dir() -> Option<PathBuf> {
+    let cwd = std::env::current_dir().ok()?;
+    let assets = cwd.join("assets");
+    if assets.join("manifest.json").is_file() {
+        return Some(assets);
+    }
+    if cwd.join("package.json").is_file() {
+        return Some(assets);
+    }
+    None
+}
+
+pub fn writable_assets_dir() -> PathBuf {
+    dev_project_assets_dir().unwrap_or_else(user_assets_dir)
+}
+
 fn resolve_assets_dir() -> Result<PathBuf, String> {
     if let Ok(env) = std::env::var("TOUHOU_WALLPAPER_ASSETS") {
         let dir = PathBuf::from(&env);
@@ -29,6 +57,14 @@ fn resolve_assets_dir() -> Result<PathBuf, String> {
     }
 
     let mut candidates: Vec<PathBuf> = Vec::new();
+
+    if let Some(dev) = dev_project_assets_dir() {
+        candidates.push(dev);
+    }
+
+    let user = user_assets_dir();
+    candidates.push(user.clone());
+
     if let Ok(cwd) = std::env::current_dir() {
         candidates.push(cwd.join("assets"));
         candidates.push(cwd.join("../assets"));
@@ -39,8 +75,6 @@ fn resolve_assets_dir() -> Result<PathBuf, String> {
             candidates.push(parent.join("../assets"));
         }
     }
-    candidates.push(PathBuf::from("assets"));
-    candidates.push(PathBuf::from("../assets"));
 
     for candidate in candidates {
         if candidate.join("manifest.json").is_file() {
@@ -53,7 +87,36 @@ fn resolve_assets_dir() -> Result<PathBuf, String> {
         }
     }
 
-    Err("Assets directory not found. Run: python scripts/download_assets.py".into())
+    Err("Assets not found. Use in-app download on first launch.".into())
+}
+
+pub fn count_manifest_characters() -> usize {
+    match resolve_assets_dir() {
+        Ok(dir) => {
+            let path = dir.join("manifest.json");
+            if let Ok(raw) = std::fs::read_to_string(path) {
+                if let Ok(m) = serde_json::from_str::<Manifest>(&raw) {
+                    return m.characters.len();
+                }
+            }
+            0
+        }
+        Err(_) => 0,
+    }
+}
+
+pub fn count_ready_images() -> usize {
+    match resolve_assets_dir() {
+        Ok(dir) => std::fs::read_dir(dir.join("images"))
+            .map(|entries| {
+                entries
+                    .filter_map(|e| e.ok())
+                    .filter(|e| e.path().extension().is_some_and(|x| x == "png"))
+                    .count()
+            })
+            .unwrap_or(0),
+        Err(_) => 0,
+    }
 }
 
 fn validate_filename(filename: &str) -> Result<(), String> {

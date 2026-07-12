@@ -1,18 +1,17 @@
 import type { Character } from "../types/manifest";
+import { AssetImage } from "./AssetImage";
 import { strings } from "../lib/strings";
 
 interface VariantStripProps {
   character: Character | null;
   activeVariantIndex: number;
   onSelectVariant: (index: number) => void;
-  imageUrlFor: (filename: string) => string;
 }
 
 export function VariantStrip({
   character,
   activeVariantIndex,
   onSelectVariant,
-  imageUrlFor,
 }: VariantStripProps) {
   if (!character || character.files.length === 0) {
     return <p className="muted">{strings.labelVariants}</p>;
@@ -27,18 +26,10 @@ export function VariantStrip({
             key={file}
             type="button"
             onClick={() => onSelectVariant(index)}
-            style={{
-              padding: 2,
-              border:
-                index === activeVariantIndex
-                  ? "2px solid var(--primary)"
-                  : "1px solid var(--border)",
-              borderRadius: 8,
-              background: "var(--surface)",
-            }}
+            className={`variant-thumb-btn${index === activeVariantIndex ? " selected" : ""}`}
           >
-            <img
-              src={imageUrlFor(file)}
+            <AssetImage
+              filename={file}
               alt={file}
               className={`variant-thumb${index === activeVariantIndex ? " selected" : ""}`}
             />

@@ -22,9 +22,18 @@
     "verify:m4": "python scripts/verify_m4.py",
     "check:m5": "tsc -b --noEmit && python scripts/verify_m5.py",
     "verify:m5": "python scripts/verify_m5.py",
+    "check:m6": "tsc -b --noEmit && python scripts/verify_m6.py",
+    "verify:m6": "python scripts/verify_m6.py",
+    "check:m7": "tsc -b --noEmit && python scripts/verify_m7.py",
+    "verify:m7": "python scripts/verify_m7.py",
+    "check:m8": "tsc -b --noEmit && python scripts/verify_m8.py",
+    "verify:m8": "python scripts/verify_m8.py",
+    "icon:generate": "python scripts/generate_icon.py",
+    "check:m9": "tsc -b --noEmit && python scripts/verify_m9.py",
+    "verify:m9": "python scripts/verify_m9.py",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
-    "tauri:build": "tauri build"
+    "tauri:build": "npm run icon:generate && tauri build && python scripts/rename_installer.py"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.5.0",
