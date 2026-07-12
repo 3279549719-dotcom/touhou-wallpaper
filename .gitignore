@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Frontend build
+dist/
+
+# Tauri / Rust
+src-tauri/target/
+
+# Large assets (download locally)
+assets/images/
+assets/manifest.json
+assets/id-name.json
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+
+# Temp
+_tmp_*
+*.tmp

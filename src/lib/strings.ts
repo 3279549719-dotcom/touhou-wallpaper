@@ -1,0 +1,26 @@
+export const strings = {
+  windowTitle: "东方演舞壁纸",
+  btnApply: "应用",
+  btnFavorite: "收藏",
+  btnRandom: "换一张",
+  labelCurrentWallpaper: "当前壁纸",
+  labelPreview: "预览",
+  labelVariants: "立绘变体",
+  labelCharacters: "角色",
+  favoriteOn: "已收藏",
+  favoriteOff: "收藏",
+  downloadHint: "首次使用请运行下载脚本获取立绘资源",
+  emptyAssets: "未找到立绘资源，请执行 python scripts/download_assets.py",
+  scaffoldNote: "M0 骨架：功能尚未接入",
+} as const;
+
+export const theme = {
+  background: "#F8FBFF",
+  surface: "#FFFFFF",
+  primary: "#2563EB",
+  primaryHover: "#1D4ED8",
+  text: "#1E293B",
+  textMuted: "#64748B",
+  border: "#E2E8F0",
+  gridSelected: "#DBEAFE",
+} as const;
