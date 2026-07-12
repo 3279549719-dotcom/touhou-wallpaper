@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Manifest } from "../types/manifest";
+import { nextCharacterIndex } from "../lib/grid";
 import {
   getActiveFilename,
   getCurrentWallpaper,
@@ -68,15 +69,17 @@ export function useWallpaperApp() {
     setActiveVariantIndex(index);
   }, []);
 
-  const wheelCharacter = useCallback(
+  const stepCharacter = useCallback(
     (delta: number) => {
       if (!manifest || manifest.characters.length === 0) return;
       const idx = manifest.characters.findIndex(
         (c) => c.id === activeCharacterId,
       );
-      const next =
-        (idx + delta + manifest.characters.length) %
-        manifest.characters.length;
+      const next = nextCharacterIndex(
+        idx < 0 ? 0 : idx,
+        delta,
+        manifest.characters.length,
+      );
       selectCharacter(manifest.characters[next].id);
     },
     [manifest, activeCharacterId, selectCharacter],
@@ -116,7 +119,7 @@ export function useWallpaperApp() {
     isFavorite,
     selectCharacter,
     selectVariant,
-    wheelCharacter,
+    stepCharacter,
     randomCharacter,
     applyWallpaper,
     toggleFavorite,

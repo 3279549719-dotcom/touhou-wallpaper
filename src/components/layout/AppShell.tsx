@@ -1,17 +1,17 @@
 import type { ReactNode } from "react";
 
 interface AppShellProps {
-  top: ReactNode;
-  preview: ReactNode;
-  grid: ReactNode;
+  sidebar: ReactNode;
+  main: ReactNode;
 }
 
-export function AppShell({ top, preview, grid }: AppShellProps) {
+export function AppShell({ sidebar, main }: AppShellProps) {
   return (
     <div className="app-shell">
-      <section className="panel">{top}</section>
-      <section className="panel">{preview}</section>
-      <section className="panel">{grid}</section>
+      <div className="app-shell-split">
+        {sidebar}
+        <main className="main-stage panel">{main}</main>
+      </div>
     </div>
   );
 }

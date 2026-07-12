@@ -40,7 +40,7 @@ def check_apply_only_rule() -> None:
     assert "onApply" in app and "applyWallpaper" in app
     assert "randomCharacter" in app
     for rel in [
-        "src/components/CharacterGrid.tsx",
+        "src/components/CharacterSidebar.tsx",
         "src/components/VariantStrip.tsx",
         "src/components/CurrentWallpaperPanel.tsx",
         "src/components/PreviewPane.tsx",

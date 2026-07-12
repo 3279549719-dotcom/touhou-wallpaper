@@ -16,7 +16,8 @@ flowchart TB
     PreviewPane
     VariantStrip
     ActionBar
-    CharacterGrid
+    CharacterSidebar
+    CharacterNav
   end
   subgraph state [State]
     useWallpaperApp
@@ -64,12 +65,12 @@ touhou-wallpaper/
 | `list_favorites` | — | string[] | M4 |
 | `toggle_favorite` | filename | string[] | M4 |
 
-**Hard rule**: only **应用** (ActionBar) may invoke `set_wallpaper`. Not 换一张, wheel, grid, or thumbnails.
+**Hard rule**: only **应用** (ActionBar) may invoke `set_wallpaper`. Not 换一张, ‹ ›, sidebar, or thumbnails.
 
 ## Frontend state (`useWallpaperApp`)
 
 - `manifest`, `activeCharacterId`, `activeVariantIndex`, `favorites`, `currentWallpaperPath`
-- Actions: `selectCharacter`, `selectVariant`, `wheelCharacter`, `randomCharacter`, `applyWallpaper`, `toggleFavorite`
+- Actions: `selectCharacter`, `selectVariant`, `stepCharacter`, `randomCharacter`, `applyWallpaper`, `toggleFavorite`
 
 ## Module implementation order
 
@@ -80,7 +81,7 @@ touhou-wallpaper/
 | M2 | Rust paths + manifest commands | `scripts/verify_m2.py` |
 | M3 | Wallpaper get/set | `scripts/verify_m3.py` |
 | M4 | Favorites persist | `scripts/verify_m4.py` |
-| M5 | CharacterGrid 6 cols + wheel | `scripts/verify_m5.py` |
+| M5 | CharacterSidebar + ‹ › nav (wheel scroll only) | `scripts/verify_m5.py` |
 | M6 | Preview + variant strip | `scripts/verify_m6.py` |
 | M7 | ActionBar (apply / favorite / random) | `scripts/verify_m7.py` |
 | M8 | Theme polish + full PRD pass | `scripts/verify_m8.py` |
@@ -99,14 +100,13 @@ See [VERIFY.md](VERIFY.md) for what each script checks and what you can observe 
 ## UI layout
 
 ```text
-+--------------------------------------------------+
-| Current wallpaper (small)          [换一张]      |
-+--------------------------------------------------+
-|           Large preview + [应用] [收藏]            |
-|           Variant thumbnails (horizontal)        |
-+--------------------------------------------------+
-| Character grid 6 cols (wheel here)               |
-+--------------------------------------------------+
++------------------+--------------------------------+
+| Character list   | Current wallpaper (small)      |
+| (scroll, 001→)   +--------------------------------+
+|                  | Large preview + [应用] [收藏]   |
+|                  | Variant thumbnails               |
+|                  | ‹  001 博丽灵梦  ›              |
++------------------+--------------------------------+
 ```
 
 ## Environment note

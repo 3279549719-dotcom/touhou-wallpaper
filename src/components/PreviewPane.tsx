@@ -12,20 +12,12 @@ export function PreviewPane({
   imageUrl,
 }: PreviewPaneProps) {
   return (
-    <div>
-      <h2 style={{ marginTop: 0 }}>{strings.labelPreview}</h2>
-      <p className="muted">{characterLabel}</p>
-      <div
-        style={{
-          minHeight: 240,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          border: "1px dashed var(--border)",
-          borderRadius: 8,
-          background: "var(--surface)",
-        }}
-      >
+    <section className="preview-pane" aria-label={strings.labelPreview}>
+      <div className="preview-pane-meta">
+        <h2>{strings.labelPreview}</h2>
+        <p className="muted">{characterLabel}</p>
+      </div>
+      <div className="preview-stage-body">
         {imageUrl ? (
           <img
             src={imageUrl}
@@ -38,6 +30,6 @@ export function PreviewPane({
           <span className="muted">{strings.emptyAssets}</span>
         )}
       </div>
-    </div>
+    </section>
   );
 }

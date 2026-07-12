@@ -16,7 +16,7 @@ REQUIRED_FILES = [
     "src/App.tsx",
     "src/hooks/useWallpaperApp.ts",
     "src/lib/tauri.ts",
-    "src/components/CharacterGrid.tsx",
+    "src/components/CharacterSidebar.tsx",
     "src/components/ActionBar.tsx",
     "src-tauri/src/lib.rs",
     "scripts/download_assets.py",
@@ -34,8 +34,8 @@ def main() -> int:
     for name in REQUIRED_PACKAGE_SCRIPTS:
         assert name in scripts, f"package.json missing script: {name}"
 
-    grid_css = (ROOT / "src/styles/theme.css").read_text(encoding="utf-8")
-    assert "grid-template-columns: repeat(6, 1fr)" in grid_css, "6-column grid CSS missing"
+    grid_ts = (ROOT / "src/lib/grid.ts").read_text(encoding="utf-8")
+    assert "SIDEBAR_LAYOUT" in grid_ts, "layout constant missing in grid.ts"
 
     tauri_rs = (ROOT / "src-tauri/src/lib.rs").read_text(encoding="utf-8")
     assert "get_manifest" in tauri_rs, "Tauri get_manifest command stub missing"
@@ -43,7 +43,7 @@ def main() -> int:
 
     print("M0 verify: all scaffold files present")
     print("M0 verify: package scripts OK")
-    print("M0 verify: 6-column grid CSS OK")
+    print("M0 verify: sidebar layout constant OK")
     print("M0 verify: Tauri command stubs OK")
     print("Assertion Passed")
     return 0

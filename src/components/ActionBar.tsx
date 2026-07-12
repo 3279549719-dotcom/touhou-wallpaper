@@ -19,7 +19,6 @@ export function ActionBar({
       <button type="button" onClick={onToggleFavorite}>
         {isFavorite ? strings.favoriteOn : strings.favoriteOff}
       </button>
-      <span className="muted">{strings.scaffoldNote}</span>
     </div>
   );
 }
