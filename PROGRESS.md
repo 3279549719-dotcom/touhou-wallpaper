@@ -10,6 +10,7 @@ Agent: read this file **before** coding. User: optional glance for status.
 | Active step | **M3** — wallpaper get/set |
 | Last updated | 2026-07-12 |
 | Blockers | Download complete (591 images). Rust optional for `tauri dev`. |
+| Git | `0307b47` — **M2完成** |
 
 ## Module status
 
@@ -25,8 +26,15 @@ Agent: read this file **before** coding. User: optional glance for status.
 | M7 Actions | [ ] |
 | M8 Acceptance | [ ] |
 
+## Milestones
+
+| 模块 | 状态 | 说明 |
+|------|------|------|
+| M2 | **完成** | Rust 读取 `manifest.json`、assets 路径、图片绝对路径；`npm run verify:m2` 通过 |
+
 ## Last session
 
+- **M2完成**：`get_manifest` / `get_assets_dir` / `resolve_image_path` 已实现；`scripts/verify_m2.py` 通过
 - M1: `download_assets.py` finished — 126 characters, **591** PNGs, `manifest.json`
 - M1: dev UI serves `/assets/images/`; grid can show real thumbs after `npm run dev`
 
