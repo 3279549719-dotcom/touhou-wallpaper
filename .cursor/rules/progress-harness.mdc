@@ -1,31 +1,37 @@
 ---
-description: Update PROGRESS.md after every coding session — module list from ARCHITECTURE
+description: Doc pulse — PROGRESS first; update docs only when substance changes
 alwaysApply: true
 ---
 
-# Progress Harness (schema v1)
+# Progress & docs harness (schema v1)
 
 ## Design principle
 
-- **Stable**: PROGRESS.md section headings and status legend.
-- **Volatile**: module IDs, feature names, verify script names — live in ARCHITECTURE.md / PRD.md.
-- **Never hardcode** M0–M8 or feature lists inside this rule.
+- **Pulse (volatile)**: [PROGRESS.md](PROGRESS.md) — current status, blockers, next action.
+- **Contracts (stable)**: PRD / TECH_DESIGN / ARCHITECTURE — change only when decisions change.
+- **Door / nav**: README / AGENTS — change only when how-to-use or agent map drifts.
+- Do **not** treat every small code tweak as a reason to rewrite all docs.
 
 ## Source of truth
 
-| Topic | File |
-|-------|------|
-| What to build / user acceptance | PRD.md |
-| How work is sliced + verify commands | ARCHITECTURE.md |
-| Current pulse + next action | PROGRESS.md |
+| Topic | File | Update when |
+|-------|------|-------------|
+| Current pulse + next | PROGRESS.md | Every session with real progress |
+| What / acceptance | PRD.md | Requirements change |
+| Stack / APIs | TECH_DESIGN.md | Tech decisions change |
+| Module slices + verify | ARCHITECTURE.md | Modules added/removed/renamed |
+| Agent short nav | AGENTS.md | Nav/commands/rules drift |
+| Human how-to | README.md | Install/use/share flow changes |
 
-When modules change: edit ARCHITECTURE first, then sync PROGRESS.
+New chat: read **PROGRESS.md** first (see AGENTS.md). Do not dump full PRD/TECH into context unless the task needs them.
 
 ## When to update PROGRESS.md (mandatory)
 
 Same session, if any of: code/config/docs changed; verify passed; git commit; user confirmed/rejected a feature; blocker appears/clears.
 
 Skip only for pure Q&A with zero repo changes.
+
+Keep updates **short**: Snapshot + Recent (1 line) + Next. Do not pad.
 
 ## Status legend
 
@@ -36,18 +42,23 @@ Skip only for pure Q&A with zero repo changes.
 | `[x]` | Verified |
 | `[!]` | Blocked — note in Snapshot |
 
-## Minimum update each coding session
+## Minimum PROGRESS update (when required)
 
-1. Snapshot — phase, focus, Git (`git log -1 --oneline`), blockers
-2. Work breakdown — rows match ARCHITECTURE module table
-3. Requirement traceability — match PRD mapping; update status only
-4. Recent changes — one dated line; keep last ~5
-5. Next session — one copy-paste prompt
+1. Snapshot — phase, Git (`git log -1 --oneline`), blockers
+2. Module rows — stay aligned with ARCHITECTURE (no need to invent new modules)
+3. Recent changes — one dated line; keep last ~5
+4. Next — one copy-paste prompt (or “V1 done / optional next”)
+
+## Do NOT update every session
+
+- PRD / TECH_DESIGN / CONTENT — unless product or tech decision changed
+- README / AGENTS — unless entry instructions or nav became wrong
+- Rewriting the same “all modules [x]” table with no new facts
 
 ## End-of-session gate
 
-Before final reply to user:
-- [ ] PROGRESS matches current ARCHITECTURE modules
-- [ ] Git hash current if committed
-- [ ] Recent changes has this session
-- [ ] Next session is actionable
+Before final reply (only if this session changed the repo):
+
+- [ ] PROGRESS reflects reality (phase, Next, Recent)
+- [ ] Git hash in Snapshot if a commit happened this session
+- [ ] README/AGENTS touched **only** if user-facing or nav facts changed

@@ -1,44 +1,47 @@
 # Touhou Wallpaper（东方演舞壁纸）
 
-Personal Windows desktop wallpaper picker for 幻想人形演舞 tachie (character IDs 001–131).
+个人用 Windows 桌面壁纸工具：幻想人形演舞立绘（角色 001–131）。
 
-## Planning docs (fish-pi 5-step)
+**当前状态：V1 已完成，本机自测通过。** 进展见 [PROGRESS.md](PROGRESS.md)。
 
-| Step | File | Role |
-|------|------|------|
-| 1 Research | [RESEARCH.md](RESEARCH.md) | Sources, legal, image findings |
-| 2 PRD | [PRD.md](PRD.md) | Features + verifiable acceptance |
-| 3 Tech | [TECH_DESIGN.md](TECH_DESIGN.md) | Stack, layout, APIs |
-| 4 Agent nav | [AGENTS.md](AGENTS.md) | Build map (short) |
-| — Architecture | [ARCHITECTURE.md](ARCHITECTURE.md) | V1 module map |
-| — Self-test guide | [VERIFY.md](VERIFY.md) | Plain Chinese: how each module is verified |
-| — Harness | [PROGRESS.md](PROGRESS.md) | Dynamic context per session |
-| 5 Build | `src/`, `src-tauri/` | Application code |
+## 发给别人怎么用
 
-## Harness (this project)
+1. 把 `dist/release/东方壁纸_Setup.exe`（约 1.9MB）发给对方  
+2. 双击安装（开始菜单名：**东方壁纸**；窗口标题：东方演舞壁纸）  
+3. 首次打开点「开始下载」，下完即可浏览、收藏、点【应用】换壁纸  
 
-- **PROGRESS.md** — agents update each session (what's done, what's next)
-- **npm run check** — TypeScript compile + `verify_m0.py` (more `verify_mN` per module)
-- **VERIFY.md** — what each script checks; what you can click-test manually
+图不进安装包，装好后下载到对方电脑的 `%APPDATA%/touhou-wallpaper/assets/`。
 
-## Commands
+**仅限个人使用。** 请勿二次分发立绘图包。来源：[thpdp.ver.moe](https://thpdp.ver.moe/) · 幻想人形演舞。
+
+## 本机重新打包
 
 ```bash
 npm install
-npm run dev              # browser UI (works without Rust)
-npm run check            # tsc + verify_m0
-npm run verify:m0
-python scripts/download_assets.py   # M1: once, requires network
-npm run tauri dev        # needs Rust: https://rustup.rs
-npm run tauri build
+npm run tauri:build
 ```
 
-## Assets
+产出：`dist/release/东方壁纸_Setup.exe`（需已装 [Rust](https://rustup.rs)）。
 
-Images are **not** in git. Run `scripts/download_assets.py` to populate `assets/images/`.
+## 开发者命令
 
-**Personal use only.** Do not redistribute the downloaded image pack. Credit: [thpdp.ver.moe](https://thpdp.ver.moe/) and 幻想人形演舞.
+```bash
+npm install
+npm run dev              # 仅浏览器 UI（无壁纸能力）
+npm run check            # tsc + verify_m0
+npm run tauri:dev        # 完整桌面应用
+npm run download:assets  # 开发用：下载到仓库 assets/（分享版不依赖此步）
+```
 
-## Build sessions
+## 文档怎么读（省时间）
 
-See [AGENTS.md](AGENTS.md) — one step per Agent chat, e.g. `@AGENTS.md 本回合只做 S1`.
+| 想知道什么 | 看哪个 | 何时改 |
+|------------|--------|--------|
+| 现在做到哪、下一步 | [PROGRESS.md](PROGRESS.md) | **每次有进展必改** |
+| 模块切分 / 验收脚本 | [ARCHITECTURE.md](ARCHITECTURE.md)、[VERIFY.md](VERIFY.md) | 模块增减时 |
+| Agent 导航（短） | [AGENTS.md](AGENTS.md) | 命令/模块地图变了再改 |
+| 需求与验收标准 | [PRD.md](PRD.md) | **需求变了才改** |
+| 技术选型与 API | [TECH_DESIGN.md](TECH_DESIGN.md) | **选型/接口变了才改** |
+| 文案与配色 | [CONTENT.md](CONTENT.md) | UI 文案变了再改 |
+
+新开对话：先读 **PROGRESS.md**，再按任务打开上表对应文件即可，不必全文扫一遍。
