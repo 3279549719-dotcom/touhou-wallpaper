@@ -70,6 +70,18 @@ fn validate_filename(filename: &str) -> Result<(), String> {
     Ok(())
 }
 
+pub(crate) fn resolve_image_file(filename: &str) -> Result<PathBuf, String> {
+    validate_filename(filename)?;
+    let assets = resolve_assets_dir()?;
+    let image_path = assets.join("images").join(filename);
+    if !image_path.is_file() {
+        return Err(format!("Image not found: {}", image_path.to_string_lossy()));
+    }
+    image_path
+        .canonicalize()
+        .map_err(|e| e.to_string())
+}
+
 #[tauri::command]
 pub fn get_assets_dir() -> Result<String, String> {
     resolve_assets_dir().map(|p| p.to_string_lossy().into_owned())
@@ -90,14 +102,5 @@ pub fn get_manifest() -> Result<Manifest, String> {
 
 #[tauri::command]
 pub fn resolve_image_path(filename: String) -> Result<String, String> {
-    validate_filename(&filename)?;
-    let assets = resolve_assets_dir()?;
-    let image_path = assets.join("images").join(&filename);
-    if !image_path.is_file() {
-        return Err(format!("Image not found: {}", image_path.to_string_lossy()));
-    }
-    image_path
-        .canonicalize()
-        .map(|p| p.to_string_lossy().into_owned())
-        .map_err(|e| e.to_string())
+    resolve_image_file(&filename).map(|p| p.to_string_lossy().into_owned())
 }

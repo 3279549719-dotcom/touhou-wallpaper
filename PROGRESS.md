@@ -6,11 +6,11 @@ Agent: read this file **before** coding. User: optional glance for status.
 
 | Field | Value |
 |-------|-------|
-| Phase | **M2 done** |
-| Active step | **M3** — wallpaper get/set |
+| Phase | **M3 done** |
+| Active step | **M4** — favorites persist |
 | Last updated | 2026-07-12 |
-| Blockers | Download complete (591 images). Rust optional for `tauri dev`. |
-| Git | `0307b47` — **M2完成** |
+| Blockers | Rust compile needs VS C++ Build Tools for `tauri dev` |
+| Git | `1d1e9da` — M2完成 |
 
 ## Module status
 
@@ -19,7 +19,7 @@ Agent: read this file **before** coding. User: optional glance for status.
 | M0 Scaffold | [x] |
 | M1 Download | [x] |
 | M2 Rust assets | [x] |
-| M3 Wallpaper | [ ] |
+| M3 Wallpaper | [x] |
 | M4 Favorites | [ ] |
 | M5 Grid | [ ] |
 | M6 Preview | [ ] |
@@ -31,9 +31,11 @@ Agent: read this file **before** coding. User: optional glance for status.
 | 模块 | 状态 | 说明 |
 |------|------|------|
 | M2 | **完成** | Rust 读取 `manifest.json`、assets 路径、图片绝对路径；`npm run verify:m2` 通过 |
+| M3 | **完成** | Windows 读/设桌面壁纸（注册表 + SystemParametersInfoW）；`npm run verify:m3` 通过 |
 
 ## Last session
 
+- **M3完成**：`get_current_wallpaper` / `set_wallpaper` 已实现；仅【应用】按钮可设壁纸
 - **M2完成**：`get_manifest` / `get_assets_dir` / `resolve_image_path` 已实现；`scripts/verify_m2.py` 通过
 - M1: `download_assets.py` finished — 126 characters, **591** PNGs, `manifest.json`
 - M1: dev UI serves `/assets/images/`; grid can show real thumbs after `npm run dev`
@@ -41,7 +43,7 @@ Agent: read this file **before** coding. User: optional glance for status.
 ## Next (pick one per chat)
 
 ```
-@ARCHITECTURE.md @PROGRESS.md 本回合只做 M3
+@ARCHITECTURE.md @PROGRESS.md 本回合只做 M4
 ```
 
 ## PRD mapping status (update as rows pass)
@@ -53,7 +55,7 @@ Agent: read this file **before** coding. User: optional glance for status.
 | 收藏/喜欢 | [ ] |
 | 换一张随机角色 | [ ] |
 | 必须点应用才变壁纸 | [ ] |
-| 打开看到当前壁纸 | [ ] |
+| 打开看到当前壁纸 | [x] |
 | 同角色其他缩略图 | [ ] |
 | 6列网格 + 滚轮换角色 | [ ] |
 | 点缩略图换立绘 | [ ] |

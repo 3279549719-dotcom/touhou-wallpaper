@@ -14,6 +14,8 @@
     "verify:m1": "python scripts/verify_m1.py",
     "check:m2": "tsc -b --noEmit && python scripts/verify_m2.py",
     "verify:m2": "python scripts/verify_m2.py",
+    "check:m3": "tsc -b --noEmit && python scripts/verify_m3.py",
+    "verify:m3": "python scripts/verify_m3.py",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
     "tauri:build": "tauri build"

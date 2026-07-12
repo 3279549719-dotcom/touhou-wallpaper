@@ -4,6 +4,7 @@ export const strings = {
   btnFavorite: "收藏",
   btnRandom: "换一张",
   labelCurrentWallpaper: "当前壁纸",
+  noCurrentWallpaper: "（未设置或无法读取系统壁纸）",
   labelPreview: "预览",
   labelVariants: "立绘变体",
   labelCharacters: "角色",
