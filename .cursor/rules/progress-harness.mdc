@@ -1,7 +1,6 @@
 ---
-description: Generic PROGRESS.md harness — schema-stable, module list lives in ARCHITECTURE
-globs: PROGRESS.md,ARCHITECTURE.md,PRD.md,VERIFY.md,AGENTS.md
-alwaysApply: false
+description: Update PROGRESS.md after every coding session — module list from ARCHITECTURE
+alwaysApply: true
 ---
 
 # Progress Harness (schema v1)
@@ -17,53 +16,38 @@ alwaysApply: false
 | Topic | File |
 |-------|------|
 | What to build / user acceptance | PRD.md |
-| How work is sliced + verify commands | ARCHITECTURE.md (module table) |
+| How work is sliced + verify commands | ARCHITECTURE.md |
 | Current pulse + next action | PROGRESS.md |
-| Long history (optional) | PROGRESS.md Recent changes section |
 
-When modules are added, renamed, or removed: **edit ARCHITECTURE first**, then sync PROGRESS Work breakdown.
+When modules change: edit ARCHITECTURE first, then sync PROGRESS.
 
-## When to update PROGRESS.md (mandatory; no user reminder)
+## When to update PROGRESS.md (mandatory)
 
-Same session, if any:
-- Code, config, or docs changed
-- Verify script passed (`Assertion Passed`)
-- Git commit created
-- User confirmed or rejected a feature manually
-- Blocker appears or clears
+Same session, if any of: code/config/docs changed; verify passed; git commit; user confirmed/rejected a feature; blocker appears/clears.
 
 Skip only for pure Q&A with zero repo changes.
 
-## Status legend (fixed)
+## Status legend
 
 | Mark | Meaning |
 |------|---------|
 | `[ ]` | Not started |
-| `[~]` | Implemented; formal verify or user sign-off pending |
-| `[x]` | Verified (script and/or user) |
-| `[!]` | Blocked — describe in Snapshot |
+| `[~]` | Implemented; verify or sign-off pending |
+| `[x]` | Verified |
+| `[!]` | Blocked — note in Snapshot |
 
-## Minimum PROGRESS update each coding session
+## Minimum update each coding session
 
-1. **Snapshot** — Phase (plain language), Active focus, Git (`git log -1 --oneline`), Blockers
-2. **Work breakdown** — Rows must match ARCHITECTURE module table (count and IDs may differ from past sessions)
-3. **Requirement traceability** — Rows must match PRD user-intent mapping; update status only
-4. **MVP readiness** — 3–5 high-level criteria; adjust rows if PRD MVP definition changed
-5. **Recent changes** — Append dated bullet; trim to last 5 in PROGRESS
-6. **Next session** — One copy-paste prompt
-
-## Sync procedure (agent)
-
-1. Read ARCHITECTURE.md module/verify table → refresh Work breakdown
-2. Read PRD.md acceptance mapping → refresh Requirement traceability
-3. Run or cite latest verify results before marking `[x]`
-4. After commit, refresh Snapshot Git field
-5. Do not duplicate full PRD/ARCHITECTURE prose in PROGRESS
+1. Snapshot — phase, focus, Git (`git log -1 --oneline`), blockers
+2. Work breakdown — rows match ARCHITECTURE module table
+3. Requirement traceability — match PRD mapping; update status only
+4. Recent changes — one dated line; keep last ~5
+5. Next session — one copy-paste prompt
 
 ## End-of-session gate
 
-Before replying to the user:
-- [ ] PROGRESS reflects current ARCHITECTURE module list (not an obsolete slice plan)
-- [ ] Git hash is current if a commit was made
-- [ ] At least one Recent changes line for this session
+Before final reply to user:
+- [ ] PROGRESS matches current ARCHITECTURE modules
+- [ ] Git hash current if committed
+- [ ] Recent changes has this session
 - [ ] Next session is actionable
