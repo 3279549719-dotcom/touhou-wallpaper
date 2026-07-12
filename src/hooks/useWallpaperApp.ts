@@ -24,6 +24,7 @@ export function useWallpaperApp() {
   );
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [applyError, setApplyError] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -98,10 +99,15 @@ export function useWallpaperApp() {
 
   const applyWallpaper = useCallback(async () => {
     if (!activeFilename) return;
-    await setWallpaper(activeFilename);
-    const wp = await getCurrentWallpaper();
-    setCurrentWallpaperPath(wp || null);
-    setCurrentWallpaperUrl(await wallpaperPathToImageUrl(wp || null));
+    setApplyError(null);
+    try {
+      await setWallpaper(activeFilename);
+      const wp = await getCurrentWallpaper();
+      setCurrentWallpaperPath(wp || null);
+      setCurrentWallpaperUrl(await wallpaperPathToImageUrl(wp || null));
+    } catch (e) {
+      setApplyError(e instanceof Error ? e.message : String(e));
+    }
   }, [activeFilename]);
 
   const toggleFavorite = useCallback(async () => {
@@ -123,6 +129,7 @@ export function useWallpaperApp() {
     currentWallpaperUrl,
     loading,
     error,
+    applyError,
     isFavorite,
     selectCharacter,
     selectVariant,

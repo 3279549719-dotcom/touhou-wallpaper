@@ -77,6 +77,11 @@ export default function App() {
                 onApply={() => void app.applyWallpaper()}
                 onToggleFavorite={() => void app.toggleFavorite()}
               />
+              {app.applyError ? (
+                <p className="muted apply-error">
+                  {strings.applyFailed}: {app.applyError}
+                </p>
+              ) : null}
             </div>
             <div className="main-stage-footer">
               <CharacterNav

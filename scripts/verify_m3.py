@@ -32,7 +32,14 @@ def check_rust_source() -> None:
     print("M3 verify: Rust wallpaper.rs implementation OK")
 
 
-def check_apply_only_rule() -> None:
+def check_dev_wallpaper_api() -> None:
+    vite = (ROOT / "vite.config.ts").read_text(encoding="utf-8")
+    tauri_ts = (ROOT / "src" / "lib" / "tauri.ts").read_text(encoding="utf-8")
+    assert "wallpaperDevApi" in vite, "vite dev wallpaper API missing"
+    assert "/api/wallpaper" in tauri_ts, "frontend must call /api/wallpaper in dev mode"
+    service = ROOT / "scripts" / "wallpaper_service.py"
+    assert service.exists(), f"Missing {service}"
+    print("M3 verify: dev wallpaper API wiring OK")
     hook = USE_HOOK.read_text(encoding="utf-8")
     app = APP_TSX.read_text(encoding="utf-8")
     panel = (ROOT / "src" / "components" / "CurrentWallpaperPanel.tsx").read_text(
@@ -128,9 +135,36 @@ def check_cargo_optional() -> None:
     raise AssertionError("cargo check failed")
 
 
+def check_service_roundtrip() -> None:
+    if sys.platform != "win32":
+        print("M3 verify: skipped wallpaper_service roundtrip (not win32)")
+        return
+    pngs = sorted(IMAGES.glob("*.png"))
+    assert pngs, f"No images in {IMAGES}"
+    sample = pngs[0].name
+    original = read_registry_wallpaper()
+    try:
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "scripts" / "wallpaper_service.py"), "set", sample],
+            cwd=ROOT,
+            capture_output=True,
+            text=True,
+            check=False,
+        )
+        assert result.returncode == 0, result.stderr or result.stdout
+        assert '"ok": true' in result.stdout
+        current = read_registry_wallpaper()
+        assert normalize_path(current) == normalize_path(str(pngs[0].resolve()))
+        print(f"M3 verify: wallpaper_service roundtrip OK ({sample})")
+    finally:
+        if original:
+            set_registry_wallpaper(original)
+
+
 def main() -> int:
     check_rust_source()
-    check_apply_only_rule()
+    check_dev_wallpaper_api()
+    check_service_roundtrip()
     check_windows_wallpaper_roundtrip()
     check_cargo_optional()
     print("Assertion Passed")

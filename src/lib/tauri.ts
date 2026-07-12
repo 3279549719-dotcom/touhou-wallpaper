@@ -48,7 +48,14 @@ export async function getCurrentWallpaper(): Promise<string> {
     const { invoke } = await import("@tauri-apps/api/core");
     return invoke<string>("get_current_wallpaper");
   }
-  return "";
+  try {
+    const res = await fetch("/api/wallpaper");
+    if (!res.ok) return "";
+    const data = (await res.json()) as { path?: string };
+    return data.path ?? "";
+  } catch {
+    return "";
+  }
 }
 
 export async function setWallpaper(filename: string): Promise<void> {
@@ -57,7 +64,15 @@ export async function setWallpaper(filename: string): Promise<void> {
     await invoke("set_wallpaper", { filename });
     return;
   }
-  console.info("[mock] set_wallpaper", filename);
+  const res = await fetch("/api/wallpaper", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ filename }),
+  });
+  const data = (await res.json()) as { ok?: boolean; error?: string };
+  if (!res.ok || !data.ok) {
+    throw new Error(data.error ?? `set_wallpaper failed (${res.status})`);
+  }
 }
 
 export async function listFavorites(): Promise<string[]> {
