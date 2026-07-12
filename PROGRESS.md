@@ -1,137 +1,125 @@
-# PROGRESS.md — dynamic context (update every Agent session)
+# PROGRESS.md — 项目进展（Agent 每回合必读；用户可扫一眼）
 
+> 最后更新：2026-07-12 · Git `ae00a50` — **M3通过**
 
+## 一句话状态
 
-Agent: read this file **before** coding. User: optional glance for status.
+**功能上接近 MVP，形式上还差 M6–M8 验收关。** 界面和主流程基本齐了；缺的是自动验收脚本、你亲手点一遍的对照表、以及 Tauri 桌面版打包验证。
 
+---
 
+## Current（当前快照）
 
-## Current
+| 字段 | 值 |
+|------|-----|
+| 阶段 | **M3 通过**；下一步 M6 正式验收 |
+| 本回合建议 | `verify_m6` 或手动点变体条 / 大图 |
+| Git | `ae00a50` — **M3通过**（含浏览器【应用】、完整显示立绘） |
+| 阻塞 | 无；`npm run dev` 浏览器版可完整设壁纸 |
 
+---
 
+## 模块进度（M0–M8）
 
-| Field | Value |
+| 模块 | 状态 | 说明 |
+|------|------|------|
+| M0 脚手架 | [x] | `verify_m0` 通过 |
+| M1 下载立绘 | [x] | 126 角色 / 591 图本地已有 |
+| M2 读资源 | [x] | manifest + 路径 |
+| M3 设壁纸 | [x] | **通过**：读/设壁纸、浏览器【应用】、`verify_m3`、缩略图与桌面「适应」完整显示 |
+| M4 收藏 | [x] | 持久化 favorites.json |
+| M5 布局 A | [x] | 左侧列表 + ‹ ›；固定视口；`verify_m5` 通过 |
+| M6 预览+缩略图 | [~] | **UI 已有**（大图、变体条）；无 `verify_m6`，未勾 PRD |
+| M7 三个按钮 | [~] | **UI+逻辑已有**（应用/收藏/换一张）；无 `verify_m7`，规则未自动验 |
+| M8 收官 | [ ] | 全 PRD 对照 + `verify_m8` + 打包体验 |
 
-|-------|-------|
+图例：`[x]` 完成并验收 · `[~]` 做了但没走完验收 · `[ ]` 未做
 
-| Phase | **M5 done (layout A)** |
+---
 
-| Active step | **M6** — preview + variant strip |
+## MVP 对照（产品经理视角）
 
-| Git | `7c7aa44` — M3完成 |
+PRD P0 共 7 条，**6 条界面/逻辑已有，1 条环境未完全达标**：
 
+| P0 能力 | 有了吗 | 备注 |
+|---------|--------|------|
+| 主窗口蓝白 UI | 有 | 浏览器版稳定；Tauri 窗口待你本机验证 |
+| 当前壁纸 | 有 | 顶部缩略图 + 路径 |
+| 左侧角色列表 | 有 | 布局 A，M5 已验收 |
+| 大图预览 + 同角色缩略图 | 有 | 待 M6 正式验收 |
+| 【应用】 | 有 | 浏览器版已验；`npm run verify:m3` 通过 |
+| 【收藏】 | 有 | M4 已验收 |
+| 【换一张】 | 有 | 随机换角色，不自动设壁纸；待 M7 规则脚本 |
 
+**结论：最小 MVP「能用的产品」≈ 90%**；**「可交付、可放心说做完了」≈ 70%**（差验收脚本 + 你逐项确认 + 桌面安装包）。
 
-## Module status
+---
 
+## PRD 用户原话映射
 
+| 用户原话 | 状态 | 说明 |
+|----------|------|------|
+| Windows 桌面小应用 | [~] | 浏览器可跑；原生窗口需 `tauri dev` |
+| 一键设为桌面壁纸 | [x] | 浏览器【应用】+ `apply:wallpaper` 已验 |
+| 收藏/喜欢 | [x] | |
+| 换一张随机角色 | [~] | 按钮有；待 M7 验证「不改桌面」 |
+| 必须点应用才变壁纸 | [x] | `verify_m3` 静态检查 + 手动已确认 |
+| 打开看到当前壁纸 | [x] | |
+| 同角色其他缩略图 | [~] | 变体条有；多图角色待你点几下 |
+| 左侧列表 + ‹ ›，滚轮只滚动 | [x] | |
+| 点缩略图换立绘 | [~] | 逻辑有；待 M6 验收 |
+| 应用/收藏对当前预览 | [~] | 按钮已挪到大图下；待你确认 |
+| 001–131 图源 | [x] | |
+| 首次下载后离线 | [x] | |
+| 列表 001 博丽灵梦 | [x] | |
+| 付费不能做 | [x] | 无付费入口 |
 
-| Module | Status |
-
-|--------|--------|
-
-| M0 Scaffold | [x] |
-
-| M1 Download | [x] |
-
-| M2 Rust assets | [x] |
-
-| M3 Wallpaper | [x] |
-
-| M4 Favorites | [x] |
-
-| M5 Layout A (sidebar) | [x] |
-
-| M6 Preview | [ ] |
-
-| M7 Actions | [ ] |
-
-| M8 Acceptance | [ ] |
-
-
+---
 
 ## Milestones
 
-
-
 | 模块 | 状态 | 说明 |
-
 |------|------|------|
+| M3 | **通过** | 设壁纸 + 当前壁纸预览 + 浏览器【应用】+ 立绘完整显示；`npm run verify:m3` |
 
-| M2 | **完成** | Rust 读取 `manifest.json`、assets 路径、图片绝对路径；`npm run verify:m2` 通过 |
+## 最近变更（changelog）
 
-| M3 | **完成** | Windows 读/设壁纸 + 当前壁纸缩略图预览；`npm run verify:m3` / `npm run apply:wallpaper` 通过 |
+| 日期 | 内容 |
+|------|------|
+| 2026-07-12 | **M3通过**：缩略图/桌面壁纸完整显示（`ae00a50`） |
+| 2026-07-12 | 浏览器【应用】换壁纸（`5bb95f8`）；`dev:stop` 清 1420 端口 |
+| 2026-07-12 | M5 布局 A 完成（`21c5a75`） |
+| 2026-07-12 | M3 补全：当前壁纸缩略图（`e5545f6`） |
 
-| M5 | **完成** | 布局 A：左侧角色列表、‹ › 换角色、滚轮只滚动列表；`npm run verify:m5` 通过 |
+---
 
-
-
-## Last session
-
-- **M3补全**：当前壁纸区显示缩略图；点【应用】后桌面与预览同步；`npm run apply:wallpaper` 可命令行设壁纸
-- **M5 布局 A 修正**：整页固定高度；左侧列表独立滚动；换角色不再自动滚列表；右侧大图始终可见
-
-
-
-## Next (pick one per chat)
-
-
+## Next（下一会话可复制）
 
 ```
-
-@ARCHITECTURE.md @PROGRESS.md 本回合只做 M6
-
+@ARCHITECTURE.md @PROGRESS.md 本回合只做 M6 验收（verify_m6 + PRD 勾选）
 ```
 
+或：
 
+```
+@PROGRESS.md 帮我做一轮 MVP 手动验收清单，我逐项点
+```
 
-## PRD mapping status (update as rows pass)
+---
 
+## 维护约定（本项目）
 
+**谁来改：** 默认 **Agent 在每回合有进展时自动改**（verify 通过 / commit / 修 bug），不等用户提醒。
 
-| 用户原话 | 状态 |
+**最少要更新的块：** `Current` 表 · 模块表 · PRD 映射 · `最近变更` · Git 哈希。
 
-|----------|------|
+**不必写进 PROGRESS 的：** 大段代码、重复 PRD 全文 → 留在 PRD / ARCHITECTURE。
 
-| Windows 桌面小应用 | [ ] |
-
-| 一键设为桌面壁纸 | [ ] |
-
-| 收藏/喜欢 | [x] |
-
-| 换一张随机角色 | [ ] |
-
-| 必须点应用才变壁纸 | [ ] |
-
-| 打开看到当前壁纸 | [x] |
-
-| 同角色其他缩略图 | [ ] |
-
-| 左侧列表 + ‹ › 换角色，滚轮只滚动 | [x] |
-
-| 点缩略图换立绘 | [ ] |
-
-| 应用/收藏对缩略图 | [ ] |
-
-| 001-131 图源 | [x] |
-
-| 首次下载后离线 | [x] |
-
-| 列表 001 博丽灵梦 | [x] |
-
-| 付费不能做 | [ ] |
-
-
+---
 
 ## Notes for agents
 
-
-
-- Assets live under `assets/`; never commit PNGs
-
-- 换一张 = random **character**, preview only until **应用**
-
-- Layout A: sidebar scroll = wheel only; character change = list click or ‹ ›
-
-- After each step: run `npm run check`, tick rows above, update **Current** table
-
+- Assets under `assets/`；不提交 PNG
+- 换一张 = 随机**角色**，预览 only，直到【应用】
+- Layout A：滚轮只滚列表；换角色 = 点行或 ‹ ›
+- 每模块：`npm run check` + `verify:mN` → **Assertion Passed** → **立即更新本文件**

@@ -17,6 +17,7 @@ Short pointers only. Do not duplicate PRD or TECH_DESIGN prose here.
 |-------|------|
 | Module map | [ARCHITECTURE.md](ARCHITECTURE.md) |
 | Self-test guide (user) | [VERIFY.md](VERIFY.md) |
+| Common errors (user) | [VERIFY.md](VERIFY.md) — 常见报错 |
 | What / acceptance | [PRD.md](PRD.md) |
 | Stack / APIs | [TECH_DESIGN.md](TECH_DESIGN.md) |
 | UI copy / colors | [CONTENT.md](CONTENT.md) |
