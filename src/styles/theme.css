@@ -103,9 +103,10 @@ button.primary:hover {
 }
 
 .current-wallpaper-thumb {
-  width: 72px;
+  width: 54px;
   height: 72px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center bottom;
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--bg);
@@ -208,9 +209,10 @@ button.primary:hover {
 }
 
 .character-sidebar-thumb {
-  width: 48px;
-  height: 48px;
+  width: 40px;
+  height: 54px;
   object-fit: contain;
+  object-position: center bottom;
   flex-shrink: 0;
   border-radius: 4px;
   background: var(--bg);
@@ -294,11 +296,13 @@ button.primary:hover {
 }
 
 .variant-thumb {
-  width: 72px;
+  width: 54px;
   height: 72px;
   border: 2px solid var(--border);
   border-radius: 8px;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center bottom;
+  background: var(--bg);
 }
 
 .variant-thumb.selected {

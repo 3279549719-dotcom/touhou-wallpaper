@@ -30,6 +30,19 @@ def read_current_wallpaper() -> str:
         return str(value)
 
 
+def apply_fit_style() -> None:
+    import winreg
+
+    with winreg.OpenKey(
+        winreg.HKEY_CURRENT_USER,
+        r"Control Panel\Desktop",
+        0,
+        winreg.KEY_SET_VALUE,
+    ) as key:
+        winreg.SetValueEx(key, "WallpaperStyle", 0, winreg.REG_SZ, "6")
+        winreg.SetValueEx(key, "TileWallpaper", 0, winreg.REG_SZ, "0")
+
+
 def set_wallpaper_file(path: Path) -> str:
     resolved = str(path.resolve())
     ok = ctypes.windll.user32.SystemParametersInfoW(
@@ -41,6 +54,13 @@ def set_wallpaper_file(path: Path) -> str:
     if not ok:
         err = ctypes.windll.kernel32.GetLastError()
         raise RuntimeError(f"SystemParametersInfoW failed (error {err})")
+    apply_fit_style()
+    ctypes.windll.user32.SystemParametersInfoW(
+        SPI_SETDESKTOPWALLPAPER,
+        0,
+        ctypes.c_wchar_p(resolved),
+        SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE,
+    )
     current = read_current_wallpaper()
     if Path(current).resolve() != path.resolve():
         raise RuntimeError(

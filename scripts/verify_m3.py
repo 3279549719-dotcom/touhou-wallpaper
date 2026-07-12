@@ -29,7 +29,15 @@ def check_rust_source() -> None:
         "get_current_wallpaper must read registry"
     )
     assert "resolve_image_file" in src, "set_wallpaper must resolve asset path"
+    assert "WallpaperStyle" in src, "set_wallpaper must apply fit style"
     print("M3 verify: Rust wallpaper.rs implementation OK")
+
+
+def check_thumbnail_css() -> None:
+    css = (ROOT / "src" / "styles" / "theme.css").read_text(encoding="utf-8")
+    assert "object-fit: cover" not in css, "thumbnails must not crop with object-fit: cover"
+    assert ".variant-thumb" in css and "object-fit: contain" in css
+    print("M3 verify: thumbnail contain CSS OK")
 
 
 def check_dev_wallpaper_api() -> None:
@@ -163,6 +171,7 @@ def check_service_roundtrip() -> None:
 
 def main() -> int:
     check_rust_source()
+    check_thumbnail_css()
     check_dev_wallpaper_api()
     check_service_roundtrip()
     check_windows_wallpaper_roundtrip()

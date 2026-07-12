@@ -4,37 +4,14 @@
 from __future__ import annotations
 
 import argparse
-import ctypes
 import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 IMAGES = ROOT / "assets" / "images"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 
-SPI_SETDESKTOPWALLPAPER = 20
-SPIF_UPDATEINIFILE = 0x01
-SPIF_SENDWININICHANGE = 0x02
-
-
-def set_wallpaper(path: Path) -> None:
-    resolved = str(path.resolve())
-    ok = ctypes.windll.user32.SystemParametersInfoW(
-        SPI_SETDESKTOPWALLPAPER,
-        0,
-        ctypes.c_wchar_p(resolved),
-        SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE,
-    )
-    if not ok:
-        err = ctypes.windll.kernel32.GetLastError()
-        raise RuntimeError(f"SystemParametersInfoW failed (error {err})")
-
-
-def read_current_wallpaper() -> str:
-    import winreg
-
-    with winreg.OpenKey(winreg.HKEY_CURRENT_USER, r"Control Panel\Desktop") as key:
-        value, _ = winreg.QueryValueEx(key, "Wallpaper")
-        return str(value)
+from wallpaper_service import read_current_wallpaper, set_wallpaper_filename  # noqa: E402
 
 
 def main() -> int:
@@ -57,9 +34,7 @@ def main() -> int:
         print("Run: python scripts/download_assets.py", file=sys.stderr)
         return 1
 
-    before = read_current_wallpaper()
-    set_wallpaper(image_path)
-    after = read_current_wallpaper()
+    after = set_wallpaper_filename(args.filename)
     print(f"Applied: {image_path.name}")
     print(f"Registry: {after}")
     if Path(after).resolve() != image_path.resolve():
