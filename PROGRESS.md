@@ -6,11 +6,9 @@ Agent: read this file **before** coding. User: optional glance for status.
 
 | Field | Value |
 |-------|-------|
-| Phase | **M3 done** |
-| Active step | **M4** — favorites persist |
-| Last updated | 2026-07-12 |
-| Blockers | Rust compile needs VS C++ Build Tools for `tauri dev` |
-| Git | `1d1e9da` — M2完成 |
+| Phase | **M4 done** |
+| Active step | **M5** — grid + wheel |
+| Git | `7c7aa44` — M3完成 |
 
 ## Module status
 
@@ -20,7 +18,7 @@ Agent: read this file **before** coding. User: optional glance for status.
 | M1 Download | [x] |
 | M2 Rust assets | [x] |
 | M3 Wallpaper | [x] |
-| M4 Favorites | [ ] |
+| M4 Favorites | [x] |
 | M5 Grid | [ ] |
 | M6 Preview | [ ] |
 | M7 Actions | [ ] |
@@ -32,9 +30,11 @@ Agent: read this file **before** coding. User: optional glance for status.
 |------|------|------|
 | M2 | **完成** | Rust 读取 `manifest.json`、assets 路径、图片绝对路径；`npm run verify:m2` 通过 |
 | M3 | **完成** | Windows 读/设桌面壁纸（注册表 + SystemParametersInfoW）；`npm run verify:m3` 通过 |
+| M4 | **完成** | 收藏写入 `%APPDATA%/touhou-wallpaper/favorites.json`；`npm run verify:m4` 通过 |
 
 ## Last session
 
+- **M4完成**：`list_favorites` / `toggle_favorite` 持久化收藏列表
 - **M3完成**：`get_current_wallpaper` / `set_wallpaper` 已实现；仅【应用】按钮可设壁纸
 - **M2完成**：`get_manifest` / `get_assets_dir` / `resolve_image_path` 已实现；`scripts/verify_m2.py` 通过
 - M1: `download_assets.py` finished — 126 characters, **591** PNGs, `manifest.json`
@@ -43,7 +43,7 @@ Agent: read this file **before** coding. User: optional glance for status.
 ## Next (pick one per chat)
 
 ```
-@ARCHITECTURE.md @PROGRESS.md 本回合只做 M4
+@ARCHITECTURE.md @PROGRESS.md 本回合只做 M5
 ```
 
 ## PRD mapping status (update as rows pass)
@@ -52,7 +52,7 @@ Agent: read this file **before** coding. User: optional glance for status.
 |----------|------|
 | Windows 桌面小应用 | [ ] |
 | 一键设为桌面壁纸 | [ ] |
-| 收藏/喜欢 | [ ] |
+| 收藏/喜欢 | [x] |
 | 换一张随机角色 | [ ] |
 | 必须点应用才变壁纸 | [ ] |
 | 打开看到当前壁纸 | [x] |
