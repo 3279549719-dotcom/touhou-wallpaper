@@ -84,6 +84,26 @@ export async function resolveImagePath(filename: string): Promise<string> {
   return `/assets/images/${filename}`;
 }
 
+export async function wallpaperPathToImageUrl(
+  path: string | null,
+): Promise<string | null> {
+  if (!path) return null;
+
+  const normalized = path.replace(/\\/g, "/");
+  const marker = "/assets/images/";
+  const idx = normalized.toLowerCase().indexOf(marker);
+  if (idx >= 0) {
+    return `/assets/images/${normalized.slice(idx + marker.length)}`;
+  }
+
+  if (isTauri()) {
+    const { convertFileSrc } = await import("@tauri-apps/api/core");
+    return convertFileSrc(path);
+  }
+
+  return null;
+}
+
 export function getActiveFilename(
   characterId: string,
   variantIndex: number,

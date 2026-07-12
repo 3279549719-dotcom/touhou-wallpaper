@@ -8,6 +8,7 @@ import {
   listFavorites,
   setWallpaper,
   toggleFavorite as apiToggleFavorite,
+  wallpaperPathToImageUrl,
 } from "../lib/tauri";
 
 export function useWallpaperApp() {
@@ -16,6 +17,9 @@ export function useWallpaperApp() {
   const [activeVariantIndex, setActiveVariantIndex] = useState(0);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
   const [currentWallpaperPath, setCurrentWallpaperPath] = useState<string | null>(
+    null,
+  );
+  const [currentWallpaperUrl, setCurrentWallpaperUrl] = useState<string | null>(
     null,
   );
   const [loading, setLoading] = useState(true);
@@ -33,6 +37,7 @@ export function useWallpaperApp() {
         if (cancelled) return;
         setManifest(m);
         setCurrentWallpaperPath(wp || null);
+        setCurrentWallpaperUrl(await wallpaperPathToImageUrl(wp || null));
         setFavorites(new Set(fav));
         if (m.characters.length > 0) {
           setActiveCharacterId(m.characters[0].id);
@@ -96,6 +101,7 @@ export function useWallpaperApp() {
     await setWallpaper(activeFilename);
     const wp = await getCurrentWallpaper();
     setCurrentWallpaperPath(wp || null);
+    setCurrentWallpaperUrl(await wallpaperPathToImageUrl(wp || null));
   }, [activeFilename]);
 
   const toggleFavorite = useCallback(async () => {
@@ -114,6 +120,7 @@ export function useWallpaperApp() {
     activeFilename,
     favorites,
     currentWallpaperPath,
+    currentWallpaperUrl,
     loading,
     error,
     isFavorite,

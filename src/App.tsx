@@ -62,6 +62,7 @@ export default function App() {
             <div className="main-stage-header">
               <CurrentWallpaperPanel
                 path={app.currentWallpaperPath}
+                imageUrl={app.currentWallpaperUrl}
                 onRandom={app.randomCharacter}
               />
             </div>
@@ -70,6 +71,13 @@ export default function App() {
               filename={app.activeFilename}
               imageUrl={previewUrl}
             />
+            <div className="main-stage-actions">
+              <ActionBar
+                isFavorite={app.isFavorite}
+                onApply={() => void app.applyWallpaper()}
+                onToggleFavorite={() => void app.toggleFavorite()}
+              />
+            </div>
             <div className="main-stage-footer">
               <CharacterNav
                 characterLabel={label}
@@ -82,11 +90,6 @@ export default function App() {
                 activeVariantIndex={app.activeVariantIndex}
                 onSelectVariant={app.selectVariant}
                 imageUrlFor={imageUrlFor}
-              />
-              <ActionBar
-                isFavorite={app.isFavorite}
-                onApply={() => void app.applyWallpaper()}
-                onToggleFavorite={() => void app.toggleFavorite()}
               />
             </div>
           </>

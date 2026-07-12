@@ -35,10 +35,15 @@ def check_rust_source() -> None:
 def check_apply_only_rule() -> None:
     hook = USE_HOOK.read_text(encoding="utf-8")
     app = APP_TSX.read_text(encoding="utf-8")
+    panel = (ROOT / "src" / "components" / "CurrentWallpaperPanel.tsx").read_text(
+        encoding="utf-8"
+    )
     assert "setWallpaper" in hook, "useWallpaperApp must call setWallpaper"
     assert "applyWallpaper" in hook
+    assert "wallpaperPathToImageUrl" in hook, "hook must resolve current wallpaper preview"
     assert "onApply" in app and "applyWallpaper" in app
     assert "randomCharacter" in app
+    assert "current-wallpaper-thumb" in panel, "current wallpaper thumbnail UI missing"
     for rel in [
         "src/components/CharacterSidebar.tsx",
         "src/components/VariantStrip.tsx",

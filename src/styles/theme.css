@@ -84,11 +84,75 @@ button.primary:hover {
   flex-shrink: 0;
 }
 
+.current-wallpaper-panel {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+.current-wallpaper-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.current-wallpaper-thumb {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+.current-wallpaper-thumb--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  text-align: center;
+}
+
+.current-wallpaper-caption {
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.main-stage-actions {
+  flex-shrink: 0;
+  padding-top: 4px;
+}
+
+.action-bar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
 .main-stage-footer {
   flex-shrink: 0;
+  min-height: 0;
+  max-height: 28vh;
   display: flex;
   flex-direction: column;
   gap: 12px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-right: 4px;
+}
+
+.variant-strip-scroll {
+  min-height: 0;
 }
 
 .character-sidebar {
@@ -247,12 +311,6 @@ button.primary:hover {
   width: auto;
   height: auto;
   object-fit: contain;
-}
-
-.action-bar {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
 }
 
 .muted {

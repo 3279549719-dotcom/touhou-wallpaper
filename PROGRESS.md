@@ -60,7 +60,7 @@ Agent: read this file **before** coding. User: optional glance for status.
 
 | M2 | **完成** | Rust 读取 `manifest.json`、assets 路径、图片绝对路径；`npm run verify:m2` 通过 |
 
-| M3 | **完成** | Windows 读/设桌面壁纸（注册表 + SystemParametersInfoW）；`npm run verify:m3` 通过 |
+| M3 | **完成** | Windows 读/设壁纸 + 当前壁纸缩略图预览；`npm run verify:m3` / `npm run apply:wallpaper` 通过 |
 
 | M5 | **完成** | 布局 A：左侧角色列表、‹ › 换角色、滚轮只滚动列表；`npm run verify:m5` 通过 |
 
@@ -68,8 +68,7 @@ Agent: read this file **before** coding. User: optional glance for status.
 
 ## Last session
 
-
-
+- **M3补全**：当前壁纸区显示缩略图；点【应用】后桌面与预览同步；`npm run apply:wallpaper` 可命令行设壁纸
 - **M5 布局 A 修正**：整页固定高度；左侧列表独立滚动；换角色不再自动滚列表；右侧大图始终可见
 
 
