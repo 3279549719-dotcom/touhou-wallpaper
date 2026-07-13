@@ -5,10 +5,11 @@ import { CharacterSidebar } from "./components/CharacterSidebar";
 import { CurrentWallpaperPanel } from "./components/CurrentWallpaperPanel";
 import { DownloadScreen } from "./components/DownloadScreen";
 import { EmptyAssetsBanner } from "./components/EmptyAssetsBanner";
+import { FavoritesGallerySidebar } from "./components/FavoritesGallerySidebar";
 import { PreviewPane } from "./components/PreviewPane";
 import { VariantStrip } from "./components/VariantStrip";
 import { useWallpaperApp } from "./hooks/useWallpaperApp";
-import { characterLabel } from "./lib/grid";
+import { characterLabel, favoriteGalleryLabel } from "./lib/grid";
 import { strings } from "./lib/strings";
 import "./styles/theme.css";
 
@@ -33,15 +34,26 @@ export default function App() {
 
   const characters = app.manifest?.characters ?? [];
   const assetsReady = characters.length >= 126;
-  const label = app.activeCharacter
-    ? characterLabel(app.activeCharacter.id, app.activeCharacter.name)
-    : "";
+  const gallery = app.favoritesGallery;
 
-  const activeIndex = characters.findIndex((c) => c.id === app.activeCharacterId);
+  const label = app.favoritesOnly
+    ? app.activeFilename && app.activeCharacter
+      ? favoriteGalleryLabel(
+          app.activeCharacter.id,
+          app.activeCharacter.name,
+          app.activeVariantIndex,
+        )
+      : ""
+    : app.activeCharacter
+      ? characterLabel(app.activeCharacter.id, app.activeCharacter.name)
+      : "";
+
+  const activeIndex = app.favoritesOnly
+    ? gallery.findIndex((g) => g.filename === app.activeFilename)
+    : characters.findIndex((c) => c.id === app.activeCharacterId);
+  const total = app.favoritesOnly ? gallery.length : characters.length;
   const positionText =
-    activeIndex >= 0
-      ? `${activeIndex + 1} / ${characters.length}`
-      : `0 / ${characters.length}`;
+    activeIndex >= 0 ? `${activeIndex + 1} / ${total}` : `0 / ${total}`;
 
   return (
     <>
@@ -49,11 +61,25 @@ export default function App() {
       <AppShell
         sidebar={
           characters.length > 0 ? (
-            <CharacterSidebar
-              characters={characters}
-              activeCharacterId={app.activeCharacterId}
-              onSelectCharacter={app.selectCharacter}
-            />
+            app.favoritesOnly ? (
+              <FavoritesGallerySidebar
+                items={gallery}
+                activeFilename={app.activeFilename}
+                favoritesOnly={app.favoritesOnly}
+                favoritesOnlyHint={app.favoritesOnlyHint}
+                onToggleFavoritesOnly={app.toggleFavoritesOnly}
+                onSelectFilename={app.selectFavoriteFilename}
+              />
+            ) : (
+              <CharacterSidebar
+                characters={characters}
+                activeCharacterId={app.activeCharacterId}
+                favoritesOnly={app.favoritesOnly}
+                favoritesOnlyHint={app.favoritesOnlyHint}
+                onToggleFavoritesOnly={app.toggleFavoritesOnly}
+                onSelectCharacter={app.selectCharacter}
+              />
+            )
           ) : (
             <aside className="character-sidebar panel">
               <p className="muted">{strings.emptyAssets}</p>
@@ -92,11 +118,13 @@ export default function App() {
                 onPrevious={() => app.stepCharacter(-1)}
                 onNext={() => app.stepCharacter(1)}
               />
-              <VariantStrip
-                character={app.activeCharacter}
-                activeVariantIndex={app.activeVariantIndex}
-                onSelectVariant={app.selectVariant}
-              />
+              {!app.favoritesOnly ? (
+                <VariantStrip
+                  character={app.activeCharacter}
+                  activeVariantIndex={app.activeVariantIndex}
+                  onSelectVariant={app.selectVariant}
+                />
+              ) : null}
             </div>
           </>
         }

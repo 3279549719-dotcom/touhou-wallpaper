@@ -20,8 +20,11 @@ Structured copy and theme. No fabricated personal data.
 | label_preview | 预览 |
 | label_variants | 立绘变体 |
 | label_characters | 角色 |
-| favorite_on | 已收藏 |
+| favorite_on | 取消收藏 |
 | favorite_off | 收藏 |
+| btn_favorites_only | 只看收藏 |
+| favorites_only_empty | 请至少收藏一张图片 |
+| label_favorites_gallery | 收藏 |
 | download_hint | 首次使用请运行下载脚本获取立绘资源 |
 | empty_assets | 未找到立绘资源，请执行 python scripts/download_assets.py |
 

@@ -1,29 +1,29 @@
-import type { Character } from "../types/manifest";
-import { AssetImage } from "./AssetImage";
-import { characterLabel } from "../lib/grid";
+import type { FavoriteGalleryItem } from "../lib/grid";
+import { favoriteGalleryLabel } from "../lib/grid";
 import { strings } from "../lib/strings";
+import { AssetImage } from "./AssetImage";
 
-interface CharacterSidebarProps {
-  characters: Character[];
-  activeCharacterId: string;
+interface FavoritesGallerySidebarProps {
+  items: FavoriteGalleryItem[];
+  activeFilename: string | null;
   favoritesOnly: boolean;
   favoritesOnlyHint: string | null;
   onToggleFavoritesOnly: () => void;
-  onSelectCharacter: (id: string) => void;
+  onSelectFilename: (filename: string) => void;
 }
 
-export function CharacterSidebar({
-  characters,
-  activeCharacterId,
+export function FavoritesGallerySidebar({
+  items,
+  activeFilename,
   favoritesOnly,
   favoritesOnlyHint,
   onToggleFavoritesOnly,
-  onSelectCharacter,
-}: CharacterSidebarProps) {
+  onSelectFilename,
+}: FavoritesGallerySidebarProps) {
   return (
     <aside className="character-sidebar">
       <div className="character-sidebar-header">
-        <h2>{strings.labelCharacters}</h2>
+        <h2>{strings.labelFavoritesGallery}</h2>
         <span className="muted">{strings.sidebarScrollHint}</span>
         <label className="favorites-only-toggle">
           <input
@@ -41,22 +41,25 @@ export function CharacterSidebar({
         ) : null}
       </div>
       <div className="character-sidebar-scroll" role="list">
-        {characters.map((character) => {
-          const label = characterLabel(character.id, character.name);
-          const selected = character.id === activeCharacterId;
-          const thumb = character.files[0] ?? `${character.id}_00.png`;
+        {items.map((item) => {
+          const label = favoriteGalleryLabel(
+            item.characterId,
+            item.characterName,
+            item.variantIndex,
+          );
+          const selected = item.filename === activeFilename;
           return (
             <button
-              key={character.id}
+              key={item.filename}
               type="button"
-              data-character-id={character.id}
+              data-favorite-filename={item.filename}
               className={`character-sidebar-item${selected ? " selected" : ""}`}
-              onClick={() => onSelectCharacter(character.id)}
+              onClick={() => onSelectFilename(item.filename)}
               aria-pressed={selected}
               aria-label={label}
             >
               <AssetImage
-                filename={thumb}
+                filename={item.filename}
                 alt=""
                 className="character-sidebar-thumb"
                 aria-hidden

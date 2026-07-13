@@ -31,6 +31,8 @@
     "icon:generate": "python scripts/generate_icon.py",
     "check:m9": "tsc -b --noEmit && python scripts/verify_m9.py",
     "verify:m9": "python scripts/verify_m9.py",
+    "check:favorites-gallery": "tsc -b --noEmit && python scripts/verify_favorites_gallery.py",
+    "verify:favorites-gallery": "python scripts/verify_favorites_gallery.py",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
     "tauri:build": "npm run icon:generate && tauri build && python scripts/rename_installer.py"

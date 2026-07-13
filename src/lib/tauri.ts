@@ -1,4 +1,5 @@
 import type { Manifest } from "../types/manifest";
+import { toggleFavoriteInList } from "./favorites";
 
 const MOCK_MANIFEST: Manifest = {
   version: 1,
@@ -19,6 +20,42 @@ const MOCK_MANIFEST: Manifest = {
     },
   ],
 };
+
+const BROWSER_FAVORITES_KEY = "touhou-wallpaper.browser-favorites";
+
+function readBrowserFavorites(): string[] {
+  if (typeof localStorage === "undefined") {
+    return [];
+  }
+  try {
+    const raw = localStorage.getItem(BROWSER_FAVORITES_KEY);
+    if (!raw) return [];
+    const data = JSON.parse(raw) as { favorites?: unknown };
+    if (!Array.isArray(data.favorites)) return [];
+    return [
+      ...new Set(
+        data.favorites.filter((item): item is string => typeof item === "string"),
+      ),
+    ].sort();
+  } catch {
+    return [];
+  }
+}
+
+function writeBrowserFavorites(favorites: string[]): string[] {
+  const unique = [...new Set(favorites)].sort();
+  if (typeof localStorage !== "undefined") {
+    try {
+      localStorage.setItem(
+        BROWSER_FAVORITES_KEY,
+        JSON.stringify({ favorites: unique }),
+      );
+    } catch {
+      // Ignore quota / private-mode failures; in-memory return still accumulates.
+    }
+  }
+  return unique;
+}
 
 function isTauri(): boolean {
   return typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
@@ -97,7 +134,7 @@ export async function listFavorites(): Promise<string[]> {
     const { invoke } = await import("@tauri-apps/api/core");
     return invoke<string[]>("list_favorites");
   }
-  return [];
+  return readBrowserFavorites();
 }
 
 export async function toggleFavorite(filename: string): Promise<string[]> {
@@ -105,7 +142,8 @@ export async function toggleFavorite(filename: string): Promise<string[]> {
     const { invoke } = await import("@tauri-apps/api/core");
     return invoke<string[]>("toggle_favorite", { filename });
   }
-  return [filename];
+  const updated = toggleFavoriteInList(readBrowserFavorites(), filename);
+  return writeBrowserFavorites(updated);
 }
 
 export async function resolveImagePath(filename: string): Promise<string> {

@@ -1,6 +1,9 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Manifest } from "../types/manifest";
-import { nextCharacterIndex } from "../lib/grid";
+import {
+  buildFavoritesGallery,
+  nextCharacterIndex,
+} from "../lib/grid";
 import {
   assetsReady,
   getActiveFilename,
@@ -12,12 +15,17 @@ import {
   wallpaperPathToImageUrl,
 } from "../lib/tauri";
 import { clearAssetImageUrlCache } from "../lib/imageUrl";
+import { strings } from "../lib/strings";
 
 export function useWallpaperApp() {
   const [manifest, setManifest] = useState<Manifest | null>(null);
   const [activeCharacterId, setActiveCharacterId] = useState("001");
   const [activeVariantIndex, setActiveVariantIndex] = useState(0);
   const [favorites, setFavorites] = useState<Set<string>>(new Set());
+  const [favoritesOnly, setFavoritesOnly] = useState(false);
+  const [favoritesOnlyHint, setFavoritesOnlyHint] = useState<string | null>(
+    null,
+  );
   const [currentWallpaperPath, setCurrentWallpaperPath] = useState<string | null>(
     null,
   );
@@ -66,6 +74,8 @@ export function useWallpaperApp() {
         setCurrentWallpaperPath(wp || null);
         setCurrentWallpaperUrl(await wallpaperPathToImageUrl(wp || null));
         setFavorites(new Set(fav));
+        setFavoritesOnly(false);
+        setFavoritesOnlyHint(null);
         if (m.characters.length > 0) {
           setActiveCharacterId(m.characters[0].id);
         }
@@ -92,6 +102,11 @@ export function useWallpaperApp() {
     [activeCharacterId, activeVariantIndex, manifest],
   );
 
+  const favoritesGallery = useMemo(() => {
+    if (!manifest) return [];
+    return buildFavoritesGallery(favorites, manifest.characters);
+  }, [manifest, favorites]);
+
   const selectCharacter = useCallback((id: string) => {
     setActiveCharacterId(id);
     setActiveVariantIndex(0);
@@ -101,9 +116,78 @@ export function useWallpaperApp() {
     setActiveVariantIndex(index);
   }, []);
 
+  const selectFavoriteFilename = useCallback(
+    (filename: string) => {
+      if (!manifest) return;
+      for (const character of manifest.characters) {
+        const variantIndex = character.files.indexOf(filename);
+        if (variantIndex >= 0) {
+          setActiveCharacterId(character.id);
+          setActiveVariantIndex(variantIndex);
+          return;
+        }
+      }
+    },
+    [manifest],
+  );
+
+  const toggleFavoritesOnly = useCallback(() => {
+    if (favoritesOnly) {
+      setFavoritesOnly(false);
+      setFavoritesOnlyHint(null);
+      return;
+    }
+    if (favorites.size === 0) {
+      setFavoritesOnlyHint(strings.favoritesOnlyEmpty);
+      return;
+    }
+    setFavoritesOnlyHint(null);
+    setFavoritesOnly(true);
+    if (!manifest) return;
+    const gallery = buildFavoritesGallery(favorites, manifest.characters);
+    const current = getActiveFilename(
+      activeCharacterId,
+      activeVariantIndex,
+      manifest,
+    );
+    const match = gallery.find((g) => g.filename === current);
+    const pick = match ?? gallery[0];
+    if (pick) {
+      setActiveCharacterId(pick.characterId);
+      setActiveVariantIndex(pick.variantIndex);
+    }
+  }, [
+    favoritesOnly,
+    favorites,
+    manifest,
+    activeCharacterId,
+    activeVariantIndex,
+  ]);
+
   const stepCharacter = useCallback(
     (delta: number) => {
       if (!manifest || manifest.characters.length === 0) return;
+
+      if (favoritesOnly) {
+        const gallery = buildFavoritesGallery(favorites, manifest.characters);
+        if (gallery.length === 0) return;
+        const current = getActiveFilename(
+          activeCharacterId,
+          activeVariantIndex,
+          manifest,
+        );
+        const idx = gallery.findIndex((g) => g.filename === current);
+        const next = nextCharacterIndex(
+          idx < 0 ? 0 : idx,
+          delta,
+          gallery.length,
+        );
+        const pick = gallery[next];
+        setActiveCharacterId(pick.characterId);
+        setActiveVariantIndex(pick.variantIndex);
+        return;
+      }
+
       const idx = manifest.characters.findIndex(
         (c) => c.id === activeCharacterId,
       );
@@ -114,14 +198,50 @@ export function useWallpaperApp() {
       );
       selectCharacter(manifest.characters[next].id);
     },
-    [manifest, activeCharacterId, selectCharacter],
+    [
+      manifest,
+      activeCharacterId,
+      activeVariantIndex,
+      favoritesOnly,
+      favorites,
+      selectCharacter,
+    ],
   );
 
   const randomCharacter = useCallback(() => {
     if (!manifest || manifest.characters.length === 0) return;
+
+    if (favoritesOnly) {
+      const gallery = buildFavoritesGallery(favorites, manifest.characters);
+      if (gallery.length === 0) return;
+      const current = getActiveFilename(
+        activeCharacterId,
+        activeVariantIndex,
+        manifest,
+      );
+      let pick = gallery[Math.floor(Math.random() * gallery.length)];
+      if (gallery.length > 1 && current) {
+        let attempts = 0;
+        while (pick.filename === current && attempts < 8) {
+          pick = gallery[Math.floor(Math.random() * gallery.length)];
+          attempts += 1;
+        }
+      }
+      setActiveCharacterId(pick.characterId);
+      setActiveVariantIndex(pick.variantIndex);
+      return;
+    }
+
     const idx = Math.floor(Math.random() * manifest.characters.length);
     selectCharacter(manifest.characters[idx].id);
-  }, [manifest, selectCharacter]);
+  }, [
+    manifest,
+    favoritesOnly,
+    favorites,
+    activeCharacterId,
+    activeVariantIndex,
+    selectCharacter,
+  ]);
 
   const applyWallpaper = useCallback(async () => {
     if (!activeFilename) return;
@@ -138,9 +258,36 @@ export function useWallpaperApp() {
 
   const toggleFavorite = useCallback(async () => {
     if (!activeFilename) return;
-    const updated = await apiToggleFavorite(activeFilename);
-    setFavorites(new Set(updated));
-  }, [activeFilename]);
+    const previousFilename = activeFilename;
+    const previousGallery = favoritesOnly
+      ? buildFavoritesGallery(favorites, manifest?.characters ?? [])
+      : [];
+    const updated = await apiToggleFavorite(previousFilename);
+    const nextSet = new Set(updated);
+    setFavorites(nextSet);
+
+    if (!favoritesOnly) return;
+
+    if (updated.length === 0) {
+      setFavoritesOnly(false);
+      setFavoritesOnlyHint(null);
+      return;
+    }
+
+    if (!nextSet.has(previousFilename) && manifest) {
+      const nextGallery = buildFavoritesGallery(nextSet, manifest.characters);
+      const oldIdx = previousGallery.findIndex(
+        (g) => g.filename === previousFilename,
+      );
+      const pick =
+        nextGallery[Math.min(Math.max(oldIdx, 0), nextGallery.length - 1)] ??
+        nextGallery[0];
+      if (pick) {
+        setActiveCharacterId(pick.characterId);
+        setActiveVariantIndex(pick.variantIndex);
+      }
+    }
+  }, [activeFilename, favoritesOnly, favorites, manifest]);
 
   const isFavorite = activeFilename ? favorites.has(activeFilename) : false;
 
@@ -151,6 +298,9 @@ export function useWallpaperApp() {
     activeCharacter,
     activeFilename,
     favorites,
+    favoritesGallery,
+    favoritesOnly,
+    favoritesOnlyHint,
     currentWallpaperPath,
     currentWallpaperUrl,
     loading,
@@ -161,6 +311,8 @@ export function useWallpaperApp() {
     reloadApp,
     selectCharacter,
     selectVariant,
+    selectFavoriteFilename,
+    toggleFavoritesOnly,
     stepCharacter,
     randomCharacter,
     applyWallpaper,

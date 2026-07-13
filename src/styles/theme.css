@@ -181,6 +181,22 @@ button.primary:hover {
   font-size: 1rem;
 }
 
+.favorites-only-toggle {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.favorites-only-hint {
+  margin: 8px 0 0;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
 .character-sidebar-scroll {
   flex: 1;
   min-height: 0;
