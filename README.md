@@ -27,11 +27,15 @@ npm run tauri:build
 
 ```bash
 npm install
-npm run dev              # 仅浏览器 UI（无壁纸能力）
+npm run dev              # 仅浏览器 UI（无壁纸能力）；地址 http://localhost:1420/
+npm run dev:autostart:on # 开机登录后自动启动上面的本地 UI（任务计划）
+npm run dev:autostart:off# 取消开机自动启动
 npm run check            # tsc + verify_m0
 npm run tauri:dev        # 完整桌面应用
 npm run download:assets  # 开发用：下载到仓库 assets/（分享版不依赖此步）
 ```
+
+开机自动启动后，登录进 Windows 等十几秒，浏览器打开 `http://localhost:1420/` 即可。日志在 `logs/dev-autostart.log`。这只是网页预览，换壁纸请用 `tauri:dev` 或安装包。
 
 ## 文档怎么读（省时间）
 

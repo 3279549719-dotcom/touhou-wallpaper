@@ -6,6 +6,9 @@
   "scripts": {
     "dev:stop": "python scripts/kill_dev_port.py",
     "dev": "npm run dev:stop && vite",
+    "dev:autostart:on": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/register_dev_autostart.ps1",
+    "dev:autostart:off": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/unregister_dev_autostart.ps1",
+    "dev:autostart:start": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Start-ScheduledTask -TaskName TouhouWallpaperViteDev\"",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "check": "tsc -b --noEmit && python scripts/verify_m0.py",
