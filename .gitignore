@@ -18,6 +18,7 @@ Thumbs.db
 *.log
 .env
 .env.*
+!.env.example
 
 # Temp
 _tmp_*
