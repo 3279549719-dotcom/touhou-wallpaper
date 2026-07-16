@@ -16,16 +16,18 @@ import {
 } from "../services";
 import { clearAssetImageUrlCache } from "../lib/imageUrl";
 import { strings } from "../lib/strings";
+import { useWallpaperStore } from "../stores/wallpaperStore";
 
 export function useWallpaperApp() {
   const [manifest, setManifest] = useState<Manifest | null>(null);
   const [activeCharacterId, setActiveCharacterId] = useState("001");
   const [activeVariantIndex, setActiveVariantIndex] = useState(0);
-  const [favorites, setFavorites] = useState<Set<string>>(new Set());
-  const [favoritesOnly, setFavoritesOnly] = useState(false);
-  const [favoritesOnlyHint, setFavoritesOnlyHint] = useState<string | null>(
-    null,
-  );
+  const favoritesList = useWallpaperStore((s) => s.favorites);
+  const favoritesOnly = useWallpaperStore((s) => s.favoritesOnly);
+  const favoritesOnlyHint = useWallpaperStore((s) => s.favoritesOnlyHint);
+  const setFavorites = useWallpaperStore((s) => s.setFavorites);
+  const setFavoritesOnly = useWallpaperStore((s) => s.setFavoritesOnly);
+  const setFavoritesOnlyHint = useWallpaperStore((s) => s.setFavoritesOnlyHint);
   const [currentWallpaperPath, setCurrentWallpaperPath] = useState<string | null>(
     null,
   );
@@ -37,6 +39,8 @@ export function useWallpaperApp() {
   const [applyError, setApplyError] = useState<string | null>(null);
   const [needsDownload, setNeedsDownload] = useState(false);
   const [bootToken, setBootToken] = useState(0);
+
+  const favorites = useMemo(() => new Set(favoritesList), [favoritesList]);
 
   const reloadApp = useCallback(() => {
     clearAssetImageUrlCache();
@@ -73,7 +77,7 @@ export function useWallpaperApp() {
         setManifest(m);
         setCurrentWallpaperPath(wp || null);
         setCurrentWallpaperUrl(await wallpaperPathToImageUrl(wp || null));
-        setFavorites(new Set(fav));
+        setFavorites(fav);
         setFavoritesOnly(false);
         setFavoritesOnlyHint(null);
         if (m.characters.length > 0) {
@@ -90,7 +94,7 @@ export function useWallpaperApp() {
     return () => {
       cancelled = true;
     };
-  }, [bootToken]);
+  }, [bootToken, setFavorites, setFavoritesOnly, setFavoritesOnlyHint]);
 
   const activeCharacter = useMemo(
     () => manifest?.characters.find((c) => c.id === activeCharacterId) ?? null,
@@ -162,6 +166,8 @@ export function useWallpaperApp() {
     manifest,
     activeCharacterId,
     activeVariantIndex,
+    setFavoritesOnly,
+    setFavoritesOnlyHint,
   ]);
 
   const stepCharacter = useCallback(
@@ -264,7 +270,7 @@ export function useWallpaperApp() {
       : [];
     const updated = await apiToggleFavorite(previousFilename);
     const nextSet = new Set(updated);
-    setFavorites(nextSet);
+    setFavorites(updated);
 
     if (!favoritesOnly) return;
 
@@ -287,7 +293,15 @@ export function useWallpaperApp() {
         setActiveVariantIndex(pick.variantIndex);
       }
     }
-  }, [activeFilename, favoritesOnly, favorites, manifest]);
+  }, [
+    activeFilename,
+    favoritesOnly,
+    favorites,
+    manifest,
+    setFavorites,
+    setFavoritesOnly,
+    setFavoritesOnlyHint,
+  ]);
 
   const isFavorite = activeFilename ? favorites.has(activeFilename) : false;
 
