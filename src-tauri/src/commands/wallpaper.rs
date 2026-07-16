@@ -1,77 +1,10 @@
-use super::assets::resolve_image_file;
-
-#[cfg(target_os = "windows")]
-mod win {
-    use std::ffi::OsStr;
-    use std::os::windows::ffi::OsStrExt;
-    use std::path::Path;
-    use windows::Win32::UI::WindowsAndMessaging::{
-        SystemParametersInfoW, SPI_SETDESKWALLPAPER, SPIF_SENDWININICHANGE, SPIF_UPDATEINIFILE,
-    };
-    use winreg::enums::*;
-    use winreg::RegKey;
-
-    fn to_wide_null(path: &str) -> Vec<u16> {
-        OsStr::new(path)
-            .encode_wide()
-            .chain(std::iter::once(0))
-            .collect()
-    }
-
-    pub fn read_current_wallpaper() -> Result<String, String> {
-        let hkcu = RegKey::predef(HKEY_CURRENT_USER);
-        let desktop = hkcu
-            .open_subkey("Control Panel\\Desktop")
-            .map_err(|e| format!("Failed to open registry key: {e}"))?;
-        desktop
-            .get_value::<String, _>("Wallpaper")
-            .map_err(|e| format!("Failed to read Wallpaper registry value: {e}"))
-    }
-
-    pub fn apply_fit_style() -> Result<(), String> {
-        let hkcu = RegKey::predef(HKEY_CURRENT_USER);
-        let desktop = hkcu
-            .open_subkey_with_flags("Control Panel\\Desktop", KEY_SET_VALUE)
-            .map_err(|e| format!("Failed to open registry key for write: {e}"))?;
-        desktop
-            .set_value("WallpaperStyle", &"6")
-            .map_err(|e| format!("Failed to set WallpaperStyle: {e}"))?;
-        desktop
-            .set_value("TileWallpaper", &"0")
-            .map_err(|e| format!("Failed to set TileWallpaper: {e}"))?;
-        Ok(())
-    }
-
-    pub fn set_desktop_wallpaper(path: &Path) -> Result<(), String> {
-        let wide = to_wide_null(&path.to_string_lossy());
-        unsafe {
-            SystemParametersInfoW(
-                SPI_SETDESKWALLPAPER,
-                0,
-                Some(wide.as_ptr() as *mut _),
-                SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE,
-            )
-            .map_err(|e| format!("SystemParametersInfoW failed: {e}"))?;
-        }
-        apply_fit_style()?;
-        unsafe {
-            SystemParametersInfoW(
-                SPI_SETDESKWALLPAPER,
-                0,
-                Some(wide.as_ptr() as *mut _),
-                SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE,
-            )
-            .map_err(|e| format!("SystemParametersInfoW failed on refresh: {e}"))?;
-        }
-        Ok(())
-    }
-}
+use crate::services::assets;
 
 #[tauri::command]
 pub fn get_current_wallpaper() -> Result<String, String> {
     #[cfg(target_os = "windows")]
     {
-        return win::read_current_wallpaper();
+        return crate::services::registry::read_current_wallpaper();
     }
     #[cfg(not(target_os = "windows"))]
     {
@@ -81,11 +14,11 @@ pub fn get_current_wallpaper() -> Result<String, String> {
 
 #[tauri::command]
 pub fn set_wallpaper(filename: String) -> Result<(), String> {
-    let image_path = resolve_image_file(&filename)?;
+    let image_path = assets::resolve_image_file(&filename)?;
     #[cfg(target_os = "windows")]
     {
-        win::set_desktop_wallpaper(&image_path)?;
-        let current = win::read_current_wallpaper()?;
+        crate::services::registry::set_desktop_wallpaper(&image_path)?;
+        let current = crate::services::registry::read_current_wallpaper()?;
         let expected = image_path.to_string_lossy().to_string();
         if !paths_equal(&current, &expected) {
             return Err(format!(

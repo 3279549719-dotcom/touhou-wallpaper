@@ -1,4 +1,6 @@
 mod commands;
+mod models;
+mod services;
 
 use commands::assets::{get_assets_dir, get_manifest, resolve_image_path};
 use commands::download::{assets_ready, download_assets};
