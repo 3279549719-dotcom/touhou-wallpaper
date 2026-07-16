@@ -1,4 +1,4 @@
-import { strings } from "../lib/strings";
+import { strings } from "../../lib/strings";
 
 interface CharacterNavProps {
   characterLabel: string;

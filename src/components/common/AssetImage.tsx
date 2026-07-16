@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAssetImageUrl } from "../lib/imageUrl";
+import { getAssetImageUrl } from "../../lib/imageUrl";
 
 interface AssetImageProps {
   filename: string;

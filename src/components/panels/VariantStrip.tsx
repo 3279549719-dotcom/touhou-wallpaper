@@ -1,6 +1,6 @@
-import type { Character } from "../types/manifest";
-import { AssetImage } from "./AssetImage";
-import { strings } from "../lib/strings";
+import type { Character } from "../../types/manifest";
+import { AssetImage } from "../common/AssetImage";
+import { strings } from "../../lib/strings";
 
 interface VariantStripProps {
   character: Character | null;

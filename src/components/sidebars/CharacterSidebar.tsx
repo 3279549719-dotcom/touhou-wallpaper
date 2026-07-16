@@ -1,7 +1,7 @@
-import type { Character } from "../types/manifest";
-import { AssetImage } from "./AssetImage";
-import { characterLabel } from "../lib/grid";
-import { strings } from "../lib/strings";
+import type { Character } from "../../types/manifest";
+import { AssetImage } from "../common/AssetImage";
+import { characterLabel } from "../../lib/grid";
+import { strings } from "../../lib/strings";
 
 interface CharacterSidebarProps {
   characters: Character[];

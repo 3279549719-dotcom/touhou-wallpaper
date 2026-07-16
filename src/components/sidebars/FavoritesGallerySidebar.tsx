@@ -1,7 +1,7 @@
-import type { FavoriteGalleryItem } from "../lib/grid";
-import { favoriteGalleryLabel } from "../lib/grid";
-import { strings } from "../lib/strings";
-import { AssetImage } from "./AssetImage";
+import type { FavoriteGalleryItem } from "../../lib/grid";
+import { favoriteGalleryLabel } from "../../lib/grid";
+import { strings } from "../../lib/strings";
+import { AssetImage } from "../common/AssetImage";
 
 interface FavoritesGallerySidebarProps {
   items: FavoriteGalleryItem[];

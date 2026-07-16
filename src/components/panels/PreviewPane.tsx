@@ -1,5 +1,5 @@
-import { AssetImage } from "./AssetImage";
-import { strings } from "../lib/strings";
+import { AssetImage } from "../common/AssetImage";
+import { strings } from "../../lib/strings";
 
 interface PreviewPaneProps {
   characterLabel: string;
