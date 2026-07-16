@@ -13,7 +13,7 @@ import {
   setWallpaper,
   toggleFavorite as apiToggleFavorite,
   wallpaperPathToImageUrl,
-} from "../lib/tauri";
+} from "../services";
 import { clearAssetImageUrlCache } from "../lib/imageUrl";
 import { strings } from "../lib/strings";
 

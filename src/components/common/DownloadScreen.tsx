@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { strings } from "../lib/strings";
-import { downloadAssets } from "../lib/tauri";
+import { strings } from "../../lib/strings";
+import { downloadAssets } from "../../services";
 
 interface DownloadScreenProps {
   onComplete: () => void;
