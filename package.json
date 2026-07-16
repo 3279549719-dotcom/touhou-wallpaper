@@ -11,6 +11,7 @@
     "dev:autostart:start": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Start-ScheduledTask -TaskName TouhouWallpaperViteDev\"",
     "test": "vitest run",
     "test:watch": "vitest --watch",
+    "ci": "npm run check && npm test",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "check": "tsc -b --noEmit && python scripts/verify/verify_m0.py",
@@ -53,7 +54,10 @@
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.6.0",
+    "jsdom": "^29.1.1",
+    "@testing-library/jest-dom": "^6.9.1",
     "typescript": "~5.8.3",
-    "vite": "^7.0.4"
+    "vite": "^7.0.4",
+    "vitest": "^4.1.10"
   }
 }

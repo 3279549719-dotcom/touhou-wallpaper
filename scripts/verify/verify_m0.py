@@ -16,8 +16,8 @@ REQUIRED_FILES = [
     "src/App.tsx",
     "src/hooks/useWallpaperApp.ts",
     "src/lib/tauri.ts",
-    "src/components/CharacterSidebar.tsx",
-    "src/components/ActionBar.tsx",
+    "src/components/sidebars/CharacterSidebar.tsx",
+    "src/components/nav/ActionBar.tsx",
     "src-tauri/src/lib.rs",
     "scripts/build/download_assets.py",
 ]
