@@ -13,9 +13,10 @@
 | 字段 | 值 |
 |------|-----|
 | 阶段 | **Four Pillars MVP · D1（docs/scripts）** |
-| 分支 | `refactor/d1-docs-scripts` |
+| 分支 | `refactor/d1-docs-scripts` @ `8d865a0` |
 | GitHub | https://github.com/3279549719-dotcom/touhou-wallpaper |
-| 阻塞 | 无 |
+| PR | 分支已推送；用下面链接开 PR（token 无开 PR 权限） |
+| 阻塞 | 等你合并 D1 |
 
 ---
 
