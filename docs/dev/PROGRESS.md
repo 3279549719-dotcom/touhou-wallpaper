@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**Four Pillars D1 进行中：** 文档/脚本已重组到 `docs/`、`scripts/build|verify`；等 PR 合并。
+**Four Pillars D1–D3 已合入 master；D4（测试/CI）在 PR #4，冲突与 vitest 依赖已修好，等 Checks 绿后合并。**
 
 ---
 
@@ -12,11 +12,11 @@
 
 | 字段 | 值 |
 |------|-----|
-| 阶段 | **Four Pillars MVP · D1（docs/scripts）** |
-| 分支 | `refactor/d1-docs-scripts` @ `8d865a0` |
+| 阶段 | **Four Pillars · stage4 testing/CI** |
+| 分支 | `refactor/stage4-testing` @ `07575ce` |
 | GitHub | https://github.com/3279549719-dotcom/touhou-wallpaper |
-| PR | 分支已推送；用下面链接开 PR（token 无开 PR 权限） |
-| 阻塞 | 等你合并 D1 |
+| PR | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/4 |
+| 阻塞 | 等 PR #4 Checks 绿后由你 Merge；再合 #5/#6 |
 
 ---
 
@@ -27,24 +27,27 @@
 | M0–M9（V1） | [x] |
 | favorites-only-view | [x] 已实现并归档 |
 | Vite 开机自启 | [x] `npm run dev:autostart:on` |
-| Four Pillars D1 | [~] 文档/脚本重组；待 PR 合并 |
-| Four Pillars D2–D5 | [ ] |
+| Four Pillars D1 | [x] docs/scripts 已合 master |
+| Four Pillars D2 | [x] components/services 已合 master（PR #2） |
+| Four Pillars D3 | [x] Rust services/models 已合 master（PR #3） |
+| Four Pillars D4 | [~] Vitest + CI workflows；PR #4 |
+| Four Pillars D5 | [ ] |
 
 ---
 
 ## Recent changes
 
-- 2026-07-16：D1 — 文档迁入 `docs/{dev,spec,guide}`，脚本拆到 `scripts/{build,verify}`，脚手架 `services/` `stores/`
+- 2026-07-16：stage4 rebase 到 master；解决 package.json / vitest.config.ts；补 vitest/jsdom；本地 npm test (24) + build 通过
+- 2026-07-16：D1–D3 已合入 master（PR #1–#3）
 - 2026-07-14：Windows 任务计划开机自启 `npm run dev`（TouhouWallpaperViteDev）
 - 2026-07-14：归档 `favorites-only-view`；同步主规格 `favorites-gallery`
 - 2026-07-14：修多张收藏累加；按钮【取消收藏】；加强验收
-- 2026-07-13：实现【只看收藏】收藏夹模式
 
 ---
 
 ## Next
 
 ```
-合并 D1 PR 后：按计划做 D2（components panels/sidebars + services 抽取）。
-口令：执行 Four Pillars 计划 Task 2（D2）。
+Merge PR #4（Checks 绿后）→ 再 Merge #5 → #6。
+口令：合并 stage4 后继续 D5 / Zustand 或下一轮计划。
 ```
