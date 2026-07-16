@@ -7,7 +7,10 @@ import { defineConfig, type Plugin } from "vite";
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 const assetsDir = path.resolve(rootDir, "assets");
-const wallpaperService = path.resolve(rootDir, "scripts/wallpaper_service.py");
+const wallpaperService = path.resolve(
+  rootDir,
+  "scripts/build/wallpaper_service.py",
+);
 
 function runWallpaperService(args: string[]) {
   return spawnSync("python", [wallpaperService, ...args], {

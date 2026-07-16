@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Windows wallpaper helpers for dev API and CLI."""
 
 from __future__ import annotations
@@ -9,7 +9,7 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 IMAGES = ROOT / "assets" / "images"
 
 SPI_SETDESKTOPWALLPAPER = 20

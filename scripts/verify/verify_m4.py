@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """M4 favorites persistence verification."""
 
 from __future__ import annotations
@@ -11,7 +11,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 FAVORITES_RS = ROOT / "src-tauri" / "src" / "commands" / "favorites.rs"
 IMAGES = ROOT / "assets" / "images"
 USE_HOOK = ROOT / "src" / "hooks" / "useWallpaperApp.ts"

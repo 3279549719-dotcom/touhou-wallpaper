@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """M5 layout A: sidebar list + prev/next nav (wheel scroll only)."""
 
 from __future__ import annotations
@@ -7,7 +7,7 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 SIDEBAR = ROOT / "src/components/CharacterSidebar.tsx"
 NAV = ROOT / "src/components/CharacterNav.tsx"
 SHELL = ROOT / "src/components/layout/AppShell.tsx"

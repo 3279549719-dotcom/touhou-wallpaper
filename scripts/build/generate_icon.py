@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Generate Tauri app icons from 088_00.png (Nagae Iku default tachie)."""
 
 from __future__ import annotations
@@ -8,7 +8,7 @@ import sys
 import zlib
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 SOURCE = ROOT / "assets" / "images" / "088_00.png"
 ICONS_DIR = ROOT / "src-tauri" / "icons"
 
