@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """M2 Rust assets + manifest path verification."""
 
 from __future__ import annotations
@@ -9,7 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 ASSETS = ROOT / "assets"
 MANIFEST = ASSETS / "manifest.json"
 ID_NAME = ASSETS / "id-name.json"
@@ -52,7 +52,7 @@ def ensure_manifest() -> None:
     if MANIFEST.exists():
         return
     assert ID_NAME.exists(), (
-        f"Missing {MANIFEST} and {ID_NAME} — run python scripts/download_assets.py"
+        f"Missing {MANIFEST} and {ID_NAME} — run python scripts/build/download_assets.py"
     )
     raw = json.loads(ID_NAME.read_text(encoding="utf-8"))
     manifest = build_manifest_from_id_name(raw)

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """M9 release: installer + first-run download + icon."""
 
 from __future__ import annotations
@@ -7,7 +7,7 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 
 
 def check_icon_assets() -> None:
@@ -70,7 +70,7 @@ def check_user_assets_path() -> None:
 
 
 def check_rename_script() -> None:
-    script = (ROOT / "scripts/rename_installer.py").read_text(encoding="utf-8")
+    script = (ROOT / "scripts/build/rename_installer.py").read_text(encoding="utf-8")
     assert "东方壁纸_Setup.exe" in script
     print("M9 verify: installer rename script OK")
 

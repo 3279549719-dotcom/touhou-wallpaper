@@ -1,5 +1,5 @@
-#!/usr/bin/env python3
-"""M0 scaffold verification. Run: python scripts/verify_m0.py"""
+﻿#!/usr/bin/env python3
+"""M0 scaffold verification. Run: python scripts/verify/verify_m0.py"""
 
 from __future__ import annotations
 
@@ -7,11 +7,11 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 
 REQUIRED_FILES = [
-    "ARCHITECTURE.md",
-    "VERIFY.md",
+    "docs/dev/ARCHITECTURE.md",
+    "docs/dev/VERIFY.md",
     "package.json",
     "src/App.tsx",
     "src/hooks/useWallpaperApp.ts",
@@ -19,7 +19,7 @@ REQUIRED_FILES = [
     "src/components/CharacterSidebar.tsx",
     "src/components/ActionBar.tsx",
     "src-tauri/src/lib.rs",
-    "scripts/download_assets.py",
+    "scripts/build/download_assets.py",
 ]
 
 REQUIRED_PACKAGE_SCRIPTS = ["check", "dev", "verify:m0"]

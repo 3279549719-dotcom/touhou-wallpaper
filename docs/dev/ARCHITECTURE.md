@@ -42,13 +42,12 @@ flowchart TB
 
 ```text
 touhou-wallpaper/
-  ARCHITECTURE.md          # this file
-  VERIFY.md                # how to self-test each module (plain Chinese)
+  docs/dev/ARCHITECTURE.md # this file
+  docs/dev/VERIFY.md       # how to self-test each module (plain Chinese)
   src/                     # React UI
   src-tauri/               # Rust commands (requires Rust toolchain)
-  scripts/
-    download_assets.py
-    verify_m0.py ... verify_m8.py
+  scripts/build/           # download, icon, installer rename, autostart
+  scripts/verify/          # verify_m0.py ... verify_m9.py
   assets/                  # gitignored images; manifest after M1
   tests/                   # optional tmp_verify during dev
 ```
@@ -76,16 +75,16 @@ touhou-wallpaper/
 
 | Module | Scope | Verify script |
 |--------|-------|---------------|
-| M0 | Full scaffold, layout shell, stubs | `scripts/verify_m0.py` |
-| M1 | `download_assets.py` complete | `scripts/verify_m1.py` |
-| M2 | Rust paths + manifest commands | `scripts/verify_m2.py` |
-| M3 | Wallpaper get/set | `scripts/verify_m3.py` |
-| M4 | Favorites persist | `scripts/verify_m4.py` |
-| M5 | CharacterSidebar + ‹ › nav (wheel scroll only) | `scripts/verify_m5.py` |
-| M6 | Preview + variant strip | `scripts/verify_m6.py` |
-| M7 | ActionBar (apply / favorite / random) | `scripts/verify_m7.py` |
-| M8 | Theme polish + full PRD pass | `scripts/verify_m8.py` |
-| M9 | Release installer + first-run download | `scripts/verify_m9.py` |
+| M0 | Full scaffold, layout shell, stubs | `scripts/verify/verify_m0.py` |
+| M1 | `download_assets.py` complete | `scripts/verify/verify_m1.py` |
+| M2 | Rust paths + manifest commands | `scripts/verify/verify_m2.py` |
+| M3 | Wallpaper get/set | `scripts/verify/verify_m3.py` |
+| M4 | Favorites persist | `scripts/verify/verify_m4.py` |
+| M5 | CharacterSidebar + ‹ › nav (wheel scroll only) | `scripts/verify/verify_m5.py` |
+| M6 | Preview + variant strip | `scripts/verify/verify_m6.py` |
+| M7 | ActionBar (apply / favorite / random) | `scripts/verify/verify_m7.py` |
+| M8 | Theme polish + full PRD pass | `scripts/verify/verify_m8.py` |
+| M9 | Release installer + first-run download | `scripts/verify/verify_m9.py` |
 
 ## Harness loop (Agent)
 

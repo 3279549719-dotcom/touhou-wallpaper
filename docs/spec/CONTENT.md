@@ -26,7 +26,7 @@ Structured copy and theme. No fabricated personal data.
 | favorites_only_empty | 请至少收藏一张图片 |
 | label_favorites_gallery | 收藏 |
 | download_hint | 首次使用请运行下载脚本获取立绘资源 |
-| empty_assets | 未找到立绘资源，请执行 python scripts/download_assets.py |
+| empty_assets | 未找到立绘资源，请执行 python scripts/build/download_assets.py |
 
 ## Theme (blue-white)
 

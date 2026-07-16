@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Copy/rename Tauri NSIS output to 东方壁纸_Setup.exe."""
 
 from __future__ import annotations
@@ -7,7 +7,7 @@ import shutil
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 BUNDLE_DIR = ROOT / "src-tauri" / "target" / "release" / "bundle" / "nsis"
 OUTPUT_DIR = ROOT / "dist" / "release"
 TARGET_NAME = "东方壁纸_Setup.exe"

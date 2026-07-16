@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """M8 full harness acceptance: run all module verifies + MVP static checks."""
 
 from __future__ import annotations
@@ -8,7 +8,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 SRC = ROOT / "src"
 MANIFEST = ROOT / "assets/manifest.json"
 
@@ -40,7 +40,7 @@ def run_tsc() -> None:
 
 def run_all_module_verifies() -> None:
     for script in MODULE_SCRIPTS:
-        path = ROOT / "scripts" / script
+        path = ROOT / "scripts" / "verify" / script
         assert path.is_file(), f"Missing {path}"
         result = subprocess.run(
             [sys.executable, str(path)],
@@ -57,7 +57,13 @@ def run_all_module_verifies() -> None:
 
 
 def check_docs_and_progress() -> None:
-    for name in ["PRD.md", "ARCHITECTURE.md", "PROGRESS.md", "VERIFY.md", "README.md"]:
+    for name in [
+        "docs/spec/PRD.md",
+        "docs/dev/ARCHITECTURE.md",
+        "docs/dev/PROGRESS.md",
+        "docs/dev/VERIFY.md",
+        "README.md",
+    ]:
         assert (ROOT / name).is_file(), f"Missing {name}"
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     assert "Windows" in readme, "README must state Windows target"

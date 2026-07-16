@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """M7 action bar rules: apply/favorite/random; only Apply sets wallpaper."""
 
 from __future__ import annotations
@@ -7,7 +7,7 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 HOOK = ROOT / "src/hooks/useWallpaperApp.ts"
 APP = ROOT / "src/App.tsx"
 ACTION = ROOT / "src/components/ActionBar.tsx"

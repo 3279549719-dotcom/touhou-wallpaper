@@ -1,8 +1,8 @@
-# Register a Windows Scheduled Task to start the Vite dev server at user logon.
+﻿# Register a Windows Scheduled Task to start the Vite dev server at user logon.
 
 $ErrorActionPreference = "Stop"
 
-$ProjectRoot = Split-Path -Parent $PSScriptRoot
+$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $StartScript = Join-Path $PSScriptRoot "start_dev_server.ps1"
 $TaskName = "TouhouWallpaperViteDev"
 $Powershell = "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe"

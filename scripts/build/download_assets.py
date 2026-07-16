@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Download THPDP tachie assets 001-131 from thpdp.ver.moe. Module M1."""
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ except ImportError:
     subprocess.check_call([sys.executable, "-m", "pip", "install", "tqdm", "-q"])
     from tqdm import tqdm
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 ASSETS_DIR = ROOT / "assets"
 IMAGES_DIR = ASSETS_DIR / "images"
 BASE_URL = "https://thpdp.ver.moe"

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Favorites-only gallery mode (OpenSpec favorites-only-view) verification."""
 
 from __future__ import annotations
@@ -7,8 +7,8 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
-CONTENT = ROOT / "CONTENT.md"
+ROOT = Path(__file__).resolve().parent.parent.parent
+CONTENT = ROOT / "docs/spec/CONTENT.md"
 STRINGS = ROOT / "src/lib/strings.ts"
 GRID = ROOT / "src/lib/grid.ts"
 FAVORITES_LIB = ROOT / "src/lib/favorites.ts"
@@ -18,7 +18,7 @@ APP = ROOT / "src/App.tsx"
 ACTION_BAR = ROOT / "src/components/ActionBar.tsx"
 SIDEBAR = ROOT / "src/components/CharacterSidebar.tsx"
 GALLERY = ROOT / "src/components/FavoritesGallerySidebar.tsx"
-PRD = ROOT / "PRD.md"
+PRD = ROOT / "docs/spec/PRD.md"
 
 
 def read(path: Path) -> str:

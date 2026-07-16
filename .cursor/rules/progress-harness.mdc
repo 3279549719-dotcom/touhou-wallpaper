@@ -7,7 +7,7 @@ alwaysApply: true
 
 ## Design principle
 
-- **Pulse (volatile)**: [PROGRESS.md](PROGRESS.md) — current status, blockers, next action.
+- **Pulse (volatile)**: [docs/dev/PROGRESS.md](../../docs/dev/PROGRESS.md) — current status, blockers, next action.
 - **Contracts (stable)**: PRD / TECH_DESIGN / ARCHITECTURE — change only when decisions change.
 - **Door / nav**: README / AGENTS — change only when how-to-use or agent map drifts.
 - Do **not** treat every small code tweak as a reason to rewrite all docs.
@@ -16,14 +16,14 @@ alwaysApply: true
 
 | Topic | File | Update when |
 |-------|------|-------------|
-| Current pulse + next | PROGRESS.md | Every session with real progress |
-| What / acceptance | PRD.md | Requirements change |
-| Stack / APIs | TECH_DESIGN.md | Tech decisions change |
-| Module slices + verify | ARCHITECTURE.md | Modules added/removed/renamed |
-| Agent short nav | AGENTS.md | Nav/commands/rules drift |
+| Current pulse + next | docs/dev/PROGRESS.md | Every session with real progress |
+| What / acceptance | docs/spec/PRD.md | Requirements change |
+| Stack / APIs | docs/dev/TECH_DESIGN.md | Tech decisions change |
+| Module slices + verify | docs/dev/ARCHITECTURE.md | Modules added/removed/renamed |
+| Agent short nav | docs/dev/AGENTS.md | Nav/commands/rules drift |
 | Human how-to | README.md | Install/use/share flow changes |
 
-New chat: read **PROGRESS.md** first (see AGENTS.md). Do not dump full PRD/TECH into context unless the task needs them.
+New chat: read **docs/dev/PROGRESS.md** first (see docs/dev/AGENTS.md). Do not dump full PRD/TECH into context unless the task needs them.
 
 ## When to update PROGRESS.md (mandatory)
 

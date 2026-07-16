@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """M1 download + manifest verification."""
 
 from __future__ import annotations
@@ -7,7 +7,7 @@ import json
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 MANIFEST = ROOT / "assets" / "manifest.json"
 IMAGES = ROOT / "assets" / "images"
 MIN_CHARACTERS = 126
@@ -15,7 +15,7 @@ MIN_IMAGES = 591
 
 
 def main() -> int:
-    assert MANIFEST.exists(), f"Missing {MANIFEST} — run python scripts/download_assets.py"
+    assert MANIFEST.exists(), f"Missing {MANIFEST} — run python scripts/build/download_assets.py"
     data = json.loads(MANIFEST.read_text(encoding="utf-8"))
     chars = data.get("characters", [])
     assert len(chars) >= MIN_CHARACTERS, (

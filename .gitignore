@@ -24,3 +24,11 @@ Thumbs.db
 logs/
 _tmp_*
 *.tmp
+
+# Test coverage
+coverage/
+
+# Python
+__pycache__/
+*.py[cod]
+

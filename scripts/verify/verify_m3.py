@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """M3 Windows wallpaper get/set verification."""
 
 from __future__ import annotations
@@ -9,7 +9,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 WALLPAPER_RS = ROOT / "src-tauri" / "src" / "commands" / "wallpaper.rs"
 IMAGES = ROOT / "assets" / "images"
 USE_HOOK = ROOT / "src" / "hooks" / "useWallpaperApp.ts"
@@ -45,7 +45,7 @@ def check_dev_wallpaper_api() -> None:
     tauri_ts = (ROOT / "src" / "lib" / "tauri.ts").read_text(encoding="utf-8")
     assert "wallpaperDevApi" in vite, "vite dev wallpaper API missing"
     assert "/api/wallpaper" in tauri_ts, "frontend must call /api/wallpaper in dev mode"
-    service = ROOT / "scripts" / "wallpaper_service.py"
+    service = ROOT / "scripts" / "build" / "wallpaper_service.py"
     assert service.exists(), f"Missing {service}"
     print("M3 verify: dev wallpaper API wiring OK")
     hook = USE_HOOK.read_text(encoding="utf-8")
@@ -153,7 +153,7 @@ def check_service_roundtrip() -> None:
     original = read_registry_wallpaper()
     try:
         result = subprocess.run(
-            [sys.executable, str(ROOT / "scripts" / "wallpaper_service.py"), "set", sample],
+            [sys.executable, str(ROOT / "scripts" / "build" / "wallpaper_service.py"), "set", sample],
             cwd=ROOT,
             capture_output=True,
             text=True,

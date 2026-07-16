@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """M6 preview pane + variant strip verification."""
 
 from __future__ import annotations
@@ -8,7 +8,7 @@ import re
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 HOOK = ROOT / "src/hooks/useWallpaperApp.ts"
 APP = ROOT / "src/App.tsx"
 PREVIEW = ROOT / "src/components/PreviewPane.tsx"

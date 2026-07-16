@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Apply a local THPDP image as Windows desktop wallpaper (M3 helper)."""
 
 from __future__ import annotations
@@ -7,7 +7,7 @@ import argparse
 import sys
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parent.parent
+ROOT = Path(__file__).resolve().parent.parent.parent
 IMAGES = ROOT / "assets" / "images"
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
@@ -31,7 +31,7 @@ def main() -> int:
     image_path = IMAGES / args.filename
     if not image_path.is_file():
         print(f"Image not found: {image_path}", file=sys.stderr)
-        print("Run: python scripts/download_assets.py", file=sys.stderr)
+        print("Run: python scripts/build/download_assets.py", file=sys.stderr)
         return 1
 
     after = set_wallpaper_filename(args.filename)

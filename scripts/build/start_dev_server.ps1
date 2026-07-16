@@ -1,9 +1,9 @@
-# Start Vite dev server for local UI preview (http://localhost:1420).
+﻿# Start Vite dev server for local UI preview (http://localhost:1420).
 # Used by the Windows logon scheduled task. English-only comments.
 
 $ErrorActionPreference = "Stop"
 
-$ProjectRoot = Split-Path -Parent $PSScriptRoot
+$ProjectRoot = (Resolve-Path (Join-Path $PSScriptRoot "..\..")).Path
 $LogDir = Join-Path $ProjectRoot "logs"
 $LogFile = Join-Path $LogDir "dev-autostart.log"
 $NpmCmd = "C:\Program Files\nodejs\npm.cmd"
