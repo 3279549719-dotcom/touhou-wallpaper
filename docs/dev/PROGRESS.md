@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**D1–D4 与踩坑笔记已进 master。** Zustand 收藏状态在 PR 中；合完后开 master 分支保护（要求 Actions `test` 通过）。
+**Zustand 在 [PR #10](https://github.com/3279549719-dotcom/touhou-wallpaper/pull/10)（等你 Merge）。** master 已要求 Actions 检查 `test` 通过才能合。
 
 ---
 
@@ -12,10 +12,10 @@
 
 | 字段 | 值 |
 |------|-----|
-| 阶段 | **Four Pillars · Zustand（原计划 D3）** |
+| 阶段 | **Four Pillars · Zustand PR + 分支保护** |
 | 分支 | `feat/d3-zustand-favorites` |
-| GitHub | https://github.com/3279549719-dotcom/touhou-wallpaper |
-| 阻塞 | 等 Zustand PR Checks 绿后由你 Merge |
+| PR | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/10 |
+| 阻塞 | 等 Checks 绿后由你 Merge #10 |
 
 ---
 
@@ -31,8 +31,8 @@
 | Four Pillars D3 Rust services/models | [x] PR #3 |
 | Four Pillars D4 Vitest + CI | [x] PR #4 |
 | progress / TROUBLESHOOTING | [x] PR #5 / #6 |
-| Zustand 收藏 UI 状态 | [~] `feat/d3-zustand-favorites` |
-| master 分支保护（要求 test） | [ ] |
+| Zustand 收藏 UI 状态 | [~] [PR #10](https://github.com/3279549719-dotcom/touhou-wallpaper/pull/10) |
+| master 分支保护（要求 test） | [x] 已 API 开启（strict + contexts: test） |
 
 ---
 
@@ -47,7 +47,7 @@
 ## Next
 
 ```
-Merge Zustand PR（Checks 绿后）。
-确认 Settings → Branches：master 要求 status check「test」。
-可选：本机 npm run test:watch 养成习惯。
+Merge PR #10（Checks 绿后）。
+Settings → Branches 确认 master 要求 status check「test」。
+可选：本机 npm run test:watch。
 ```
