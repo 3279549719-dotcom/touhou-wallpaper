@@ -13,7 +13,7 @@
 | 字段 | 值 |
 |------|-----|
 | 阶段 | **Four Pillars · stage4 testing/CI** |
-| 分支 | `refactor/stage4-testing` @ `07575ce` |
+| 分支 | `refactor/stage4-testing` |
 | GitHub | https://github.com/3279549719-dotcom/touhou-wallpaper |
 | PR | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/4 |
 | 阻塞 | 等 PR #4 Checks 绿后由你 Merge；再合 #5/#6 |
@@ -37,7 +37,8 @@
 
 ## Recent changes
 
-- 2026-07-16：stage4 rebase 到 master；解决 package.json / vitest.config.ts；补 vitest/jsdom；本地 npm test (24) + build 通过
+- 2026-07-16：stage4 — rebase + vitest/jsdom；修 verify_m0 组件路径（CI Verify M0）；本地 test/build/M0 通过
+- 2026-07-16：stage4 rebase 到 master；解决 package.json / vitest.config.ts；补 vitest/jsdom
 - 2026-07-16：D1–D3 已合入 master（PR #1–#3）
 - 2026-07-14：Windows 任务计划开机自启 `npm run dev`（TouhouWallpaperViteDev）
 - 2026-07-14：归档 `favorites-only-view`；同步主规格 `favorites-gallery`
