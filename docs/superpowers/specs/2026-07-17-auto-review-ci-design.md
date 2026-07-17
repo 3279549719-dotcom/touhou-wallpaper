@@ -1,7 +1,7 @@
 # Design: Auto Review CI (Cursor Agent + GitHub Actions)
 
 > Date: 2026-07-17  
-> Status: Draft for user review  
+> Status: Approved — MVP implementation in progress  
 > Project: touhou-wallpaper  
 > Audience: Patrick (non-programmer owner) + implementing agent
 
