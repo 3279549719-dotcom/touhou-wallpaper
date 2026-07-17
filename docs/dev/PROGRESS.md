@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**Auto Review MVP 在分支 `ci/auto-review-mvp`：门牌 AGENTS + 审查 workflow 已落地，待 push / 开 PR 试跑。**
+**Auto Review MVP 已 push，PR 待 Actions 出审查评论。** 分支 `ci/auto-review-mvp`。
 
 ---
 
@@ -12,10 +12,10 @@
 
 | 字段 | 值 |
 |------|-----|
-| 阶段 | **Auto review · MVP 实现中** |
+| 阶段 | **Auto review · 等首次 PR 试跑** |
 | 设计 | [docs/superpowers/specs/2026-07-17-auto-review-ci-design.md](../superpowers/specs/2026-07-17-auto-review-ci-design.md) |
 | 分支 | `ci/auto-review-mvp` |
-| 阻塞 | 需 push 并开 PR，才能验证 Agent 评论 |
+| 阻塞 | 等 Actions / Agent 评论出现 |
 
 ---
 
