@@ -65,6 +65,51 @@ jobs:
           export PATH="$HOME/.local/bin:$PATH"
           agent --version
 
+      # #region agent log — key diagnostics (never print secret value)
+      - name: Debug CURSOR_API_KEY shape
+        id: keydiag
+        env:
+          CURSOR_API_KEY: ${{ secrets.CURSOR_API_KEY }}
+        run: |
+          set +e
+          python3 << 'PY'
+          import json, os, time, urllib.request, base64
+          key = os.environ.get("CURSOR_API_KEY") or ""
+          trimmed = key.strip()
+          shape = {
+            "present": bool(key),
+            "length": len(key),
+            "trimmed_length": len(trimmed),
+            "length_diff": len(key) - len(trimmed),
+            "prefix4": key[:4] if key else "",
+            "prefix5": key[:5] if key else "",
+            "has_whitespace": any(c.isspace() for c in key),
+            "starts_crsr": key.startswith("crsr_"),
+            "trimmed_starts_crsr": trimmed.startswith("crsr_"),
+          }
+          print("DEBUG_KEY_SHAPE " + json.dumps(shape))
+          status = None
+          body_prefix = ""
+          try:
+            req = urllib.request.Request("https://api.cursor.com/v1/me")
+            token = base64.b64encode(f"{trimmed}:".encode()).decode()
+            req.add_header("Authorization", f"Basic {token}")
+            with urllib.request.urlopen(req, timeout=60) as resp:
+              status = resp.status
+              body_prefix = resp.read()[:120].decode("utf-8", "replace")
+          except Exception as exc:
+            if hasattr(exc, "code"):
+              status = exc.code
+              try:
+                body_prefix = exc.read()[:120].decode("utf-8", "replace")
+              except Exception:
+                body_prefix = str(exc)[:120]
+            else:
+              body_prefix = str(exc)[:120]
+          print("DEBUG_API_ME " + json.dumps({"status": status, "body_prefix": body_prefix}))
+          PY
+      # #endregion
+
       - name: Cursor Agent analyze and review
         id: agent
         env:
@@ -72,10 +117,14 @@ jobs:
         run: |
           set -e
           export PATH="$HOME/.local/bin:$PATH"
+          # Strip accidental whitespace/newlines from secret paste
+          CURSOR_API_KEY="$(printf '%s' "${CURSOR_API_KEY}" | tr -d '\r\n' | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
+          export CURSOR_API_KEY
           if [ -z "${CURSOR_API_KEY}" ]; then
             echo "CURSOR_API_KEY secret is missing" >&2
             exit 1
           fi
+          echo "DEBUG_AGENT_KEY_LEN=${#CURSOR_API_KEY} prefix5=${CURSOR_API_KEY:0:5}"
           PROMPT="$(cat .github/cursor-agent-review-prompt.md)"
           # Capture stdout as the report. No --force: agent must not edit the repo.
           agent -p --trust --output-format text "$PROMPT" > agent-report.md
