@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**Auto Review MVP 已 push，PR 待 Actions 出审查评论。** 分支 `ci/auto-review-mvp`。
+**Auto Review MVP 已跑通（PR #11 有英文审查评论）。** Secret 已与本地有效 key 同步；调试埋点已清理。
 
 ---
 
@@ -12,10 +12,10 @@
 
 | 字段 | 值 |
 |------|-----|
-| 阶段 | **Auto review · 等首次 PR 试跑** |
-| 设计 | [docs/superpowers/specs/2026-07-17-auto-review-ci-design.md](../superpowers/specs/2026-07-17-auto-review-ci-design.md) |
+| 阶段 | **Auto review · MVP 验证通过，可 Merge #11** |
+| PR | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/11 |
 | 分支 | `ci/auto-review-mvp` |
-| 阻塞 | **CURSOR_API_KEY 无效** — Agent 步骤失败；需在 Dashboard 重新生成并更新 GitHub Secret |
+| 阻塞 | 无 |
 
 ---
 
@@ -29,13 +29,14 @@
 | Four Pillars D1–D4 / docs | [x] |
 | Zustand 收藏 UI 状态 | [x] 已合入 master（PR #10） |
 | master 分支保护（要求 test） | [x] |
-| Cursor Agent 自动审查 MVP | [~] 本分支已实现；待 PR 试跑 |
+| Cursor Agent 自动审查 MVP | [x] PR #11 试跑通过（英文评论） |
 
 ---
 
 ## Recent changes
 
-- 2026-07-17：MVP — 根目录 `AGENTS.md`、审查 prompt、精简 `cursor-agent-review.yml`（tsc+vitest+英文评论）
+- 2026-07-17：修好无效 CURSOR_API_KEY（同步 Secret）；清理 CI 调试埋点
+- 2026-07-17：MVP — 根目录 `AGENTS.md`、审查 prompt、精简 `cursor-agent-review.yml`
 - 2026-07-17：设计稿 `2026-07-17-auto-review-ci-design.md`
 - 2026-07-17：合入 Zustand PR #10
 
@@ -44,5 +45,6 @@
 ## Next
 
 ```
-push 分支 ci/auto-review-mvp 并开 PR 到 master，确认 Actions 出现 Cursor Agent Review 评论。
+审阅并 Merge PR #11（https://github.com/3279549719-dotcom/touhou-wallpaper/pull/11）。
+可选：阶段二有限自动修（需另开设计）。
 ```
