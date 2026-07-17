@@ -15,7 +15,7 @@
 | 阶段 | **Auto review · 等首次 PR 试跑** |
 | 设计 | [docs/superpowers/specs/2026-07-17-auto-review-ci-design.md](../superpowers/specs/2026-07-17-auto-review-ci-design.md) |
 | 分支 | `ci/auto-review-mvp` |
-| 阻塞 | 等 Actions / Agent 评论出现 |
+| 阻塞 | **CURSOR_API_KEY 无效** — Agent 步骤失败；需在 Dashboard 重新生成并更新 GitHub Secret |
 
 ---
 
