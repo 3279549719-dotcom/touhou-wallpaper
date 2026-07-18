@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**角色搜索 PR #12 已按 Agent 建议做完抛光并推送；等新一轮 Auto Review / Merge。**
+**角色搜索 PR #12：Blocking ‹ › 越界步进已修；等 CI 全绿后由人 Merge。**
 
 ---
 
@@ -12,12 +12,12 @@
 
 | 字段 | 值 |
 |------|-----|
-| 阶段 | **Character search · PR 已开，等 Auto Review** |
-| 分支 | `feature/character-search` @ `efe5bb5` |
+| 阶段 | **Character search · merge-ready 收尾** |
+| 分支 | `feature/character-search` @ `9d4d53a` |
 | PR | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12 |
 | 设计 | [2026-07-18-character-search-design.md](../superpowers/specs/2026-07-18-character-search-design.md) |
 | Plan | [2026-07-18-character-search.md](../superpowers/plans/2026-07-18-character-search.md) |
-| 阻塞 | 等人看 PR Checks / Agent 评论；手感验收可选 |
+| 阻塞 | 无代码阻塞；等人 Merge（不自动合） |
 
 ---
 
@@ -29,14 +29,15 @@
 | favorites-only-view | [x] |
 | Cursor Agent 自动审查 MVP | [x] PR #11 已合入 master |
 | 测试归属流程（AGENTS/VERIFY） | [x] |
-| 角色搜索（侧栏过滤） | [~] 实现完成；手感/PR 待确认 |
+| 角色搜索（侧栏过滤） | [~] 实现 + Auto Review 反馈已处理；待人 Merge |
 
 ---
 
 ## Recent changes
 
-- 2026-07-18：实现角色名搜索 + working-set 导航 + Vitest + verify 脚本
-- 2026-07-18：设计稿 + 实现 plan + 测试归属写入 AGENTS/VERIFY
+- 2026-07-18：修 `stepInList` 越界首次步进跳过首项；空收藏进 favorites-only 不误清搜索
+- 2026-07-18：抛光 trim/clear aria/VERIFY；开 PR #12
+- 2026-07-18：实现角色名搜索 + working-set 导航 + Vitest + verify
 - 2026-07-18：PR #11 Auto Review MVP 合入 master
 
 ---
@@ -45,5 +46,5 @@
 
 ```
 打开 https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12
-看 Checks 与 Cursor Agent Review 英文评论；通过后 Merge。
+确认 Checks 全绿后 Merge（人合；勿自动合）。
 ```
