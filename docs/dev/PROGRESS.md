@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**#17 已合入（去掉旧 Test）；绿 #18 / 红 #19 复验已开，等 Actions。**
+**Stage 2 Autofix + harden 已验证合入；下一步做「清空搜索」小功能。**
 
 ---
 
@@ -12,11 +12,11 @@
 
 | 字段 | 值 |
 |------|-----|
-| 阶段 | **Stage 2 harden · 绿/红复验中** |
-| 分支 | `master` @ `e50d363`（#17 已合） |
-| 绿验证 | [#18](https://github.com/3279549719-dotcom/touhou-wallpaper/pull/18) |
-| 红验证 | [#19](https://github.com/3279549719-dotcom/touhou-wallpaper/pull/19) |
-| 阻塞 | 等 #18 / #19 Actions；通过后做清空搜索 |
+| 阶段 | **V1 产品小迭代 · 清空搜索待做** |
+| 分支 | `master` @ `838ca53`（#20 已合） |
+| CI | 仅 Autofix（job id `test`）；旧 `test.yml` 已删 |
+| 交接 | [HANDOFF_stage2-autofix-harden_2026-07-18.md](../handoffs/HANDOFF_stage2-autofix-harden_2026-07-18.md) |
+| 阻塞 | 无 |
 
 ---
 
@@ -27,23 +27,22 @@
 | 角色搜索 | [x] |
 | Cursor Agent 审查 Stage 1 | [x]（手动） |
 | Stage 2 红测自动修（N=3） | [x] |
-| Stage 2 CI harden（无日志污染 / 只留 Autofix） | [x]（#17） |
+| Stage 2 CI harden | [x]（#17；绿 #18 / TDD 红 #20） |
 | 清空搜索 | [ ] |
 
 ---
 
 ## Recent changes
 
-- 2026-07-18：开绿 #18 / 红 #19 复验 PR
-- 2026-07-18：#17 合入（删 test.yml；Autofix job id=`test`）
-- 2026-07-18：Stage 2 autofix MVP 合入并验证
+- 2026-07-18：#20 TDD 红测合入（搜索 substring 回归由 Autofix 修好）
+- 2026-07-18：#17 合入（删 Test 工作流；Required `test` = Autofix）
+- 2026-07-18：Stage 2 autofix MVP + 绿/红验证
 
 ---
 
 ## Next
 
 ```
-看 #18：Autofix 绿 + skip CLI；Required test 成功。
-看 #19：自动修 ≤3；bot 提交里无临时日志文件。
-两边 OK 后：开 feature/clear-search。
+实现 feature/clear-search：有搜索文字时显示清空；一点恢复完整列表；Vitest + CONTENT/strings。
+先读 docs/handoffs/HANDOFF_stage2-autofix-harden_2026-07-18.md 与 docs/dev/PROGRESS.md。
 ```
