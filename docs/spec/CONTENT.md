@@ -25,6 +25,11 @@ Structured copy and theme. No fabricated personal data.
 | btn_favorites_only | 只看收藏 |
 | favorites_only_empty | 请至少收藏一张图片 |
 | label_favorites_gallery | 收藏 |
+| search_placeholder | 搜索角色名 |
+| search_empty_characters | 没有匹配的角色 |
+| search_empty_favorites | 没有匹配的收藏 |
+| search_active_hint | 当前在搜索结果中浏览；清空搜索后恢复全部。 |
+| search_clear_aria | 清空搜索 |
 | download_hint | 首次使用请运行下载脚本获取立绘资源 |
 | empty_assets | 未找到立绘资源，请执行 python scripts/build/download_assets.py |
 

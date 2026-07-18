@@ -18,7 +18,7 @@ A personal **Windows desktop** wallpaper app for 幻想人形演舞 (THPDP) char
 
 ### P1 (future / in progress)
 
-- Search character by name/ID
+- **Search character by name** — sidebar filter-as-you-type (name contains; not ID); see design `2026-07-18-character-search-design.md` — [x] implemented
 - **Favorites-only browse view（收藏夹模式 C）** — see acceptance row below; OpenSpec change `favorites-only-view`
 - Scheduled auto-rotate
 - Tray icon / minimize to tray

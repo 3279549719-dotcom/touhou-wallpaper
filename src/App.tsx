@@ -32,9 +32,10 @@ export default function App() {
     return <p className="muted">Error: {app.error}</p>;
   }
 
-  const characters = app.manifest?.characters ?? [];
-  const assetsReady = characters.length >= 126;
-  const gallery = app.favoritesGallery;
+  const allCharacters = app.manifest?.characters ?? [];
+  const characters = app.visibleCharacters;
+  const assetsReady = allCharacters.length >= 126;
+  const gallery = app.visibleFavoritesGallery;
 
   const label = app.favoritesOnly
     ? app.activeFilename && app.activeCharacter
@@ -60,7 +61,7 @@ export default function App() {
       {!assetsReady && <EmptyAssetsBanner />}
       <AppShell
         sidebar={
-          characters.length > 0 ? (
+          allCharacters.length > 0 ? (
             app.favoritesOnly ? (
               <FavoritesGallerySidebar
                 items={gallery}
@@ -69,6 +70,11 @@ export default function App() {
                 favoritesOnlyHint={app.favoritesOnlyHint}
                 onToggleFavoritesOnly={app.toggleFavoritesOnly}
                 onSelectFilename={app.selectFavoriteFilename}
+                searchQuery={app.searchQuery}
+                onSearchQueryChange={app.setSearchQuery}
+                onClearSearch={app.clearSearch}
+                searchShowHint={app.isSearching}
+                searchEmptyMessage={app.searchEmptyMessage}
               />
             ) : (
               <CharacterSidebar
@@ -78,6 +84,11 @@ export default function App() {
                 favoritesOnlyHint={app.favoritesOnlyHint}
                 onToggleFavoritesOnly={app.toggleFavoritesOnly}
                 onSelectCharacter={app.selectCharacter}
+                searchQuery={app.searchQuery}
+                onSearchQueryChange={app.setSearchQuery}
+                onClearSearch={app.clearSearch}
+                searchShowHint={app.isSearching}
+                searchEmptyMessage={app.searchEmptyMessage}
               />
             )
           ) : (

@@ -2,6 +2,7 @@ import type { Character } from "../../types/manifest";
 import { AssetImage } from "../common/AssetImage";
 import { characterLabel } from "../../lib/grid";
 import { strings } from "../../lib/strings";
+import { CharacterSearchField } from "./CharacterSearchField";
 
 interface CharacterSidebarProps {
   characters: Character[];
@@ -10,6 +11,11 @@ interface CharacterSidebarProps {
   favoritesOnlyHint: string | null;
   onToggleFavoritesOnly: () => void;
   onSelectCharacter: (id: string) => void;
+  searchQuery: string;
+  onSearchQueryChange: (value: string) => void;
+  onClearSearch: () => void;
+  searchShowHint: boolean;
+  searchEmptyMessage: string | null;
 }
 
 export function CharacterSidebar({
@@ -19,6 +25,11 @@ export function CharacterSidebar({
   favoritesOnlyHint,
   onToggleFavoritesOnly,
   onSelectCharacter,
+  searchQuery,
+  onSearchQueryChange,
+  onClearSearch,
+  searchShowHint,
+  searchEmptyMessage,
 }: CharacterSidebarProps) {
   return (
     <aside className="character-sidebar">
@@ -39,6 +50,13 @@ export function CharacterSidebar({
             {favoritesOnlyHint}
           </p>
         ) : null}
+        <CharacterSearchField
+          query={searchQuery}
+          onQueryChange={onSearchQueryChange}
+          onClear={onClearSearch}
+          showHint={searchShowHint}
+          emptyMessage={searchEmptyMessage}
+        />
       </div>
       <div className="character-sidebar-scroll" role="list">
         {characters.map((character) => {
