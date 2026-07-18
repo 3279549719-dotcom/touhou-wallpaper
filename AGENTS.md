@@ -25,7 +25,9 @@ Tauri desktop app for browsing and applying Touhou wallpapers (React + TypeScrip
 - GitHub Action may call Cursor CLI **only when** `tsc` or `vitest` fails on a PR.
 - Max **3** autofix attempts per job; then stop and comment.
 - Autofix Agent must **not** edit `.github/workflows/**` or auto-Merge.
+- Autofix must **not** commit CI temp log files (`autofix-outcome.txt`, `check-summary.txt`, `tsc.log`, `vitest.log`, `agent-autofix.log`).
 - Green mechanical checks: no Cursor CLI.
+- The old `test.yml` workflow is **removed**. PR (and branch-protection) gate is Autofix only (job id `test`).
 
 ## Tests (who writes what)
 
