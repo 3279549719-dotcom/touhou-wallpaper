@@ -54,6 +54,8 @@ def main() -> int:
     field = read(FIELD)
     assert "setWallpaper" not in field
     assert 'data-testid="character-search-input"' in field
+    assert 'type="text"' in field
+    assert 'type="search"' not in field
     assert "searchClearAria" in field
     assert "query.trim()" in field
     assert "Clear search" not in field
