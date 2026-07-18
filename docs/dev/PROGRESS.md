@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**角色搜索已合入 master（PR #12）。** 可选跟进：搜索框 `type="text"` 避免双 clear（见 `fix/search-input-type-text`）。
+**角色搜索已合入 master（PR #12）。** 可选跟进：搜索框 `type="text"` 避免双 clear（分支 `fix/search-input-type-text`）。
 
 ---
 
@@ -13,7 +13,7 @@
 | 字段 | 值 |
 |------|-----|
 | 阶段 | **Character search · merged；可选 UX 抛光** |
-| 分支 | `fix/search-input-type-text` @ `fee0b7e` (docs tip later; code 2d03603`（基于 master `80f9796`） |
+| 分支 | `fix/search-input-type-text`（基于 master `80f9796`） |
 | 已合 | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12 → `80f9796` |
 | 设计 | [2026-07-18-character-search-design.md](../superpowers/specs/2026-07-18-character-search-design.md) |
 | 阻塞 | 无。可选：合入 `type="text"` 搜索框（防 WebKit 原生 clear + 自定义 ×） |
@@ -34,7 +34,7 @@
 
 ## Recent changes
 
-- 2026-07-18：PR #12 由人 Merge（`80f9796`）；合入后分支上有 `type="text"` 抛光未进 master
+- 2026-07-18：PR #12 由人 Merge（`80f9796`）；跟进分支修 `type="text"` 双 clear
 - 2026-07-18：修 `stepInList` 越界首次步进；空收藏进 favorites-only 不误清搜索
 - 2026-07-18：抛光 trim/clear aria/VERIFY；开 PR #12
 - 2026-07-18：实现角色名搜索 + working-set 导航 + Vitest + verify
