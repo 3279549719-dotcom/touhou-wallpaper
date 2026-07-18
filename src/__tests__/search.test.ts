@@ -80,8 +80,9 @@ describe("stepInList", () => {
     expect(stepInList([], 0, 1)).toBeNull();
   });
 
-  it("treats negative currentIndex as 0", () => {
-    expect(stepInList(items, -1, 1)).toBe("b");
+  it("enters the list at first/last when currentIndex is outside", () => {
+    expect(stepInList(items, -1, 1)).toBe("a");
+    expect(stepInList(items, -1, -1)).toBe("c");
   });
 });
 

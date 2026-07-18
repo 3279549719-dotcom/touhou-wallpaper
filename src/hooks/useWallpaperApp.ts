@@ -172,8 +172,8 @@ export function useWallpaperApp() {
   );
 
   const toggleFavoritesOnly = useCallback(() => {
-    clearSearch();
     if (favoritesOnly) {
+      clearSearch();
       setFavoritesOnly(false);
       setFavoritesOnlyHint(null);
       return;
@@ -182,6 +182,7 @@ export function useWallpaperApp() {
       setFavoritesOnlyHint(strings.favoritesOnlyEmpty);
       return;
     }
+    clearSearch();
     setFavoritesOnlyHint(null);
     setFavoritesOnly(true);
     if (!manifest) return;
@@ -221,7 +222,7 @@ export function useWallpaperApp() {
           manifest,
         );
         const idx = list.findIndex((g) => g.filename === current);
-        const pick = stepInList(list, idx < 0 ? 0 : idx, delta);
+        const pick = stepInList(list, idx, delta);
         if (!pick) return;
         setActiveCharacterId(pick.characterId);
         setActiveVariantIndex(pick.variantIndex);
@@ -231,7 +232,7 @@ export function useWallpaperApp() {
       const list = visibleCharacters;
       if (list.length === 0) return;
       const idx = list.findIndex((c) => c.id === activeCharacterId);
-      const pick = stepInList(list, idx < 0 ? 0 : idx, delta);
+      const pick = stepInList(list, idx, delta);
       if (!pick) return;
       selectCharacter(pick.id);
     },

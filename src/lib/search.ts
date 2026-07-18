@@ -32,8 +32,11 @@ export function stepInList<T>(
   delta: number,
 ): T | null {
   if (items.length === 0) return null;
-  const idx = currentIndex < 0 ? 0 : currentIndex;
-  const next = nextCharacterIndex(idx, delta, items.length);
+  // Not in the working set: enter at first (› / next) or last (‹ / prev).
+  if (currentIndex < 0) {
+    return delta < 0 ? (items[items.length - 1] ?? null) : (items[0] ?? null);
+  }
+  const next = nextCharacterIndex(currentIndex, delta, items.length);
   return items[next] ?? null;
 }
 
