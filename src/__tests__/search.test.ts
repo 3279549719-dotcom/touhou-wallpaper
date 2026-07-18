@@ -40,6 +40,13 @@ describe("filterCharactersByName", () => {
     expect(result.map((c) => c.id)).toEqual(["001"]);
   });
 
+  // Contract oracle (TDD): search is substring, not prefix-only.
+  // Autofix must restore includes()-style matching — do not delete/weaken this test.
+  it("matches a mid-name character (not prefix-only)", () => {
+    const result = filterCharactersByName(characters, "丽");
+    expect(result.map((c) => c.id)).toEqual(["001"]);
+  });
+
   it("does not match by id alone", () => {
     expect(filterCharactersByName(characters, "001")).toEqual([]);
   });
@@ -52,6 +59,12 @@ describe("filterCharactersByName", () => {
 describe("filterFavoritesByCharacterName", () => {
   it("filters by characterName contains", () => {
     const result = filterFavoritesByCharacterName(gallery, "魔理沙");
+    expect(result.map((g) => g.filename)).toEqual(["002_00.png"]);
+  });
+
+  // Contract oracle (TDD): favorites search is also substring, not prefix-only.
+  it("matches mid-name in favorites characterName", () => {
+    const result = filterFavoritesByCharacterName(gallery, "理");
     expect(result.map((g) => g.filename)).toEqual(["002_00.png"]);
   });
 
