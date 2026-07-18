@@ -13,7 +13,7 @@
 | 字段 | 值 |
 |------|-----|
 | 阶段 | **Character search · merged；可选 UX 抛光** |
-| 分支 | `fix/search-input-type-text`（基于 `master` @ `80f9796`；本分支 tip `'dbb638a'`） |
+| 分支 | `fix/search-input-type-text` @ `fee0b7e`（基于 master `80f9796`） |
 | 已合 | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12 → `80f9796` |
 | 设计 | [2026-07-18-character-search-design.md](../superpowers/specs/2026-07-18-character-search-design.md) |
 | 阻塞 | 无。可选：合入 `type="text"` 搜索框（防 WebKit 原生 clear + 自定义 ×） |
