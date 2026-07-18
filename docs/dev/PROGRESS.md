@@ -12,8 +12,8 @@
 
 | 字段 | 值 |
 |------|-----|
-| 阶段 | **Character search · merge-ready 收尾** |
-| 分支 | `feature/character-search` @ `9d4d53a` |
+| 阶段 | **Character search · merge-ready** |
+| 分支 | `feature/character-search` @ `739b475` |
 | PR | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12 |
 | 设计 | [2026-07-18-character-search-design.md](../superpowers/specs/2026-07-18-character-search-design.md) |
 | Plan | [2026-07-18-character-search.md](../superpowers/plans/2026-07-18-character-search.md) |
