@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**角色搜索 PR #12：Blocking ‹ › 越界步进已修；等 CI 全绿后由人 Merge。**
+**角色搜索 PR #12 merge-ready：Auto Review Blocking none；等你 Merge。**
 
 ---
 
@@ -13,7 +13,7 @@
 | 字段 | 值 |
 |------|-----|
 | 阶段 | **Character search · merge-ready** |
-| 分支 | `feature/character-search` @ `739b475` |
+| 分支 | `feature/character-search` @ `9bebf76` |
 | PR | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12 |
 | 设计 | [2026-07-18-character-search-design.md](../superpowers/specs/2026-07-18-character-search-design.md) |
 | Plan | [2026-07-18-character-search.md](../superpowers/plans/2026-07-18-character-search.md) |
