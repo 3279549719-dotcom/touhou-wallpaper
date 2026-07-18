@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**角色搜索已合入 master（[PR #12](https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12)）。** Auto Review 试跑通过；可选小抛光另开。
+**角色搜索已合入 master（[PR #12](https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12)）。** 可选抛光 [PR #13](https://github.com/3279549719-dotcom/touhou-wallpaper/pull/13) 已绿，等人 Merge。
 
 ---
 
@@ -12,10 +12,11 @@
 
 | 字段 | 值 |
 |------|-----|
-| 阶段 | **Character search · 已合入** |
-| 分支 | `master` @ `80f9796` |
+| 阶段 | **Character search · 已合入；可选 #13 待 Merge** |
+| 分支 | `master` @ `693ad22` |
 | 设计 | [2026-07-18-character-search-design.md](../superpowers/specs/2026-07-18-character-search-design.md) |
 | Plan | [2026-07-18-character-search.md](../superpowers/plans/2026-07-18-character-search.md) |
+| 可选 PR | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/13 |
 | 阻塞 | 无 |
 
 ---
@@ -43,6 +44,6 @@
 ## Next
 
 ```
-可选：开小 PR 合并 fix/search-input-type-text（搜索框 type=text，去掉双清空）。
-或另开产品方向（定时换壁纸 / 多图源等）— 先 brainstorming。
+可选 Merge https://github.com/3279549719-dotcom/touhou-wallpaper/pull/13（搜索框去掉双清空）。
+或另开产品方向 — 先 brainstorming。
 ```
