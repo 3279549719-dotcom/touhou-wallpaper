@@ -1,37 +1,35 @@
-# touhou-wallpaper — Auto Review Setup (MVP)
+# touhou-wallpaper — Auto Review / Autofix Setup
 
-> Last aligned: 2026-07-17 with [design spec](../superpowers/specs/2026-07-17-auto-review-ci-design.md)
+> Last aligned: 2026-07-18 with Stage 2 design
 
-## What MVP does
+## What runs on PRs (Stage 2 MVP)
 
-On pull requests targeting `master`:
+Workflow: `.github/workflows/cursor-agent-autofix.yml`
 
-1. Run `tsc` + `vitest` (continue even if they fail)
-2. Run Cursor Agent CLI with a **thin** prompt (read root `AGENTS.md` + diff + check summary)
-3. Post an **English** review comment on the PR
-4. **Do not** auto-fix, commit, push, or merge
+1. Run `tsc` + `vitest`
+2. If **green** → success (no Cursor CLI)
+3. If **red** → Cursor CLI autofix + retest, up to **3** attempts (in-job)
+4. Push fixes once if the tree changed; comment outcome
+5. **Human Merges**
+
+Stage 1 comment-only workflow is **manual only** (`workflow_dispatch` on `cursor-agent-review.yml`).
 
 ## Requirements
 
 | Item | Status |
 |------|--------|
 | GitHub Secret `CURSOR_API_KEY` | Required |
-| Workflow | `.github/workflows/cursor-agent-review.yml` |
+| Autofix workflow | `.github/workflows/cursor-agent-autofix.yml` |
+| Autofix prompt | `.github/cursor-agent-autofix-prompt.md` |
 | Agent door | Root `AGENTS.md` |
-| Push CI | `.github/workflows/test.yml` (push only; avoids duplicate PR noise) |
 
-## Not in MVP
+## Validation
 
-- Bugbot / Cursor Automations
-- `verify_m*` / `cargo check` inside the Agent review job
-- Autofix (`agent --force`)
-
-## How to try
-
-1. Open a PR against `master` that includes the workflow file
-2. Wait for the **Cursor Agent Review** Action
-3. Read the PR comment; merge only if you accept the change
+| PR | Expect |
+|----|--------|
+| Tiny green change | Job green; logs show skip CLI |
+| Deliberate failing test (TDD) | Autofix ≤3 or give-up comment |
 
 ## Billing
 
-CLI usage consumes Cursor plan usage (same family as chat/agent). Mechanical `tsc`/`vitest` do not.
+CLI usage only when checks are red (or on failed retry runs). Mechanical checks alone do not use Cursor.

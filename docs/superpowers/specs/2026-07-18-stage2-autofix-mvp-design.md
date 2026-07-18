@@ -1,7 +1,7 @@
 # Design: Stage 2 Autofix MVP (in-job loop, N=3)
 
 > Date: 2026-07-18  
-> Status: Draft for Patrick review  
+> Status: Approved — implementation in progress  
 > Project: touhou-wallpaper  
 > Audience: Patrick (non-programmer owner) + implementing agent  
 > Related: [2026-07-17-auto-review-ci-design.md](./2026-07-17-auto-review-ci-design.md) (Stage 1: comment-only)
