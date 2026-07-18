@@ -1,0 +1,53 @@
+=== Mechanical Check Results ===
+
+[TypeScript] Exit: 0
+
+[Vitest] Exit: 0
+
+[1m[30m[46m RUN [49m[39m[22m [36mv4.1.10 [39m[90m/home/runner/work/touhou-wallpaper/touhou-wallpaper[39m
+
+ [32m✓[39m src/__tests__/favorites.test.ts[2m > [22mfavorites[2m > [22m初始收藏列表为空[32m 2[2mms[22m[39m
+ [32m✓[39m src/__tests__/favorites.test.ts[2m > [22mfavorites[2m > [22m点击收藏后列表数量变为 1[32m 1[2mms[22m[39m
+ [32m✓[39m src/__tests__/favorites.test.ts[2m > [22mfavorites[2m > [22m取消收藏后列表变回 0[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/favorites.test.ts[2m > [22mfavorites[2m > [22m重复添加相同文件不会产生重复项[32m 1[2mms[22m[39m
+ [32m✓[39m src/__tests__/favorites.test.ts[2m > [22mfavorites[2m > [22m收藏列表按字母排序[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/autofix_smoke.test.ts[2m > [22mautofix smoke[2m > [22mexpects 2+2[32m 2[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mfilterCharactersByName[2m > [22mempty query returns full list[32m 2[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mfilterCharactersByName[2m > [22mmatches substring in name[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mfilterCharactersByName[2m > [22mdoes not match by id alone[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mfilterCharactersByName[2m > [22mreturns empty when nothing matches[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mfilterFavoritesByCharacterName[2m > [22mfilters by characterName contains[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mfilterFavoritesByCharacterName[2m > [22mempty query returns all favorites items[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mfilterFavoritesByCharacterName[2m > [22mdoes not match by character id alone[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mstepInList[2m > [22msteps forward and wraps[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mstepInList[2m > [22msteps backward and wraps[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mstepInList[2m > [22mreturns null for empty list[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mstepInList[2m > [22menters the list at first/last when currentIndex is outside[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mpickRandomPreferDifferent[2m > [22mreturns null for empty list[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mpickRandomPreferDifferent[2m > [22mreturns the only item when size is 1[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/search.test.ts[2m > [22mpickRandomPreferDifferent[2m > [22mprefers a different item when possible[32m 0[2mms[22m[39m
+ [32m✓[39m tests/unit/favorites.integration.test.ts[2m > [22mfavorites (in-memory integration)[2m > [22m添加多个文件，按字母排序[32m 3[2mms[22m[39m
+ [32m✓[39m tests/unit/favorites.integration.test.ts[2m > [22mfavorites (in-memory integration)[2m > [22m重复 toggle 最终状态一致[32m 0[2mms[22m[39m
+ [32m✓[39m tests/unit/favorites.integration.test.ts[2m > [22mfavorites (in-memory integration)[2m > [22m空字符串也能处理[32m 1[2mms[22m[39m
+ [32m✓[39m src/__tests__/services/favorites.test.ts[2m > [22mfavorites service (browser mode)[2m > [22mlistFavorites returns empty on first load[32m 3[2mms[22m[39m
+ [32m✓[39m src/__tests__/services/favorites.test.ts[2m > [22mfavorites service (browser mode)[2m > [22mtoggleFavorite adds a file[32m 1[2mms[22m[39m
+ [32m✓[39m src/__tests__/services/favorites.test.ts[2m > [22mfavorites service (browser mode)[2m > [22mtoggleFavorite removes a file on second call[32m 1[2mms[22m[39m
+ [32m✓[39m src/__tests__/grid.test.ts[2m > [22mgrid[2m > [22mcharacterLabel[2m > [22m格式化角色 ID 和名称[32m 2[2mms[22m[39m
+ [32m✓[39m src/__tests__/grid.test.ts[2m > [22mgrid[2m > [22mfavoriteGalleryLabel[2m > [22m格式化收藏项标签[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/grid.test.ts[2m > [22mgrid[2m > [22mnextCharacterIndex[2m > [22m正向递增[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/grid.test.ts[2m > [22mgrid[2m > [22mnextCharacterIndex[2m > [22m反向递减[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/grid.test.ts[2m > [22mgrid[2m > [22mnextCharacterIndex[2m > [22m正向循环到零[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/grid.test.ts[2m > [22mgrid[2m > [22mnextCharacterIndex[2m > [22m反向循环到末尾[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/grid.test.ts[2m > [22mgrid[2m > [22mnextCharacterIndex[2m > [22mtotal 为 0 时返回 0[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/grid.test.ts[2m > [22mgrid[2m > [22mbuildFavoritesGallery[2m > [22m空收藏返回空数组[32m 1[2mms[22m[39m
+ [32m✓[39m src/__tests__/grid.test.ts[2m > [22mgrid[2m > [22mbuildFavoritesGallery[2m > [22m根据收藏文件名构建 gallery[32m 1[2mms[22m[39m
+ [32m✓[39m src/__tests__/grid.test.ts[2m > [22mgrid[2m > [22mbuildFavoritesGallery[2m > [22m接受 Set 或数组[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/strings.test.ts[2m > [22mstrings[2m > [22m所有按钮文本非空[32m 2[2mms[22m[39m
+ [32m✓[39m src/__tests__/strings.test.ts[2m > [22mstrings[2m > [22mwindowTitle 包含东方[32m 0[2mms[22m[39m
+ [32m✓[39m src/__tests__/strings.test.ts[2m > [22mstrings[2m > [22memptyAssets 为非空提示[32m 0[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+[2m      Tests [22m [1m[32m39 passed[39m[22m[90m (39)[39m
+[2m   Start at [22m 11:47:59
+[2m   Duration [22m 2.23s[2m (transform 197ms, setup 0ms, import 300ms, tests 40ms, environment 4.18s)[22m
+
