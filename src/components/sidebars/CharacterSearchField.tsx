@@ -33,13 +33,13 @@ export function CharacterSearchField({
           }}
           aria-label={strings.searchPlaceholder}
         />
-        {query.length > 0 ? (
+        {query.trim().length > 0 ? (
           <button
             type="button"
             className="character-search-clear"
             data-testid="character-search-clear"
             onClick={onClear}
-            aria-label="Clear search"
+            aria-label={strings.searchClearAria}
           >
             ×
           </button>

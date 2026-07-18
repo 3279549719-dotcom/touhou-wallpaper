@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**角色搜索 PR 已开，用来检验 Auto Review；等 Checks + Agent 评论。**
+**角色搜索 PR #12 已按 Agent 建议做完抛光并推送；等新一轮 Auto Review / Merge。**
 
 ---
 

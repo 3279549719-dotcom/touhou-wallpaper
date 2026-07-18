@@ -316,13 +316,23 @@ export function useWallpaperApp() {
     }
 
     if (!nextSet.has(previousFilename) && manifest) {
+      const previousVisible = filterFavoritesByCharacterName(
+        previousGallery,
+        searchQuery,
+      );
       const nextGallery = buildFavoritesGallery(nextSet, manifest.characters);
-      const oldIdx = previousGallery.findIndex(
+      let pool = filterFavoritesByCharacterName(nextGallery, searchQuery);
+      // Prefer staying inside the filtered list; if empty, clear search and use full gallery.
+      if (pool.length === 0) {
+        clearSearch();
+        pool = nextGallery;
+      }
+      const oldIdx = previousVisible.findIndex(
         (g) => g.filename === previousFilename,
       );
       const pick =
-        nextGallery[Math.min(Math.max(oldIdx, 0), nextGallery.length - 1)] ??
-        nextGallery[0];
+        pool[Math.min(Math.max(oldIdx < 0 ? 0 : oldIdx, 0), pool.length - 1)] ??
+        pool[0];
       if (pick) {
         setActiveCharacterId(pick.characterId);
         setActiveVariantIndex(pick.variantIndex);
@@ -333,6 +343,7 @@ export function useWallpaperApp() {
     favoritesOnly,
     favorites,
     manifest,
+    searchQuery,
     clearSearch,
     setFavorites,
     setFavoritesOnly,

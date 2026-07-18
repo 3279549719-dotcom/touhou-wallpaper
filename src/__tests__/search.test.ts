@@ -58,6 +58,10 @@ describe("filterFavoritesByCharacterName", () => {
   it("empty query returns all favorites items", () => {
     expect(filterFavoritesByCharacterName(gallery, "")).toEqual(gallery);
   });
+
+  it("does not match by character id alone", () => {
+    expect(filterFavoritesByCharacterName(gallery, "001")).toEqual([]);
+  });
 });
 
 describe("stepInList", () => {

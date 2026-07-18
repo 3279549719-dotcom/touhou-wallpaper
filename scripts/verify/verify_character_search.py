@@ -32,6 +32,7 @@ def main() -> int:
         ("search_empty_characters", "没有匹配的角色"),
         ("search_empty_favorites", "没有匹配的收藏"),
         ("search_active_hint", "当前在搜索结果中浏览；清空搜索后恢复全部。"),
+        ("search_clear_aria", "清空搜索"),
     ]:
         assert key in content and text in content, f"CONTENT missing {key}"
         assert text in strings, f"strings.ts missing {text}"
@@ -53,6 +54,9 @@ def main() -> int:
     field = read(FIELD)
     assert "setWallpaper" not in field
     assert 'data-testid="character-search-input"' in field
+    assert "searchClearAria" in field
+    assert "query.trim()" in field
+    assert "Clear search" not in field
 
     assert "CharacterSearchField" in read(SIDEBAR)
     assert "CharacterSearchField" in read(GALLERY)

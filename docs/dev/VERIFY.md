@@ -95,14 +95,23 @@ PR 上的自动审查会再跑 `tsc` + `vitest`（详见根目录 `AGENTS.md`）
 
 详见 [SHARE.md](../guide/SHARE.md)
 
+### 角色搜索（侧栏按名字过滤）
+
+- **自动**：`npm run check:character-search`（或 `npm run verify:character-search`）— 文案、搜索框接线、过滤 helper 存在
+- **单元测试**：`npm test` 含 `src/__tests__/search.test.ts`
+- **手动**：侧栏输入角色名片段 → 列表变少；× / Esc 清空；‹ › / 换一张只在结果里转
+
 ## 常用命令（复制给 Agent 或自己跑）
 
 ```bash
 npm run check          # 每模块做完必跑
+npm run test           # Vitest 单元测试
+npm run check:character-search  # 角色搜索接线验收
+npm run verify:character-search # 只跑搜索 verify 脚本
 npm run verify:m0      # 只查 M0
 npm run dev            # 浏览器里看界面（会自动释放 1420 端口）
 npm run dev:stop       # 只关掉占用 1420 的旧服务
-npm run tauri dev      # 装好 Rust 后的桌面窗口版
+npm run tauri:dev      # 装好 Rust 后的桌面窗口版
 ```
 
 ## 常见报错（不懂代码也能懂）

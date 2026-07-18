@@ -21,6 +21,7 @@ export const strings = {
   searchEmptyCharacters: "没有匹配的角色",
   searchEmptyFavorites: "没有匹配的收藏",
   searchActiveHint: "当前在搜索结果中浏览；清空搜索后恢复全部。",
+  searchClearAria: "清空搜索",
   downloadHint: "首次使用请运行下载脚本获取立绘资源",
   emptyAssets: "未找到立绘资源",
   downloadWelcome: "欢迎使用东方演舞壁纸",
