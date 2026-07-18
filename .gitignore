@@ -25,6 +25,9 @@ logs/
 _tmp_*
 *.tmp
 
+# Local git worktrees (agent isolation)
+.worktrees/
+
 # Test coverage
 coverage/
 
