@@ -13,7 +13,7 @@ export function filterCharactersByName(
 ): Character[] {
   const q = normalizedQuery(query);
   if (!q) return characters;
-  return characters.filter((c) => c.name.startsWith(q));
+  return characters.filter((c) => c.name.includes(q));
 }
 
 /** Filter favorite gallery rows by characterName substring. */
@@ -23,7 +23,7 @@ export function filterFavoritesByCharacterName(
 ): FavoriteGalleryItem[] {
   const q = normalizedQuery(query);
   if (!q) return items;
-  return items.filter((item) => item.characterName.startsWith(q));
+  return items.filter((item) => item.characterName.includes(q));
 }
 
 export function stepInList<T>(
