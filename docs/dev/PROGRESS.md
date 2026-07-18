@@ -13,7 +13,7 @@
 | 字段 | 值 |
 |------|-----|
 | 阶段 | **Character search · 设计待审阅** |
-| 分支 | `ci/auto-review-mvp`（设计提交后以 git 为准） |
+| 分支 | `ci/auto-review-mvp` @ `29561e9` |
 | 设计 | [2026-07-18-character-search-design.md](../superpowers/specs/2026-07-18-character-search-design.md) |
 | 自动审查 | [PR #11](https://github.com/3279549719-dotcom/touhou-wallpaper/pull/11) 仍建议先 Merge |
 | 交接（审查 MVP） | [HANDOFF_auto-review-mvp_2026-07-18.md](../handoffs/HANDOFF_auto-review-mvp_2026-07-18.md) |
