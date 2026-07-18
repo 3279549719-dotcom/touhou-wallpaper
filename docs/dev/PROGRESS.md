@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**角色搜索已合入 master（[PR #12](https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12)）。** 可选抛光 [PR #13](https://github.com/3279549719-dotcom/touhou-wallpaper/pull/13) 已绿，等人 Merge。
+**Stage 2 自动修 MVP 设计已写出，等你审阅。** 角色搜索已在 master（PR #12）。
 
 ---
 
@@ -12,12 +12,11 @@
 
 | 字段 | 值 |
 |------|-----|
-| 阶段 | **Character search · 已合入；可选 #13 待 Merge** |
-| 分支 | `master` @ `693ad22` |
-| 设计 | [2026-07-18-character-search-design.md](../superpowers/specs/2026-07-18-character-search-design.md) |
-| Plan | [2026-07-18-character-search.md](../superpowers/plans/2026-07-18-character-search.md) |
-| 可选 PR | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/13 |
-| 阻塞 | 无 |
+| 阶段 | **Stage 2 autofix · 设计待审阅** |
+| 分支 | `master` |
+| 设计 | [2026-07-18-stage2-autofix-mvp-design.md](../superpowers/specs/2026-07-18-stage2-autofix-mvp-design.md) |
+| Stage 1 | [2026-07-17-auto-review-ci-design.md](../superpowers/specs/2026-07-17-auto-review-ci-design.md)（只评论；绿路径将停用 CLI） |
+| 阻塞 | 等人审阅 Stage 2 设计 |
 
 ---
 
@@ -26,24 +25,23 @@
 | 模块 | 状态 |
 |------|------|
 | M0–M9（V1） | [x] |
-| favorites-only-view | [x] |
-| Cursor Agent 自动审查 MVP | [x] |
-| 测试归属流程（AGENTS/VERIFY） | [x] |
-| 角色搜索（侧栏过滤） | [x] PR #12 → master |
+| 角色搜索 | [x] PR #12 |
+| Cursor Agent 自动审查 Stage 1 | [x] |
+| Stage 2 红测自动修（N=3 原地循环） | [~] 设计已写；未实现 |
 
 ---
 
 ## Recent changes
 
-- 2026-07-18：PR #12 合入 master（搜索 + Auto Review 反馈修复）
-- 2026-07-18：Auto Review MVP（PR #11）合入 master
-- 2026-07-18：搜索设计 / plan / Vitest / verify 脚本
+- 2026-07-18：写出 Stage 2 autofix MVP 设计（绿则停、红则 CLI≤3）
+- 2026-07-18：角色搜索合入 master；可选抛光 PR #13
+- 2026-07-18：Auto Review Stage 1 / 测试归属
 
 ---
 
 ## Next
 
 ```
-可选 Merge https://github.com/3279549719-dotcom/touhou-wallpaper/pull/13（搜索框去掉双清空）。
-或另开产品方向 — 先 brainstorming。
+请审阅 docs/superpowers/specs/2026-07-18-stage2-autofix-mvp-design.md。
+若 OK，回复「设计 OK，写 plan」→ writing-plans。
 ```
