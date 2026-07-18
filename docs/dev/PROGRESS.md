@@ -13,7 +13,7 @@
 | 字段 | 值 |
 |------|-----|
 | 阶段 | **Character search · #12 merged；#13 merge-ready** |
-| 分支 | `cursor/character-search-pr-6510` @ `07edd82` |
+| 分支 | `cursor/character-search-pr-6510` @ `0c27db9` |
 | 已合 | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12 |
 | 跟进 | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/13（CLEAN） |
 | 阻塞 | 无（等人合 #13 或忽略） |
