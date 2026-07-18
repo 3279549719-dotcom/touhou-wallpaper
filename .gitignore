@@ -25,6 +25,13 @@ logs/
 _tmp_*
 *.tmp
 
+# CI autofix temp artifacts
+autofix-outcome.txt
+check-summary.txt
+tsc.log
+vitest.log
+agent-autofix.log
+
 # Local git worktrees (agent isolation)
 .worktrees/
 

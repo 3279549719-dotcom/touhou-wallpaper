@@ -64,6 +64,14 @@ jobs:
             exit 0
           fi
           git add -A
+          # Never commit CI temp logs / outcome files from the autofix loop.
+          git reset HEAD -- \
+            autofix-outcome.txt \
+            check-summary.txt \
+            tsc.log \
+            vitest.log \
+            agent-autofix.log \
+            2>/dev/null || true
           # Never commit workflow sabotage if Agent violated prompt (belt and suspenders).
           if git diff --cached --name-only | grep -q '^\.github/workflows/'; then
             echo "Refusing to commit workflow changes from autofix." >&2
@@ -71,7 +79,7 @@ jobs:
             git checkout -- .github/workflows 2>/dev/null || true
           fi
           if git diff --cached --quiet; then
-            echo "Nothing left to commit after workflow guard."
+            echo "Nothing left to commit after temp-log and workflow guards."
             exit 0
           fi
           git commit -m "ci(autofix): apply Cursor Agent fixes"

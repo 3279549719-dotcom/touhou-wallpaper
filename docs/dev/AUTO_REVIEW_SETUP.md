@@ -1,18 +1,23 @@
 # touhou-wallpaper — Auto Review / Autofix Setup
 
-> Last aligned: 2026-07-18 with Stage 2 design
+> Last aligned: 2026-07-18 with Stage 2 harden
 
-## What runs on PRs (Stage 2 MVP)
+## What runs where
 
-Workflow: `.github/workflows/cursor-agent-autofix.yml`
+| Trigger | Workflow | What it does |
+|---------|----------|--------------|
+| **Pull request** → `master` | `cursor-agent-autofix.yml` | `tsc` + `vitest`; if red → Cursor CLI autofix ≤3; push fixes; comment; **human Merges** |
+| **Push** → `master` | `test.yml` | `tsc` + `vitest` + `verify_m0` |
+
+Stage 1 comment-only workflow is **manual only** (`workflow_dispatch` on `cursor-agent-review.yml`).
+
+## Autofix details (PR)
 
 1. Run `tsc` + `vitest`
 2. If **green** → success (no Cursor CLI)
 3. If **red** → Cursor CLI autofix + retest, up to **3** attempts (in-job)
 4. Push fixes once if the tree changed; comment outcome
-5. **Human Merges**
-
-Stage 1 comment-only workflow is **manual only** (`workflow_dispatch` on `cursor-agent-review.yml`).
+5. Temp artifacts (`autofix-outcome.txt`, `check-summary.txt`, `tsc.log`, `vitest.log`, `agent-autofix.log`) are **never committed** (gitignore + push-step reset)
 
 ## Requirements
 
@@ -27,8 +32,8 @@ Stage 1 comment-only workflow is **manual only** (`workflow_dispatch` on `cursor
 
 | PR | Expect |
 |----|--------|
-| Tiny green change | Job green; logs show skip CLI |
-| Deliberate failing test (TDD) | Autofix ≤3 or give-up comment |
+| Tiny green change | Job green; logs show skip CLI; no `Test / test (push)` on feature/`ci/*` branches |
+| Deliberate failing test (TDD) | Autofix ≤3 or give-up comment; **no** temp log files in the bot commit |
 
 ## Billing
 

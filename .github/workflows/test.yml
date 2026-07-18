@@ -2,7 +2,9 @@ name: Test
 
 on:
   push:
-    branches: [master, 'refactor/*', 'feature/*', 'feat/*', 'ci/*']
+    # PR mechanical checks are owned by cursor-agent-autofix.yml.
+    # Keep Test + verify_m0 on master pushes only.
+    branches: [master]
 
 jobs:
   test:
