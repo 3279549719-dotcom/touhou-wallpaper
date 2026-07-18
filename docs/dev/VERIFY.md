@@ -4,21 +4,33 @@
 
 每个模块做完，Agent 会跑**自动检查脚本**（像自动答题卡）。你只看终端里有没有 **Assertion Passed**；有就是通过，没有就继续改。
 
-## 三层检查（由易到难）
+## 四层检查（由易到难）
 
 | 层 | 是什么 | 你怎么懂 |
 |----|--------|----------|
-| **1. 语法检查** (`tsc`) | 代码有没有写错、类型对不对 | 不用懂；Agent 跑 `npm run check`，失败会自己改 |
-| **2. 模块脚本** (`verify_mN.py`) | 这个模块该出现的文件、配置、数量是否齐全 | 终端打印中文说明 + Passed/Failed |
-| **3. 你亲手点一点** (部分模块) | 打开应用看界面 | VERIFY 里会写「你应该看到什么」 |
+| **1. 语法检查** (`tsc`) | 代码有没有写错、类型对不对 | 不用懂；Agent 跑，失败会自己改 |
+| **2. 单元测试** (`vitest` / `npm test`) | 小规则对不对（例如搜索过滤、列表跳转） | Agent **写功能时一起写**；终端全绿才算过 |
+| **3. 模块脚本** (`verify_mN.py`) | 这个模块该出现的文件、配置、接线是否齐全 | 终端打印中文说明 + Passed/Failed |
+| **4. 你亲手点一点** (部分功能) | 打开应用看界面手感 | 本文「你应该看到什么」 |
 
-Agent 的规则：**2 不过不能算做完**；3 在 M5 之后才需要你帮忙点几下。
+本地做完通常要：`npm test` 绿，且 `npm run check` 出现 **Assertion Passed**。  
+PR 上的自动审查会再跑 `tsc` + `vitest`（详见根目录 `AGENTS.md`）。
+
+### 测试谁来写（已固定）
+
+| 谁 | 做什么 |
+|----|--------|
+| **写功能的 Agent** | 在**同一个功能分支**里写好 Vitest（和需要的 verify 脚本）；跑到通过。这是交付物，不是可选项 |
+| **GitHub 自动审查 Agent** | 只**跑**测试并写英文评论，不替你补功能测试 |
+| **你（Patrick）** | 只按清单**点几下界面**；不用写代码测试 |
+
+短规则入口：根目录 [AGENTS.md](../../AGENTS.md)。
 
 ## 你怎么参与
 
-1. 模块做完后，看 Agent 消息里有没有 `Assertion Passed`
+1. 模块做完后，看 Agent 消息里有没有 `Assertion Passed`，以及 `npm test` 是否通过
 2. 若 Agent 让你运行命令，复制运行也行（例如 `npm run dev`）
-3. M3 之后：打开应用，看壁纸/按钮是否符合 PRD（Agent 会给你一张对照清单）
+3. 需要手感验收时：打开应用，按 Agent 给的对照清单点几下
 
 ## 各模块：自动检查什么 + 你能看到什么
 
@@ -111,14 +123,15 @@ npm run tauri dev      # 装好 Rust 后的桌面窗口版
 ```mermaid
 flowchart LR
   A[读 PROGRESS] --> B[只做一模块]
-  B --> C[npm run check]
+  B --> T[npm test]
+  T --> C[npm run check]
   C --> D{Passed?}
   D -->|否| B
-  D -->|是| E[verify_mN.py]
+  D -->|是| E[verify_mN 如需要]
   E --> F{Passed?}
   F -->|否| B
   F -->|是| G[更新 PROGRESS]
   G --> H[handoff 可选]
 ```
 
-你不需要会编程：只要问 Agent「M3 通过了吗？」，看有没有 **Assertion Passed** 即可。
+你不需要会编程：只要问 Agent「通过了吗？」，看有没有 **Assertion Passed** 和测试全绿即可。
