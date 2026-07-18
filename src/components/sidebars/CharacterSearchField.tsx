@@ -19,7 +19,7 @@ export function CharacterSearchField({
     <div className="character-search">
       <div className="character-search-row">
         <input
-          type="search"
+          type="text"
           className="character-search-input"
           data-testid="character-search-input"
           placeholder={strings.searchPlaceholder}
