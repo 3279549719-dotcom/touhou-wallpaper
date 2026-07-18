@@ -64,3 +64,6 @@ npm run download:assets  # 开发用：下载到仓库 assets/（分享版不依
 | 文案与配色 | [docs/spec/CONTENT.md](docs/spec/CONTENT.md) | UI 文案变了再改 |
 
 新开对话：先读 **docs/dev/PROGRESS.md**（根目录有 stub 指向它），再按任务打开上表即可。
+
+Autofix validated green path.
+
