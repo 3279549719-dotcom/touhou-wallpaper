@@ -4,7 +4,7 @@
 
 ## 一句话状态
 
-**角色搜索已在 `feature/character-search` 实现并过机械门禁；等你手感点几下 + 开 PR。**
+**角色搜索 PR 已开，用来检验 Auto Review；等 Checks + Agent 评论。**
 
 ---
 
@@ -12,11 +12,12 @@
 
 | 字段 | 值 |
 |------|-----|
-| 阶段 | **Character search · 代码完成，待 PR / 手感验收** |
-| 分支 | `feature/character-search` |
+| 阶段 | **Character search · PR 已开，等 Auto Review** |
+| 分支 | `feature/character-search` @ `efe5bb5` |
+| PR | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12 |
 | 设计 | [2026-07-18-character-search-design.md](../superpowers/specs/2026-07-18-character-search-design.md) |
 | Plan | [2026-07-18-character-search.md](../superpowers/plans/2026-07-18-character-search.md) |
-| 阻塞 | 等人手感验收；可选开 PR 走 Auto Review |
+| 阻塞 | 等人看 PR Checks / Agent 评论；手感验收可选 |
 
 ---
 
@@ -43,5 +44,6 @@
 ## Next
 
 ```
-手感验收搜索（见 plan Task 9）。通过后：推送 feature/character-search 并开 PR。
+打开 https://github.com/3279549719-dotcom/touhou-wallpaper/pull/12
+看 Checks 与 Cursor Agent Review 英文评论；通过后 Merge。
 ```
