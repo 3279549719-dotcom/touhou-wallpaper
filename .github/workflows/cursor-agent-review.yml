@@ -1,9 +1,9 @@
 name: Cursor Agent Review
 
+# DISABLED on PR events — superseded by Stage 2 autofix (cursor-agent-autofix.yml).
+# Keep for manual advisory review if needed.
 on:
-  pull_request:
-    types: [opened, synchronize, ready_for_review]
-    branches: [master]
+  workflow_dispatch:
 
 jobs:
   review:
