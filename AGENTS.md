@@ -27,7 +27,7 @@ Tauri desktop app for browsing and applying Touhou wallpapers (React + TypeScrip
 - Autofix Agent must **not** edit `.github/workflows/**` or auto-Merge.
 - Autofix must **not** commit CI temp log files (`autofix-outcome.txt`, `check-summary.txt`, `tsc.log`, `vitest.log`, `agent-autofix.log`).
 - Green mechanical checks: no Cursor CLI.
-- **Test** workflow (`test.yml`, includes `verify_m0`) runs on **master pushes only**; PR mechanical checks are owned by the Autofix workflow.
+- The old `test.yml` workflow is **removed**. PR (and branch-protection) gate is Autofix only (job id `test`).
 
 ## Tests (who writes what)
 

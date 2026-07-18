@@ -6,7 +6,9 @@ on:
     branches: [master]
 
 jobs:
-  autofix:
+  # Job id must stay `test`: branch protection Required check is named `test`.
+  # This is the Autofix workflow (not the removed Test workflow).
+  test:
     # Same-repo PRs only (MVP). Forks skip autofix.
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
