@@ -1,9 +1,12 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import type { Manifest } from "../types/manifest";
+import { buildFavoritesGallery } from "../lib/grid";
 import {
-  buildFavoritesGallery,
-  nextCharacterIndex,
-} from "../lib/grid";
+  filterCharactersByName,
+  filterFavoritesByCharacterName,
+  pickRandomPreferDifferent,
+  stepInList,
+} from "../lib/search";
 import {
   assetsReady,
   getActiveFilename,
@@ -17,6 +20,7 @@ import {
 import { clearAssetImageUrlCache } from "../lib/imageUrl";
 import { strings } from "../lib/strings";
 import { useWallpaperStore } from "../stores/wallpaperStore";
+import { useCharacterSearch } from "./useCharacterSearch";
 
 export function useWallpaperApp() {
   const [manifest, setManifest] = useState<Manifest | null>(null);
@@ -28,6 +32,12 @@ export function useWallpaperApp() {
   const setFavorites = useWallpaperStore((s) => s.setFavorites);
   const setFavoritesOnly = useWallpaperStore((s) => s.setFavoritesOnly);
   const setFavoritesOnlyHint = useWallpaperStore((s) => s.setFavoritesOnlyHint);
+  const {
+    query: searchQuery,
+    setQuery: setSearchQuery,
+    clearSearch,
+    isSearching,
+  } = useCharacterSearch();
   const [currentWallpaperPath, setCurrentWallpaperPath] = useState<string | null>(
     null,
   );
@@ -111,6 +121,32 @@ export function useWallpaperApp() {
     return buildFavoritesGallery(favorites, manifest.characters);
   }, [manifest, favorites]);
 
+  const visibleCharacters = useMemo(() => {
+    if (!manifest) return [];
+    return filterCharactersByName(manifest.characters, searchQuery);
+  }, [manifest, searchQuery]);
+
+  const visibleFavoritesGallery = useMemo(() => {
+    return filterFavoritesByCharacterName(favoritesGallery, searchQuery);
+  }, [favoritesGallery, searchQuery]);
+
+  const searchEmptyMessage = useMemo(() => {
+    if (!isSearching) return null;
+    if (favoritesOnly) {
+      return visibleFavoritesGallery.length === 0
+        ? strings.searchEmptyFavorites
+        : null;
+    }
+    return visibleCharacters.length === 0
+      ? strings.searchEmptyCharacters
+      : null;
+  }, [
+    isSearching,
+    favoritesOnly,
+    visibleFavoritesGallery.length,
+    visibleCharacters.length,
+  ]);
+
   const selectCharacter = useCallback((id: string) => {
     setActiveCharacterId(id);
     setActiveVariantIndex(0);
@@ -136,6 +172,7 @@ export function useWallpaperApp() {
   );
 
   const toggleFavoritesOnly = useCallback(() => {
+    clearSearch();
     if (favoritesOnly) {
       setFavoritesOnly(false);
       setFavoritesOnlyHint(null);
@@ -161,6 +198,7 @@ export function useWallpaperApp() {
       setActiveVariantIndex(pick.variantIndex);
     }
   }, [
+    clearSearch,
     favoritesOnly,
     favorites,
     manifest,
@@ -172,78 +210,74 @@ export function useWallpaperApp() {
 
   const stepCharacter = useCallback(
     (delta: number) => {
-      if (!manifest || manifest.characters.length === 0) return;
+      if (!manifest) return;
 
       if (favoritesOnly) {
-        const gallery = buildFavoritesGallery(favorites, manifest.characters);
-        if (gallery.length === 0) return;
+        const list = visibleFavoritesGallery;
+        if (list.length === 0) return;
         const current = getActiveFilename(
           activeCharacterId,
           activeVariantIndex,
           manifest,
         );
-        const idx = gallery.findIndex((g) => g.filename === current);
-        const next = nextCharacterIndex(
-          idx < 0 ? 0 : idx,
-          delta,
-          gallery.length,
-        );
-        const pick = gallery[next];
+        const idx = list.findIndex((g) => g.filename === current);
+        const pick = stepInList(list, idx < 0 ? 0 : idx, delta);
+        if (!pick) return;
         setActiveCharacterId(pick.characterId);
         setActiveVariantIndex(pick.variantIndex);
         return;
       }
 
-      const idx = manifest.characters.findIndex(
-        (c) => c.id === activeCharacterId,
-      );
-      const next = nextCharacterIndex(
-        idx < 0 ? 0 : idx,
-        delta,
-        manifest.characters.length,
-      );
-      selectCharacter(manifest.characters[next].id);
+      const list = visibleCharacters;
+      if (list.length === 0) return;
+      const idx = list.findIndex((c) => c.id === activeCharacterId);
+      const pick = stepInList(list, idx < 0 ? 0 : idx, delta);
+      if (!pick) return;
+      selectCharacter(pick.id);
     },
     [
       manifest,
+      favoritesOnly,
+      visibleFavoritesGallery,
+      visibleCharacters,
       activeCharacterId,
       activeVariantIndex,
-      favoritesOnly,
-      favorites,
       selectCharacter,
     ],
   );
 
   const randomCharacter = useCallback(() => {
-    if (!manifest || manifest.characters.length === 0) return;
+    if (!manifest) return;
 
     if (favoritesOnly) {
-      const gallery = buildFavoritesGallery(favorites, manifest.characters);
-      if (gallery.length === 0) return;
+      const list = visibleFavoritesGallery;
       const current = getActiveFilename(
         activeCharacterId,
         activeVariantIndex,
         manifest,
       );
-      let pick = gallery[Math.floor(Math.random() * gallery.length)];
-      if (gallery.length > 1 && current) {
-        let attempts = 0;
-        while (pick.filename === current && attempts < 8) {
-          pick = gallery[Math.floor(Math.random() * gallery.length)];
-          attempts += 1;
-        }
-      }
+      const pick = pickRandomPreferDifferent(
+        list,
+        (item) => item.filename === current,
+      );
+      if (!pick) return;
       setActiveCharacterId(pick.characterId);
       setActiveVariantIndex(pick.variantIndex);
       return;
     }
 
-    const idx = Math.floor(Math.random() * manifest.characters.length);
-    selectCharacter(manifest.characters[idx].id);
+    const list = visibleCharacters;
+    const pick = pickRandomPreferDifferent(
+      list,
+      (item) => item.id === activeCharacterId,
+    );
+    if (!pick) return;
+    selectCharacter(pick.id);
   }, [
     manifest,
     favoritesOnly,
-    favorites,
+    visibleFavoritesGallery,
+    visibleCharacters,
     activeCharacterId,
     activeVariantIndex,
     selectCharacter,
@@ -275,6 +309,7 @@ export function useWallpaperApp() {
     if (!favoritesOnly) return;
 
     if (updated.length === 0) {
+      clearSearch();
       setFavoritesOnly(false);
       setFavoritesOnlyHint(null);
       return;
@@ -298,6 +333,7 @@ export function useWallpaperApp() {
     favoritesOnly,
     favorites,
     manifest,
+    clearSearch,
     setFavorites,
     setFavoritesOnly,
     setFavoritesOnlyHint,
@@ -315,6 +351,13 @@ export function useWallpaperApp() {
     favoritesGallery,
     favoritesOnly,
     favoritesOnlyHint,
+    searchQuery,
+    setSearchQuery,
+    clearSearch,
+    isSearching,
+    visibleCharacters,
+    visibleFavoritesGallery,
+    searchEmptyMessage,
     currentWallpaperPath,
     currentWallpaperUrl,
     loading,

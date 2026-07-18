@@ -197,6 +197,52 @@ button.primary:hover {
   color: var(--text-muted);
 }
 
+.character-search {
+  margin-top: 10px;
+}
+
+.character-search-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.character-search-input {
+  flex: 1;
+  min-width: 0;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+.character-search-input:focus {
+  outline: 2px solid var(--grid-selected);
+  outline-offset: 1px;
+}
+
+.character-search-clear {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+  line-height: 1;
+  font-size: 1.1rem;
+}
+
+.character-search-hint,
+.character-search-empty {
+  margin: 8px 0 0;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
 .character-sidebar-scroll {
   flex: 1;
   min-height: 0;

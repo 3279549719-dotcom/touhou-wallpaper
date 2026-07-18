@@ -39,6 +39,8 @@
     "verify:m9": "python scripts/verify/verify_m9.py",
     "check:favorites-gallery": "tsc -b --noEmit && python scripts/verify/verify_favorites_gallery.py",
     "verify:favorites-gallery": "python scripts/verify/verify_favorites_gallery.py",
+    "check:character-search": "tsc -b --noEmit && python scripts/verify/verify_character_search.py",
+    "verify:character-search": "python scripts/verify/verify_character_search.py",
     "tauri": "tauri",
     "tauri:dev": "tauri dev",
     "tauri:build": "npm run icon:generate && tauri build && python scripts/build/rename_installer.py"

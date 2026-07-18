@@ -1,7 +1,7 @@
 # Design: Character Search (sidebar filter)
 
 > Date: 2026-07-18  
-> Status: Approved (product + engineering) — awaiting Patrick review of this file  
+> Status: Implemented on `feature/character-search` — awaiting PR / Patrick smoke  
 > Project: touhou-wallpaper  
 > Audience: Patrick (non-programmer owner) + implementing agent
 

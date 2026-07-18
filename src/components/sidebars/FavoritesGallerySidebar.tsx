@@ -2,6 +2,7 @@ import type { FavoriteGalleryItem } from "../../lib/grid";
 import { favoriteGalleryLabel } from "../../lib/grid";
 import { strings } from "../../lib/strings";
 import { AssetImage } from "../common/AssetImage";
+import { CharacterSearchField } from "./CharacterSearchField";
 
 interface FavoritesGallerySidebarProps {
   items: FavoriteGalleryItem[];
@@ -10,6 +11,11 @@ interface FavoritesGallerySidebarProps {
   favoritesOnlyHint: string | null;
   onToggleFavoritesOnly: () => void;
   onSelectFilename: (filename: string) => void;
+  searchQuery: string;
+  onSearchQueryChange: (value: string) => void;
+  onClearSearch: () => void;
+  searchShowHint: boolean;
+  searchEmptyMessage: string | null;
 }
 
 export function FavoritesGallerySidebar({
@@ -19,6 +25,11 @@ export function FavoritesGallerySidebar({
   favoritesOnlyHint,
   onToggleFavoritesOnly,
   onSelectFilename,
+  searchQuery,
+  onSearchQueryChange,
+  onClearSearch,
+  searchShowHint,
+  searchEmptyMessage,
 }: FavoritesGallerySidebarProps) {
   return (
     <aside className="character-sidebar">
@@ -39,6 +50,13 @@ export function FavoritesGallerySidebar({
             {favoritesOnlyHint}
           </p>
         ) : null}
+        <CharacterSearchField
+          query={searchQuery}
+          onQueryChange={onSearchQueryChange}
+          onClear={onClearSearch}
+          showHint={searchShowHint}
+          emptyMessage={searchEmptyMessage}
+        />
       </div>
       <div className="character-sidebar-scroll" role="list">
         {items.map((item) => {
