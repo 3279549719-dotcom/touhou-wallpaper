@@ -14,7 +14,7 @@
 |------|-----|
 | 阶段 | **Character search · merged；小抛光跟进** |
 | 分支 | `cursor/character-search-pr-6510` @ `e700784` |
-| 跟进 PR | 待开（`type=text` 双清空） |
+| 跟进 PR | https://github.com/3279549719-dotcom/touhou-wallpaper/pull/13 |
 | 已合 | PR #12 → `master` @ `80f9796` |
 | 设计 | [2026-07-18-character-search-design.md](../superpowers/specs/2026-07-18-character-search-design.md) |
 | 阻塞 | 无 |
