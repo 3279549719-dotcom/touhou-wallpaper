@@ -74,6 +74,8 @@
 
 
 
+- 2026-07-22：`verify_m7.py` 组件路径对齐 layout 重组 @ `a058aa7`
+
 - 2026-07-22：质量闭环 Tasks 1–5 完成（清单/VERIFY/AGENTS、`test:core`、核心测、Cursor stop @ `f759c12`）
 
 - 2026-07-22：合并 Plan1+Plan3.1；钩子=`test:core`；英文审查清单；必须分支；Plan2 挂起；写下实现计划
