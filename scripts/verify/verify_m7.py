@@ -10,16 +10,16 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent.parent
 HOOK = ROOT / "src/hooks/useWallpaperApp.ts"
 APP = ROOT / "src/App.tsx"
-ACTION = ROOT / "src/components/ActionBar.tsx"
-CURRENT = ROOT / "src/components/CurrentWallpaperPanel.tsx"
+ACTION = ROOT / "src/components/nav/ActionBar.tsx"
+CURRENT = ROOT / "src/components/panels/CurrentWallpaperPanel.tsx"
 STRINGS = ROOT / "src/lib/strings.ts"
 
 FORBIDDEN_SETTER_FILES = [
-    "src/components/CharacterSidebar.tsx",
-    "src/components/CharacterNav.tsx",
-    "src/components/VariantStrip.tsx",
-    "src/components/CurrentWallpaperPanel.tsx",
-    "src/components/PreviewPane.tsx",
+    "src/components/sidebars/CharacterSidebar.tsx",
+    "src/components/nav/CharacterNav.tsx",
+    "src/components/panels/VariantStrip.tsx",
+    "src/components/panels/CurrentWallpaperPanel.tsx",
+    "src/components/panels/PreviewPane.tsx",
 ]
 
 
