@@ -112,6 +112,7 @@ PR 上的自动审查会再跑 `tsc` + 全量 `vitest`（详见根目录 [AGENTS
 ```bash
 npm run check          # 每模块做完必跑
 npm run test:core      # 核心 Vitest 子集（本地快检；合入仍靠全量 npm test）
+# Cursor stop 钩子：Agent 一轮结束时自动跑 test:core，最多催 3 次（loop_limit 3）
 npm run test           # Vitest 全量单元测试（PR / CI 裁判）
 npm run check:character-search  # 角色搜索接线验收
 npm run verify:character-search # 只跑搜索 verify 脚本

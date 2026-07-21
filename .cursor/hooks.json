@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "hooks": {
+    "stop": [
+      {
+        "command": "node .cursor/hooks/stop-core-tests.mjs",
+        "loop_limit": 3,
+        "timeout": 120
+      }
+    ]
+  }
+}
