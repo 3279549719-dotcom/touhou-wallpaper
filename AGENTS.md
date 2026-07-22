@@ -41,6 +41,19 @@ Tauri desktop app for browsing and applying Touhou wallpapers (React + TypeScrip
 - Local / full gate: `npm test` + `npm run check`
 - PR CI (Stage 2): `tsc` + `vitest`; autofix loop only if red; human merges
 
+## Feature delivery (non-style)
+
+For every non-style feature on a **feature branch**:
+
+1. Short Chinese standard: normal / edges / error hints / may desktop wallpaper change?
+2. Edge table (or mark style/copy skip) — policy B
+3. Vitest with the implementation (important rules may TDD: fail then pass)
+4. Self-check [docs/dev/REVIEW_CHECKLIST.md](docs/dev/REVIEW_CHECKLIST.md) (English)
+5. Local: `npm run test:core` (fast) and before PR `npm test`; CI judge remains GitHub Autofix (`tsc` + full vitest)
+6. Human: minimal clicks (real wallpaper only when needed)
+
+Quality harness plan: [docs/superpowers/specs/2026-07-21-quality-test-harness-plan.md](docs/superpowers/specs/2026-07-21-quality-test-harness-plan.md)
+
 ## Light conventions
 
 - Prefer existing `components` / `hooks` / `services` / `lib` / `stores` boundaries.

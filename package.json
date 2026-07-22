@@ -10,6 +10,7 @@
     "dev:autostart:off": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build/unregister_dev_autostart.ps1",
     "dev:autostart:start": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Start-ScheduledTask -TaskName TouhouWallpaperViteDev\"",
     "test": "vitest run",
+    "test:core": "vitest run src/__tests__/search.test.ts src/__tests__/favorites.test.ts src/__tests__/useCharacterSearch.test.ts src/__tests__/wallpaper-apply-gate.test.ts",
     "test:watch": "vitest --watch",
     "ci": "npm run check && npm test",
     "build": "tsc -b && vite build",
@@ -54,6 +55,7 @@
   "devDependencies": {
     "@tauri-apps/cli": "^2.5.0",
     "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
     "@types/node": "^22.20.1",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",

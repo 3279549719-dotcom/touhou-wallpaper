@@ -8,13 +8,19 @@
 
 | 层 | 是什么 | 你怎么懂 |
 |----|--------|----------|
+| **规矩** | [AGENTS.md](../../AGENTS.md)、本文件、[英文审查清单](REVIEW_CHECKLIST.md) | Agent 按「标准 → 边界表 → Vitest → 清单自检」交作业 |
 | **1. 语法检查** (`tsc`) | 代码有没有写错、类型对不对 | 不用懂；Agent 跑，失败会自己改 |
-| **2. 单元测试** (`vitest` / `npm test`) | 小规则对不对（例如搜索过滤、列表跳转） | Agent **写功能时一起写**；终端全绿才算过 |
+| **2. 单元测试** (`vitest`) | 小规则对不对（例如搜索过滤、列表跳转） | Agent **写功能时一起写**；终端全绿才算过 |
 | **3. 模块脚本** (`verify_mN.py`) | 这个模块该出现的文件、配置、接线是否齐全 | 终端打印中文说明 + Passed/Failed |
 | **4. 你亲手点一点** (部分功能) | 打开应用看界面手感 | 本文「你应该看到什么」 |
 
-本地做完通常要：`npm test` 绿，且 `npm run check` 出现 **Assertion Passed**。  
-PR 上的自动审查会再跑 `tsc` + `vitest`（详见根目录 `AGENTS.md`）。
+**政策 B（默认）**：非纯样式功能要有**边界情况表** + **Vitest**；纯文案/样式可标注跳过。  
+Agent 交付前对照英文 [REVIEW_CHECKLIST.md](REVIEW_CHECKLIST.md) 自检（PASS / FAIL）。
+
+**本地 vs 合入**：日常可跑 `npm run test:core`（核心 Vitest 子集，快）；合 PR 前仍要 `npm test` 全绿。本地 Cursor 的 `stop` 钩子可在 Agent 一轮结束时催跑 `npm run test:core`（核心测红则催修）。**合入裁判仍是 GitHub**：PR 上全量 `tsc` + `vitest`（Autofix），不以本地子集为准。
+
+本地做完通常要：`npm run test:core`（改到核心逻辑时）、`npm test` 绿，且 `npm run check` 出现 **Assertion Passed**。  
+PR 上的自动审查会再跑 `tsc` + 全量 `vitest`（详见根目录 [AGENTS.md](../../AGENTS.md)）。
 
 ### 测试谁来写（已固定）
 
@@ -105,7 +111,9 @@ PR 上的自动审查会再跑 `tsc` + `vitest`（详见根目录 `AGENTS.md`）
 
 ```bash
 npm run check          # 每模块做完必跑
-npm run test           # Vitest 单元测试
+npm run test:core      # 核心 Vitest 子集（本地快检；合入仍靠全量 npm test）
+# Cursor stop 钩子：Agent 一轮结束时自动跑 test:core，最多催 3 次（loop_limit 3）
+npm run test           # Vitest 全量单元测试（PR / CI 裁判）
 npm run check:character-search  # 角色搜索接线验收
 npm run verify:character-search # 只跑搜索 verify 脚本
 npm run verify:m0      # 只查 M0
