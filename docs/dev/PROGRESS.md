@@ -1,104 +1,48 @@
 # PROGRESS.md — 项目进展
 
-
-
 > Doc schema: v1 · 最后更新：2026-07-22
-
-
 
 ## 一句话状态
 
-
-
-**质量闭环已在 `chore/quality-harness` 落地，可开 PR；重构挂起；清空搜索下一 PR。**
-
-
+**质量闭环已合入 master（#21）；正在 `feature/clear-search` 练手新流程（单一清空控件 + 测试锁定）。重构仍挂起。**
 
 ---
-
-
 
 ## Current（当前快照）
 
-
-
 | 字段 | 值 |
-
 |------|-----|
-
-| 阶段 | **质量闭环 · 可开 PR** |
-
-| 分支 | `chore/quality-harness` |
-
-| CI | 仅 Autofix（job id `test`）— 合入裁判不变 |
-
-| 权威计划 | [quality-test-harness-plan（合并版）](../superpowers/specs/2026-07-21-quality-test-harness-plan.md) |
-
-| 实现计划 | [2026-07-22-quality-harness](../superpowers/plans/2026-07-22-quality-harness.md) |
-
+| 阶段 | **清空搜索练手 · 进行中** |
+| 分支 | `feature/clear-search`（自 `master` @ `c403940`） |
+| CI | Autofix（job id `test`） |
+| 权威计划 | [quality-test-harness-plan](../superpowers/specs/2026-07-21-quality-test-harness-plan.md) |
 | 阻塞 | 无 |
 
-
-
 ---
-
-
 
 ## 模块进度
 
-
-
 | 模块 | 状态 |
-
 |------|------|
-
 | 角色搜索 | [x] |
-
 | Stage 2 Autofix | [x] |
-
-| 质量闭环（原 Plan1 + 薄 Plan3.1） | [x] PR-ready（`test:core`、核心 Vitest、英文清单、Cursor stop 钩子） |
-
-| 原 Plan3 全文 | 归档（仅 3.1 并入闭环） |
-
+| 质量闭环 | [x]（#21 已合入） |
+| 清空搜索 | [~] 单一 × 清空 + Esc；type=text 防双清空 |
 | 结构重构（Plan 2） | [ ] **挂起** |
 
-| 清空搜索 | [ ] 闭环合入后另开 `feature/clear-search` |
-
-
-
 ---
-
-
 
 ## Recent changes
 
-
-
-- 2026-07-22：`verify_m7.py` 组件路径对齐 layout 重组 @ `a058aa7`
-
-- 2026-07-22：质量闭环 Tasks 1–5 完成（清单/VERIFY/AGENTS、`test:core`、核心测、Cursor stop @ `f759c12`）
-
-- 2026-07-22：合并 Plan1+Plan3.1；钩子=`test:core`；英文审查清单；必须分支；Plan2 挂起；写下实现计划
-
-- 2026-07-21：起草三计划
-
-- 2026-07-18：#20 TDD 红测 / #17 Autofix harden
-
-
+- 2026-07-22：开 `feature/clear-search`；搜索框 `type=text` + 字段 Vitest + verify 锁定
+- 2026-07-22：#21 质量闭环合入 master
+- 2026-07-18：#20 / #17 Autofix
 
 ---
 
-
-
 ## Next
 
-
-
 ```
-
-在 chore/quality-harness 开 PR（质量闭环），人工审后合入 master。
-
-合入后按 docs/dev/REVIEW_CHECKLIST.md 开 feature/clear-search 练手新交付流程。
-
+完成 feature/clear-search：npm test + verify:character-search 绿 → 开 PR。
+人只点：输入关键字 → 点 ×（或 Esc）→ 列表恢复；确认桌面不变。
 ```
-

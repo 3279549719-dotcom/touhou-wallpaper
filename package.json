@@ -10,7 +10,7 @@
     "dev:autostart:off": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/build/unregister_dev_autostart.ps1",
     "dev:autostart:start": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Start-ScheduledTask -TaskName TouhouWallpaperViteDev\"",
     "test": "vitest run",
-    "test:core": "vitest run src/__tests__/search.test.ts src/__tests__/favorites.test.ts src/__tests__/useCharacterSearch.test.ts src/__tests__/wallpaper-apply-gate.test.ts",
+    "test:core": "vitest run src/__tests__/search.test.ts src/__tests__/favorites.test.ts src/__tests__/useCharacterSearch.test.ts src/__tests__/CharacterSearchField.test.tsx src/__tests__/wallpaper-apply-gate.test.ts",
     "test:watch": "vitest --watch",
     "ci": "npm run check && npm test",
     "build": "tsc -b && vite build",
